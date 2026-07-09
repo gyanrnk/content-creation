@@ -79,9 +79,12 @@ def autopilot(n: int = 3, query: str = None) -> dict:
     # (ranking->'Top 5 X', debate->'X vs Y', quiz->player). Agar user ne query di to
     # pehla video usi pe (facts).
     from ideas import topic_for_mode
+    # Day-offset rotation: taaki 1-video/din wala cron bhi ROZ ALAG mode de (warna hamesha
+    # 'facts' aata). Aaj ka din-number se shuruaat shift hoti hai.
+    day_off = datetime.date.today().timetuple().tm_yday
     plan = []
     for i in range(n):
-        mode = _AUTO_MODES[i % len(_AUTO_MODES)]
+        mode = _AUTO_MODES[(day_off + i) % len(_AUTO_MODES)]
         if i == 0 and query:
             topic = query          # user hint -> pehla video usi pe
         else:
