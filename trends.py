@@ -43,6 +43,25 @@ def get_trending(query: str = None, n: int = 12) -> list[str]:
         return []
 
 
+def wiki_facts(name: str) -> str:
+    """Player/team ka Wikipedia intro (REAL career facts: clubs, trophies, records) —
+    script grounding ke liye taaki LLM invent na kare. Fail par khaali."""
+    import urllib.parse
+    if not name or not name.strip():
+        return ""
+    try:
+        r = requests.get(
+            "https://en.wikipedia.org/api/rest_v1/page/summary/"
+            + urllib.parse.quote(name.strip().replace(" ", "_")),
+            headers=_HEADERS, timeout=15)
+        if r.status_code == 200:
+            ex = (r.json().get("extract") or "").strip()
+            return ex[:800]
+    except Exception:
+        pass
+    return ""
+
+
 def current_context(topic: str = None, n: int = 8) -> str:
     """Aaj ki REAL football headlines — script LLM ko grounding dene ke liye.
 

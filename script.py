@@ -86,7 +86,8 @@ def _build_messages(topic: str, mode: str, num_segments: int, context: str = "")
     ground = ""
     if context:
         ground = (
-            "CURRENT FACTS (real news as of today — treat as GROUND TRUTH):\n"
+            "VERIFIED FACTS (real — from today's news and/or Wikipedia. Treat as "
+            "GROUND TRUTH; base the script ONLY on these, do not add unverified claims):\n"
             f"{context}\n"
             "RULES: Do NOT say anything that contradicts these facts. If a player or "
             "team has been knocked out/eliminated, do NOT imply they are still "
@@ -631,6 +632,26 @@ def _fallback_meta(topic: str, mode: str, data: dict) -> dict:
             "description": desc.strip(), "hashtags": tags}
 
 
+def _wiki_context_for(topic: str, mode: str) -> str:
+    """Topic se player naam(s) nikaal ke Wikipedia REAL career facts laao (grounding).
+    debate 'A vs B' -> dono; quiz/story/player -> ek. Fail par khaali."""
+    import re as _re
+    from trends import wiki_facts
+    if mode == "debate" and _re.search(r"\bvs\.?\b", topic, _re.I):
+        names = [p.strip() for p in _re.split(r"\s+vs\.?\s+", topic, flags=_re.I)[:2]
+                 if p.strip()]
+    else:
+        t = _re.sub(r"\b(career journey|journey|career|story|biography|life story|"
+                    r"rise|the untold)\b", "", topic, flags=_re.I).strip(" -–—:")
+        names = [t] if t else []
+    out = []
+    for nm in names:
+        f = wiki_facts(nm)
+        if f:
+            out.append(f"{nm} — {f}")
+    return "\n\n".join(out)
+
+
 def generate_script(topic: str = None, mode: str = None,
                     num_segments: int = None, custom_script: str = None,
                     context: str = None) -> dict:
@@ -650,20 +671,26 @@ def generate_script(topic: str = None, mode: str = None,
     else:
         print(f"[script] Generating {mode} script for: {topic!r} "
               f"({config.SCRIPT_PROVIDER})...")
-        # News grounding SIRF timely modes ke liye (facts/preview/player). Evergreen
-        # modes (quiz/ranking/story/debate) career/history pe hain — grounding unke
-        # format ko current-news recap me badal deta tha (ranking -> recap bug).
-        _TIMELY = {"facts", "preview", "player"}
-        if context is None and getattr(config, "USE_NEWS_CONTEXT", False) \
-                and mode in _TIMELY:
-            try:
-                from trends import current_context
-                context = current_context(topic)
-                if context:
-                    print(f"[script] news-grounding ON ({context.count(chr(10)) + 1} headlines)")
-            except Exception as e:
-                print(f"[script] news-grounding skip: {e}")
-                context = ""
+        # GROUNDING (facts LLM ko de taaki invent na kare):
+        #  - timely modes (facts/preview/player): aaj ki NEWS headlines
+        #  - player-centric modes (quiz/story/debate/player): WIKIPEDIA real career facts
+        if context is None:
+            ctx = ""
+            if getattr(config, "USE_NEWS_CONTEXT", False) \
+                    and mode in {"facts", "preview", "player"}:
+                try:
+                    from trends import current_context
+                    ctx = current_context(topic) or ""
+                    if ctx:
+                        print(f"[script] news-grounding ON ({ctx.count(chr(10)) + 1} headlines)")
+                except Exception as e:
+                    print(f"[script] news-grounding skip: {e}")
+            if mode in {"quiz", "story", "debate", "player"}:
+                w = _wiki_context_for(topic, mode)
+                if w:
+                    print(f"[script] wiki-facts grounding ON ({w.count(chr(10)) + 1} entries)")
+                    ctx = (ctx + "\n\n" + w).strip() if ctx else w
+            context = ctx
         system, user = _build_messages(topic, mode, num_segments, context or "")
         data = _json_via_provider(system, user, "segments", "[core]", tries=10)
         if not data:
