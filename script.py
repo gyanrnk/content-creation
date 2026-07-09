@@ -50,11 +50,13 @@ MODE_GUIDE = {
         "segment gets image_type 'real' with the player's exact name in image_query. ***"
     ),
     "debate": (
-        "HEAD-TO-HEAD debate between TWO named legends/teams (e.g. Ronaldo vs Messi). "
-        "Alternate between the two across segments, comparing specific stats, trophies "
-        "and iconic moments. Stay BALANCED to spark argument. The last segment throws "
-        "the decision to the viewer ('aap batao'). Every segment: image_type 'real', put "
-        "the relevant player/team name in image_query (alternate the two names)."
+        "CAREER COMPARISON of TWO named players (e.g. Ronaldo vs Messi). Compare their "
+        "SEPARATE careers — trophies, goals, style, iconic moments — one player per "
+        "segment, alternating. Stay BALANCED to spark argument; last segment asks the "
+        "viewer to decide ('aap batao'). *** DO NOT invent a match between them or fake "
+        "scores/minutes/results — they may play for different countries/clubs and may "
+        "never have faced each other. It is a COMPARISON, not a match report. *** "
+        "Every segment: image_type 'real', relevant player name in image_query (alternate)."
     ),
     "ranking": (
         "TOP-5 style COUNTDOWN. Rank from #5 up to #1 (best/biggest LAST for suspense). "
