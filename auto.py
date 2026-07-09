@@ -79,6 +79,11 @@ def autopilot(n: int = 3, query: str = None) -> dict:
     # (ranking->'Top 5 X', debate->'X vs Y', quiz->player). Agar user ne query di to
     # pehla video usi pe (facts).
     from ideas import topic_for_mode
+    try:
+        import history
+        used = history.used("subjects")       # cross-run/cross-day subject dedup
+    except Exception:
+        history, used = None, set()
     # Day-offset rotation: taaki 1-video/din wala cron bhi ROZ ALAG mode de (warna hamesha
     # 'facts' aata). Aaj ka din-number se shuruaat shift hoti hai.
     day_off = datetime.date.today().timetuple().tm_yday
@@ -86,19 +91,22 @@ def autopilot(n: int = 3, query: str = None) -> dict:
     for i in range(n):
         mode = _AUTO_MODES[(day_off + i) % len(_AUTO_MODES)]
         if i == 0 and query:
-            topic = query          # user hint -> pehla video usi pe
+            topic, key = query, query          # user hint -> pehla video usi pe
         else:
-            topic = topic_for_mode(mode, i, query)
-        plan.append((topic, mode))
+            topic, key = topic_for_mode(mode, i, query, used)
+        used.add(key)                          # is batch me dobara na aaye
+        plan.append((topic, mode, key))
 
     print(f"\n🤖 AUTO-PILOT — {n} shorts\n" + "=" * 45)
     results = []
-    for i, (topic, mode) in enumerate(plan, 1):
+    for i, (topic, mode, key) in enumerate(plan, 1):
         out_dir = os.path.join(run_dir, batch._slug(topic, i))
         _prog(f"[{i}/{n}] 🎬 [{mode}] {topic}")
         print(f" -> {out_dir}")
         try:
             batch.build_one(topic, mode, out_dir)
+            if history:
+                history.mark("subjects", key)  # future runs isko repeat na karein
             results.append({"topic": topic, "mode": mode, "ok": True,
                             "dir": out_dir,
                             "video": os.path.join(out_dir, "short.mp4")})

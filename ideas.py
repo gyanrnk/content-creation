@@ -27,12 +27,21 @@ from trends import get_trending
 
 _H = {"User-Agent": "FootyShorts/1.0"}
 
-PLAYERS = ["Lionel Messi", "Cristiano Ronaldo", "Neymar", "Kylian Mbappe",
-           "Erling Haaland", "Pele", "Diego Maradona", "Ronaldinho",
-           "Zinedine Zidane", "Luka Modric", "Mohamed Salah", "Vinicius Junior",
-           "Jude Bellingham", "Kevin De Bruyne", "Sunil Chhetri"]
+PLAYERS = [
+    # current stars (variety — Messi/Ronaldo ko dominate mat karne do)
+    "Kylian Mbappe", "Erling Haaland", "Vinicius Junior", "Jude Bellingham",
+    "Lamine Yamal", "Mohamed Salah", "Harry Kane", "Kevin De Bruyne",
+    "Rodri", "Bukayo Saka", "Florian Wirtz", "Jamal Musiala", "Lautaro Martinez",
+    "Victor Osimhen", "Bruno Fernandes", "Antoine Griezmann", "Rafael Leao",
+    "Phil Foden", "Endrick", "Cole Palmer",
+    # legends / evergreen
+    "Lionel Messi", "Cristiano Ronaldo", "Neymar", "Pele", "Diego Maradona",
+    "Ronaldinho", "Zinedine Zidane", "Luka Modric", "Sunil Chhetri",
+]
 TEAMS = ["Brazil", "Argentina", "Portugal", "France", "Spain", "Germany",
-         "Real Madrid", "Barcelona", "Manchester United", "Liverpool", "India"]
+         "England", "Netherlands", "Italy", "Belgium", "Morocco", "Croatia",
+         "Real Madrid", "Barcelona", "Manchester City", "Manchester United",
+         "Liverpool", "Bayern Munich", "India"]
 
 # Evergreen topic templates (WC ke baad bhi kaam ke)
 EVERGREEN = [
@@ -115,27 +124,64 @@ RANKING_CATEGORIES = [
 ]
 
 
-def topic_for_mode(mode: str, i: int = 0, query: str = None) -> str:
-    """Mode ke hisaab se FITTING topic do (ranking->'Top 5 X', debate->'X vs Y', etc.).
-    Warna auto-pilot ranking ko versus-topic de deta tha (mismatch)."""
+def trending_subjects(n: int = 12) -> list:
+    """Aaj ke football news headlines se ACTUAL trending player/team naam nikaalo
+    (SEO/trending-driven — taaki har baar Messi/Ronaldo na aaye)."""
+    try:
+        heads = get_trending("football OR soccer world cup transfer", n=18)
+    except Exception:
+        heads = []
+    blob = " || ".join(heads).lower()
+    known = sorted(PLAYERS + TEAMS, key=len, reverse=True)   # longer naam pehle match
+    found = []
+    for name in known:
+        if name.lower() in blob and name not in found:
+            found.append(name)
+    return found[:n]
+
+
+def _pick(pool: list, used: set):
+    """pool me se ek jo `used` me na ho; sab use ho gaye to koi bhi (random)."""
     import random
-    if mode == "facts":                       # timely/news
-        ideas = get_ideas(3, query) or ["FIFA World Cup 2026 latest"]
-        return ideas[i % len(ideas)]
-    if mode == "quiz":                        # koi bhi famous player
-        return random.choice(PLAYERS)
-    if mode == "debate":                      # X vs Y (tribal comment-war)
-        a, b = random.sample(PLAYERS[:8], 2)
-        return f"{a} vs {b}"
-    if mode == "ranking":                     # Top 5 <category>
-        return "Top 5 " + random.choice(RANKING_CATEGORIES)
+    fresh = [x for x in pool if x not in (used or set())]
+    return random.choice(fresh) if fresh else random.choice(pool)
+
+
+def topic_for_mode(mode: str, i: int = 0, query: str = None, used: set = None):
+    """(topic, subject_key) do — TRENDING-driven + `used` se dedup (no repeat).
+    ranking->'Top 5 X', debate->'X vs Y', quiz/story->trending player.
+    Subject pehle trending news se, warna diverse PLAYERS pool se (Messi/Ronaldo-heavy nahi)."""
+    import random
+    used = used or set()
+    trend = trending_subjects()
+    # trending players (news me aaye) + baaki diverse pool — used hataao
+    trend_players = [x for x in trend if x in PLAYERS]
+    subj_pool = trend_players + [p for p in PLAYERS if p not in trend_players]
+
+    if mode == "facts":                       # timely/news (SEO + trending)
+        ideas = [x for x in get_ideas(6, query) if x not in used] or \
+                get_ideas(6, query) or ["FIFA World Cup 2026 latest"]
+        t = ideas[i % len(ideas)]
+        return t, t
+    if mode == "quiz":
+        s = _pick(subj_pool, used)
+        return s, s
+    if mode == "debate":                      # X vs Y (do alag, dono fresh)
+        a = _pick(subj_pool, used)
+        b = _pick(subj_pool, used | {a})
+        return f"{a} vs {b}", f"{a} vs {b}"
+    if mode == "ranking":                     # Top 5 <category> (categories diverse)
+        c = _pick(RANKING_CATEGORIES, used)
+        return "Top 5 " + c, c
     if mode == "story":                       # rags-to-riches journey
-        return f"{random.choice(PLAYERS)} career journey"
+        s = _pick(subj_pool, used)
+        return f"{s} career journey", s
     if mode == "player":
-        return random.choice(PLAYERS)
-    # preview / anything else
+        s = _pick(subj_pool, used)
+        return s, s
     ideas = get_ideas(3, query) or ["FIFA World Cup 2026"]
-    return ideas[i % len(ideas)]
+    t = ideas[i % len(ideas)]
+    return t, t
 
 
 def get_ideas(n: int = 9, query: str = None) -> list:
