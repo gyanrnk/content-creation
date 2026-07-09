@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
     inputs:
       count:
-        description: "Kitne shorts banaye"
-        default: "1"
+        description: "Kitne shorts banaye (5 = har variety ka ek-ek)"
+        default: "5"
       privacy:
         description: "YouTube privacy (unlisted/private/public)"
         default: "unlisted"
@@ -20,7 +20,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 180        # 5 videos ~45-60 min render (CLIP off)
     steps:
       - uses: actions/checkout@v4
 
@@ -55,7 +55,7 @@ jobs:
         run: sed -i 's/^REAL_PHOTO_CLIP = True/REAL_PHOTO_CLIP = False/' config.py
 
       - name: Build shorts
-        run: python auto.py "${{ github.event.inputs.count || '1' }}"
+        run: python auto.py "${{ github.event.inputs.count || '5' }}"
 
       - name: Upload to YouTube (unlisted, if token set)
         run: |

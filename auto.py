@@ -33,9 +33,9 @@ from ideas import get_ideas
 
 AUTO_DIR = os.path.join("output", "auto")
 
-# Content-variety rotation (research-backed mix; all work on generic auto topics).
-# facts sabse zyada (evergreen/shareable), phir story/ranking/quiz/debate.
-_AUTO_MODES = ["facts", "story", "ranking", "quiz", "facts", "debate"]
+# 5 DISTINCT varieties. n=5 (daily default) => har format ka EK-EK short (full variety).
+# n<5 => day-offset rotation se har din alag format. Sab generic auto topics pe kaam karte.
+_AUTO_MODES = ["facts", "story", "ranking", "quiz", "debate"]
 
 
 def _prog(msg: str):
