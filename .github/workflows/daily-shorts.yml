@@ -4,12 +4,17 @@ name: Daily Football Shorts
 # Manual bhi chala sakte ho (Actions tab -> Run workflow) with count/privacy.
 on:
   schedule:
-    - cron: "0 11 * * *"
+    # IST = UTC+5:30. Har ghante 1 short -> 10:30, 11:30, 12:30, 13:30, 14:30 IST
+    - cron: "0 5 * * *"    # 10:30 IST
+    - cron: "0 6 * * *"    # 11:30 IST
+    - cron: "0 7 * * *"    # 12:30 IST
+    - cron: "0 8 * * *"    # 13:30 IST
+    - cron: "0 9 * * *"    # 14:30 IST
   workflow_dispatch:
     inputs:
       count:
-        description: "Kitne shorts banaye (5 = har variety ka ek-ek)"
-        default: "5"
+        description: "Kitne shorts banaye (default 1 = ek short)"
+        default: "1"
       privacy:
         description: "YouTube privacy (unlisted/private/public)"
         default: "unlisted"
@@ -20,7 +25,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 180        # 5 videos ~45-60 min render (CLIP off)
+    timeout-minutes: 45         # 1 short per run (staggered hourly)
     steps:
       - uses: actions/checkout@v4
 
@@ -61,7 +66,7 @@ jobs:
       - name: Build shorts
         env:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: python auto.py "${{ github.event.inputs.count || '5' }}"
+        run: python auto.py "${{ github.event.inputs.count || '1' }}"
 
       - name: Upload to YouTube (unlisted, if token set)
         run: |
