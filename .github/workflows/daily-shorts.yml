@@ -41,12 +41,16 @@ jobs:
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
           YT_TOKEN: ${{ secrets.YT_TOKEN }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
         run: |
           {
             echo "GROQ_API_KEY=\"$GROQ_API_KEY\""
             echo "PEXELS_API_KEY=$PEXELS_API_KEY"
+            echo "MAIL_USERNAME=$MAIL_USERNAME"
+            echo "MAIL_PASSWORD=\"$MAIL_PASSWORD\""
           } > .env
           if [ -n "$YT_TOKEN" ]; then printf '%s' "$YT_TOKEN" > token.json; fi
           if [ -n "$YT_CLIENT_SECRET" ]; then printf '%s' "$YT_CLIENT_SECRET" > client_secret.json; fi
@@ -55,6 +59,8 @@ jobs:
         run: sed -i 's/^REAL_PHOTO_CLIP = True/REAL_PHOTO_CLIP = False/' config.py
 
       - name: Build shorts
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: python auto.py "${{ github.event.inputs.count || '5' }}"
 
       - name: Upload to YouTube (unlisted, if token set)
@@ -84,35 +90,6 @@ jobs:
           git commit -m "chore: update asset dedup history [skip ci]" || echo "nothing to commit"
           git push || echo "push skipped"
 
-      - name: Compose email body
-        if: always()
-        id: mail
-        run: |
-          COUNT=$(python -c "import json;print(json.load(open('output/auto/done.json'))['ok'])" 2>/dev/null || echo "?")
-          TITLES=$(python -c "import json;print('\n'.join('  - ['+r.get('mode','')+'] '+r.get('topic','') for r in json.load(open('output/auto/done.json'))['results']))" 2>/dev/null || echo "")
-          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
-          {
-            echo "body<<EOF"
-            echo "Aaj ke $COUNT football shorts ready hain! 🎬"
-            echo ""
-            echo "$TITLES"
-            echo ""
-            echo "Dekho / download / review karo:"
-            echo "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-            echo "(us page pe neeche 'Artifacts' -> shorts-<num> zip. Review karke YouTube pe daalo.)"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
-
-      - name: Email notification
-        if: always()
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          secure: true
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          from: Football Shorts Bot
-          to: ${{ secrets.MAIL_USERNAME }}
-          subject: "🎬 ${{ steps.mail.outputs.count }} football shorts ready — review karo"
-          body: ${{ steps.mail.outputs.body }}
+      # NOTE: email ab auto.py se HAR short ke baad turant jaata hai (per-video),
+      # isliye yahan batch-end email nahi. Artifact download link per-video mail me
+      # RUN_URL se milta hai (run complete hone par us page pe artifacts aa jaate).
