@@ -83,3 +83,36 @@ jobs:
           git add asset_history.json || true
           git commit -m "chore: update asset dedup history [skip ci]" || echo "nothing to commit"
           git push || echo "push skipped"
+
+      - name: Compose email body
+        if: always()
+        id: mail
+        run: |
+          COUNT=$(python -c "import json;print(json.load(open('output/auto/done.json'))['ok'])" 2>/dev/null || echo "?")
+          TITLES=$(python -c "import json;print('\n'.join('  - ['+r.get('mode','')+'] '+r.get('topic','') for r in json.load(open('output/auto/done.json'))['results']))" 2>/dev/null || echo "")
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          {
+            echo "body<<EOF"
+            echo "Aaj ke $COUNT football shorts ready hain! 🎬"
+            echo ""
+            echo "$TITLES"
+            echo ""
+            echo "Dekho / download / review karo:"
+            echo "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo "(us page pe neeche 'Artifacts' -> shorts-<num> zip. Review karke YouTube pe daalo.)"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Email notification
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          from: Football Shorts Bot
+          to: ${{ secrets.MAIL_USERNAME }}
+          subject: "🎬 ${{ steps.mail.outputs.count }} football shorts ready — review karo"
+          body: ${{ steps.mail.outputs.body }}
