@@ -1,0 +1,14 @@
+# Core runtime for headless auto-build (GitHub Actions / server).
+# NOTE: CLIP rerank (torch + sentence-transformers) is OPTIONAL and heavy — NOT here.
+# On Actions we run with REAL_PHOTO_CLIP=False. Local dev already has torch/streamlit.
+moviepy==1.0.3
+imageio-ffmpeg==0.6.0
+edge-tts==7.2.8
+gTTS==2.5.4
+Pillow==11.3.0
+requests==2.32.5
+numpy>=1.26,<2.3
+python-dotenv==1.2.2
+google-api-python-client==2.192.0
+google-auth-oauthlib==1.4.0
+google-auth-httplib2>=0.2.0

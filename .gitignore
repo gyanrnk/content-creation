@@ -1,0 +1,31 @@
+# ── SECRETS — kabhi commit mat karo (GitHub public repo pe leak ho jaayenge) ──
+.env
+token.json
+client_secret.json
+*.key
+*credentials*.json
+
+# ── Generated output / temp ──
+output/
+job.json
+*.log
+
+# ── Python venv + cache ──
+env/
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# ── Big/OS/junk files ──
+.DS_Store
+Thumbs.db
+*.zip
+*.mp4
+shortTEMP_*
+.claude/
+
+# NOTE: ye TRACK karne hain (commit karo) — build ke liye zaroori:
+#   assets/  (bgm.mp3, logo, fonts)   -> !assets/ implied (ignore nahi)
+#   asset_history.json  (cross-video dedup — Actions isse commit-back karta hai)
+#   *.py, requirements.txt, .github/, n8n_workflow.json

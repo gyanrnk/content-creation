@@ -1,0 +1,9 @@
+# Har line = ek video. Format:  topic | mode   (mode = facts / player / preview)
+# Khaali line aur # se shuru hone wali line ignore hoti hai.
+# Daily content ke liye yahan topics add karte raho.
+
+Brazil vs Japan upcoming match — compare legends and predict the winner | preview
+5 mind-blowing facts about the FIFA World Cup 2026 | facts
+Lionel Messi World Cup journey and records | player
+Argentina vs France — who wins the rematch? | preview
+Cristiano Ronaldo vs Lionel Messi — World Cup comparison | preview

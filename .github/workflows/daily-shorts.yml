@@ -1,0 +1,85 @@
+name: Daily Football Shorts
+
+# Roz auto build (cron UTC). 11:00 UTC = 16:30 IST (evening peak ke liye upload).
+# Manual bhi chala sakte ho (Actions tab -> Run workflow) with count/privacy.
+on:
+  schedule:
+    - cron: "0 11 * * *"
+  workflow_dispatch:
+    inputs:
+      count:
+        description: "Kitne shorts banaye"
+        default: "1"
+      privacy:
+        description: "YouTube privacy (unlisted/private/public)"
+        default: "unlisted"
+
+permissions:
+  contents: write        # asset_history.json wapas commit karne ke liye (dedup)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install ffmpeg + fonts (Devanagari for Hindi thumbnail)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-noto-core fonts-lohit-deva fonts-dejavu-core
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Secrets -> .env + credentials
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          YT_TOKEN: ${{ secrets.YT_TOKEN }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+        run: |
+          {
+            echo "GROQ_API_KEY=\"$GROQ_API_KEY\""
+            echo "PEXELS_API_KEY=$PEXELS_API_KEY"
+          } > .env
+          if [ -n "$YT_TOKEN" ]; then printf '%s' "$YT_TOKEN" > token.json; fi
+          if [ -n "$YT_CLIENT_SECRET" ]; then printf '%s' "$YT_CLIENT_SECRET" > client_secret.json; fi
+
+      - name: Config for CI (CLIP off = fast/light)
+        run: sed -i 's/^REAL_PHOTO_CLIP = True/REAL_PHOTO_CLIP = False/' config.py
+
+      - name: Build shorts
+        run: python auto.py "${{ github.event.inputs.count || '1' }}"
+
+      - name: Upload to YouTube (unlisted, if token set)
+        run: |
+          if [ -f token.json ]; then
+            python upload_youtube.py upload-auto "${{ github.event.inputs.privacy || 'unlisted' }}" || true
+          else
+            echo "No YT_TOKEN secret -> skipping upload (videos artifact me milenge)"
+          fi
+
+      - name: Save videos as artifact (download/review)
+        uses: actions/upload-artifact@v4
+        with:
+          name: shorts-${{ github.run_number }}
+          path: |
+            output/auto/**/short.mp4
+            output/auto/**/thumbnail.jpg
+            output/auto/**/post.txt
+          retention-days: 14
+          if-no-files-found: warn
+
+      - name: Persist dedup history
+        run: |
+          git config user.name "shorts-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add asset_history.json || true
+          git commit -m "chore: update asset dedup history [skip ci]" || echo "nothing to commit"
+          git push || echo "push skipped"

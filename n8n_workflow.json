@@ -1,0 +1,81 @@
+{
+  "name": "Football Shorts — Daily Auto-Build",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "cronExpression", "expression": "0 9 * * *" }
+          ]
+        }
+      },
+      "id": "sched-1",
+      "name": "Daily 9AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [260, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8000/build",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"n\": 1\n}",
+        "options": { "timeout": 1800000 }
+      },
+      "id": "http-build",
+      "name": "Build Short",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1",
+              "name": "message",
+              "value": "=✅ {{$json.ok}}/{{$json.total}} short ready.\\nFolder: {{$json.run_dir}}\\nTitle: {{$json.results[0].topic}}\\nReview karke upload karo (upload manual).",
+              "type": "string"
+            },
+            {
+              "id": "a2",
+              "name": "video_dir",
+              "value": "={{$json.results[0].dir}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "set-msg",
+      "name": "Format Message",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [740, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "gyana.gk@gmail.com",
+        "toEmail": "gyana.gk@gmail.com",
+        "subject": "=🎬 Football Short ready — review karo",
+        "emailFormat": "text",
+        "text": "={{ $json.message }}\n\nVideo folder: {{ $json.video_dir }}",
+        "options": {}
+      },
+      "id": "send-email",
+      "name": "Email Me",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [980, 300]
+    }
+  ],
+  "connections": {
+    "Daily 9AM": { "main": [[{ "node": "Build Short", "type": "main", "index": 0 }]] },
+    "Build Short": { "main": [[{ "node": "Format Message", "type": "main", "index": 0 }]] },
+    "Format Message": { "main": [[{ "node": "Email Me", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}
