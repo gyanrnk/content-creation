@@ -95,6 +95,45 @@ def _elevenlabs(text: str, out_path: str) -> bool:
         return False
 
 
+# ── Google Cloud TTS (natural Hindi + SSML pauses/suspense) ──────────────────────
+def _to_ssml(text: str) -> str:
+    """Text ko SSML me wrap karo — sentence/comma pe pauses, '...' pe suspense break.
+    Isse voice flat nahi, ruk-ruk ke natural bolti (emotion/suspense)."""
+    import re
+    import html
+    t = html.escape(text.strip())
+    t = t.replace("...", '<break time="900ms"/>').replace("…",
+                                                          '<break time="900ms"/>')
+    t = re.sub(r'([।.!?])\s+', r'\1 <break time="420ms"/> ', t)   # vaakya-ant pause
+    t = re.sub(r'(,)\s+', r'\1 <break time="180ms"/> ', t)        # comma chhota pause
+    return f"<speak>{t}</speak>"
+
+
+def _gcloud(text: str, out_path: str) -> bool:
+    """Google Cloud Text-to-Speech (hi-IN Neural2, SSML). GOOGLE_TTS_API_KEY chahiye."""
+    key = os.getenv("GOOGLE_TTS_API_KEY") or os.getenv("GOOGLE_API_KEY")
+    if not key:
+        return False
+    try:
+        voice = getattr(config, "GCLOUD_VOICE", "hi-IN-Neural2-C")   # male
+        rate = float(getattr(config, "GCLOUD_RATE", 1.12))
+        r = requests.post(
+            "https://texttospeech.googleapis.com/v1/text:synthesize?key=" + key,
+            json={"input": {"ssml": _to_ssml(text)},
+                  "voice": {"languageCode": "hi-IN", "name": voice},
+                  "audioConfig": {"audioEncoding": "MP3", "speakingRate": rate,
+                                  "pitch": float(getattr(config, "GCLOUD_PITCH", 0.0))}},
+            timeout=45)
+        if r.status_code == 200:
+            with open(out_path, "wb") as f:
+                f.write(base64.b64decode(r.json()["audioContent"]))
+            return os.path.exists(out_path) and os.path.getsize(out_path) > 0
+        print(f"[voice] gcloud HTTP {r.status_code}: {r.text[:180]}")
+    except Exception as e:
+        print(f"[voice] gcloud failed ({e})")
+    return False
+
+
 # ── gTTS (free fallback) ────────────────────────────────────────────────────────
 def _gtts(text: str, out_path: str) -> bool:
     try:
@@ -142,7 +181,12 @@ def generate_segment_voices(segments: list[dict],
             text = "..."
 
         ok, used = False, provider
-        if provider == "edge":
+        if provider == "gcloud":
+            ok = _gcloud(text, out)
+            if not ok:                       # key nahi/fail -> edge fallback
+                used = "edge (gcloud fallback)"
+                ok = _edge(text, out)
+        elif provider == "edge":
             ok = _edge(text, out)
         elif provider == "sarvam":
             ok = _sarvam(text, out)

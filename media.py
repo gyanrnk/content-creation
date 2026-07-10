@@ -267,6 +267,88 @@ def _pexels_video(query: str, idx: int, exclude=None):
     return None, None
 
 
+def _pixabay_video(query: str, idx: int, exclude=None):
+    """Pixabay free video (CC0, no attribution). PIXABAY_API_KEY chahiye."""
+    key = os.getenv("PIXABAY_API_KEY")
+    if not key:
+        return None, None
+    try:
+        r = requests.get("https://pixabay.com/api/videos/",
+                         params={"key": key, "q": query, "per_page": 8,
+                                 "safesearch": "true"}, timeout=30)
+        r.raise_for_status()
+        hits = r.json().get("hits", [])
+        random.shuffle(hits)
+        exclude = exclude or set()
+        hits = [h for h in hits if str(h.get("id")) not in exclude] + \
+               [h for h in hits if str(h.get("id")) in exclude]
+        for h in hits:
+            vf = h.get("videos", {})
+            pick = next((vf[k] for k in ("medium", "small", "large", "tiny")
+                         if vf.get(k) and vf[k].get("url")), None)
+            if not pick:
+                continue
+            try:
+                data = requests.get(pick["url"], timeout=90).content
+                out_dir = os.path.join(config.OUTPUT_DIR, "clips")
+                os.makedirs(out_dir, exist_ok=True)
+                path = os.path.join(out_dir, f"clip_{idx:02d}.mp4")
+                with open(path, "wb") as fh:
+                    fh.write(data)
+                print(f"[media]   pixabay clip ({len(data)//1024}KB) id={h.get('id')}")
+                return path, str(h.get("id"))
+            except Exception:
+                continue
+    except Exception as e:
+        print(f"[media] Pixabay video failed for {query!r}: {e}")
+    return None, None
+
+
+def _coverr_video(query: str, idx: int, exclude=None):
+    """Coverr free video (no attribution). COVERR_API_KEY chahiye."""
+    key = os.getenv("COVERR_API_KEY")
+    if not key:
+        return None, None
+    try:
+        r = requests.get("https://api.coverr.co/videos",
+                         params={"query": query, "page_size": 8, "urls": "true"},
+                         headers={"Authorization": f"Bearer {key}"}, timeout=30)
+        r.raise_for_status()
+        hits = r.json().get("hits", [])
+        random.shuffle(hits)
+        exclude = exclude or set()
+        hits = [h for h in hits if str(h.get("id")) not in exclude] + \
+               [h for h in hits if str(h.get("id")) in exclude]
+        for h in hits:
+            urls = h.get("urls", {})
+            link = urls.get("mp4_download") or urls.get("mp4")
+            if not link:
+                continue
+            try:
+                data = requests.get(link, timeout=90).content
+                out_dir = os.path.join(config.OUTPUT_DIR, "clips")
+                os.makedirs(out_dir, exist_ok=True)
+                path = os.path.join(out_dir, f"clip_{idx:02d}.mp4")
+                with open(path, "wb") as fh:
+                    fh.write(data)
+                print(f"[media]   coverr clip ({len(data)//1024}KB) id={h.get('id')}")
+                return path, str(h.get("id"))
+            except Exception:
+                continue
+    except Exception as e:
+        print(f"[media] Coverr video failed for {query!r}: {e}")
+    return None, None
+
+
+def _get_clip(query: str, idx: int, exclude=None):
+    """MULTI-SOURCE real clip: Pexels -> Pixabay -> Coverr (variety + repeat kam)."""
+    for fn in (_pexels_video, _pixabay_video, _coverr_video):
+        path, vid = fn(query, idx, exclude=exclude)
+        if path:
+            return path, vid
+    return None, None
+
+
 # ── Public API ───────────────────────────────────────────────────────────────────
 def fetch_media(segments: list[dict], user_images: list[str] = None,
                 user_videos: list[str] = None) -> list[dict]:
@@ -371,19 +453,19 @@ def fetch_media(segments: list[dict], user_images: list[str] = None,
                 q = query if query and query.lower() not in (
                     "football stadium", "football stadium action") \
                     else _BROLL[i % len(_BROLL)]
-            clip, vid = _pexels_video(q, i, exclude=used_pex)
+            clip, vid = _get_clip(q, i, exclude=used_pex)
             if not clip:
-                clip, vid = _pexels_video(_BROLL[(i + 2) % len(_BROLL)], i,
-                                          exclude=used_pex)
+                clip, vid = _get_clip(_BROLL[(i + 2) % len(_BROLL)], i,
+                                      exclude=used_pex)
             if not clip:
-                clip, vid = _pexels_video(_BROLL[(i + 4) % len(_BROLL)], i,
-                                          exclude=used_pex)
+                clip, vid = _get_clip(_BROLL[(i + 4) % len(_BROLL)], i,
+                                      exclude=used_pex)
             if clip:
                 if vid:
                     used_pex.add(vid)
                     if history:
                         history.mark("pexels_ids", vid)
-                print(f"[media]   pexels REAL video clip")
+                print(f"[media]   REAL video clip (multi-source)")
                 out.append({"type": "video", "path": clip})
                 continue
             else:

@@ -74,10 +74,17 @@ HOOK_PUNCH = True
 
 # ── VOICE (Hindi) ──────────────────────────────────────────────────────────────
 
-# Provider: "edge" (free, natural, no key — DEFAULT) | "sarvam" | "elevenlabs" | "gtts"
-# Edge-TTS = Microsoft neural voices, NotebookLM jaisi natural, bilkul free.
-# Sarvam/ElevenLabs keys abhi expired hain; gTTS robotic fallback hai.
-VOICE_PROVIDER = "edge"
+# Provider: "gcloud" (Google Cloud TTS — natural + SSML pauses/suspense, FREE tier,
+#   GOOGLE_TTS_API_KEY chahiye) | "edge" (free, no key) | "sarvam" | "elevenlabs" | "gtts"
+# NOTE: gcloud me key na ho to apne aap "edge" pe fall back ho jaata hai (voice.py) —
+# to ye safe default hai. Key add karte hi natural + suspense voice.
+VOICE_PROVIDER = "gcloud"
+
+# Google Cloud TTS (SSML support = pauses/suspense). Neural2 = natural + SSML.
+# Male: hi-IN-Neural2-B / hi-IN-Neural2-C. Female: hi-IN-Neural2-A / D.
+GCLOUD_VOICE = "hi-IN-Neural2-C"
+GCLOUD_RATE = 1.12      # ~+12% (edge +15% jaisा)
+GCLOUD_PITCH = 0.0
 
 # Edge-TTS voice. Male options: fr-FR-RemyMultilingualNeural (chosen — warm male),
 #   hi-IN-MadhurNeural (Hindi-native male), en-US-BrianMultilingualNeural (deep).
