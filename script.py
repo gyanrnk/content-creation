@@ -754,6 +754,10 @@ def generate_script(topic: str = None, mode: str = None,
         data.update(_fallback_meta(topic, mode, data))
 
     segs = data.get("segments", [])
+    # QUIZ: aakhri segment = reveal -> uske PEHLE dramatic suspense pause (video.py).
+    if mode == "quiz" and segs:
+        segs[-1]["suspense_before"] = True
+
     print(f"[script] {len(segs)} segments ready.")
     print(f"[script] Title: {data.get('youtube_title','')}")
     for i, s in enumerate(segs, 1):

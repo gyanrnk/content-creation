@@ -134,6 +134,29 @@ def _gcloud(text: str, out_path: str) -> bool:
     return False
 
 
+def _pad_silence(path: str, lead: float = 0.0, trail: float = 0.0):
+    """Audio ke aage (lead) / peeche (trail) silence add karo (pacing + suspense)."""
+    if lead <= 0 and trail <= 0:
+        return
+    try:
+        import imageio_ffmpeg
+        import subprocess
+        ff = imageio_ffmpeg.get_ffmpeg_exe()
+        af = []
+        if lead > 0:
+            ms = int(lead * 1000)
+            af.append(f"adelay={ms}|{ms}")
+        if trail > 0:
+            af.append(f"apad=pad_dur={trail}")
+        tmp = path + ".pad.mp3"
+        subprocess.run([ff, "-y", "-i", path, "-af", ",".join(af), tmp],
+                       capture_output=True, timeout=30)
+        if os.path.exists(tmp) and os.path.getsize(tmp) > 0:
+            os.replace(tmp, path)
+    except Exception as e:
+        print(f"[voice] silence-pad skip ({e})")
+
+
 # ── gTTS (free fallback) ────────────────────────────────────────────────────────
 def _gtts(text: str, out_path: str) -> bool:
     try:
@@ -200,6 +223,8 @@ def generate_segment_voices(segments: list[dict],
         if not ok:
             raise RuntimeError(f"Voice generation failed for segment {i+1}")
 
+        # NOTE: pacing/suspense pauses video.py me add hote hain (trim ke BAAD),
+        # warna _trim_silence yahan ke pauses hata deta.
         print(f"[voice] Segment {i+1}/{len(segments)} -> {out}  [via {used}]")
         paths.append(out)
 

@@ -491,11 +491,18 @@ def build_short(segments: list[dict], media: list, audio_paths: list[str],
     seg_clips, seg_durs = [], []
 
     for i, seg in enumerate(segments):
-        # silence trim -> voice tight; overlap (CROSSFADE) gap ko bhar deta hai,
-        # +breath = chhota natural pause. Net: continuous voice, "cut cut" nahi.
-        audio = AudioFileClip(_trim_silence_file(audio_paths[i]))
-        breath = 0.05
-        dur = audio.duration + config.CROSSFADE + breath
+        # silence trim -> voice tight (edge-tts ki random silence hatao). PHIR apne
+        # CONTROLLED pauses add karo: har segment ke baad breathing pause; quiz reveal
+        # (suspense_before) se PEHLE bada dramatic pause = suspense.
+        voice = AudioFileClip(_trim_silence_file(audio_paths[i]))
+        lead = 0.9 if seg.get("suspense_before") else 0.0   # reveal se pehle suspense
+        breath = 0.35                                        # har segment ke baad saans
+        dur = lead + voice.duration + config.CROSSFADE + breath
+        if lead:
+            from moviepy.editor import CompositeAudioClip
+            audio = CompositeAudioClip([voice.set_start(lead)]).set_duration(dur)
+        else:
+            audio = voice
 
         bg = _bg_clip(media[i], dur, i)
         layers = [bg]
