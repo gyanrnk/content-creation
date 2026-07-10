@@ -28,6 +28,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 45         # 1 short per run (staggered hourly)
+    env:
+      TZ: Asia/Kolkata          # runner clock IST -> folders/logs/rotation sab IST me
     steps:
       - uses: actions/checkout@v4
 

@@ -29,3 +29,4 @@ shortTEMP_*
 #   assets/  (bgm.mp3, logo, fonts)   -> !assets/ implied (ignore nahi)
 #   asset_history.json  (cross-video dedup — Actions isse commit-back karta hai)
 #   *.py, requirements.txt, .github/, n8n_workflow.json
+videos/
