@@ -55,6 +55,11 @@ STATS_OVERLAY     = True    # "6 World Cups" jaise numbers -> bada bold stat-car
 #   "none"   -> sirf AI images (Pollinations) — koi key nahi chahiye
 #   "pexels" -> real action video clips (PEXELS_API_KEY .env me hai) [ACTIVE]
 VIDEO_SOURCE = "pexels"
+# User: JYADATAR real video CLIPS dikhao, static images minimize. True = har segment
+# ke liye pehle Pexels real football clip (motion), image sirf fallback (clip na mile to).
+# NOTE: Pexels clips GENERIC football hote hain (asli footage par specific player nahi —
+# broadcast footage illegal). Named player ki asli photo image-fallback me hi aayegi.
+PREFER_VIDEO_CLIPS = True
 
 # Pexels video ki max height (chhoti = kam MB + fast render). 1280 = 720x1280 HD.
 # 960 = aur chhoti/fast, 1920 = full HD (bada + slow).

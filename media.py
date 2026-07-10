@@ -359,23 +359,35 @@ def fetch_media(segments: list[dict], user_images: list[str] = None,
             except Exception as e:
                 print(f"[media]   stat-bg fail ({e})")
 
-        # 4) Pexels VIDEO clip (atmospheric, agar key) — varied query + dedup
-        if itype != "real" and config.VIDEO_SOURCE == "pexels":
-            # har segment alag football B-roll query (variety)
-            q = query if query and query.lower() not in ("football stadium",
-                "football stadium action") else _BROLL[i % len(_BROLL)]
+        # 4) Pexels REAL VIDEO clip — user: JYADATAR clips dikhao. PREFER_VIDEO_CLIPS ON
+        #    ho to HAR segment (real bhi) ke liye clip try karo; image sirf fallback.
+        _prefer_vid = getattr(config, "PREFER_VIDEO_CLIPS", False)
+        if config.VIDEO_SOURCE == "pexels" and (_prefer_vid or itype != "real"):
+            # 'real' (specific player naam) ka Pexels pe clip nahi milega -> football
+            # B-roll query. 'ai'/generic ke liye segment query (ya b-roll).
+            if itype == "real":
+                q = _BROLL[i % len(_BROLL)]
+            else:
+                q = query if query and query.lower() not in (
+                    "football stadium", "football stadium action") \
+                    else _BROLL[i % len(_BROLL)]
             clip, vid = _pexels_video(q, i, exclude=used_pex)
             if not clip:
                 clip, vid = _pexels_video(_BROLL[(i + 2) % len(_BROLL)], i,
+                                          exclude=used_pex)
+            if not clip:
+                clip, vid = _pexels_video(_BROLL[(i + 4) % len(_BROLL)], i,
                                           exclude=used_pex)
             if clip:
                 if vid:
                     used_pex.add(vid)
                     if history:
                         history.mark("pexels_ids", vid)
-                print(f"[media]   pexels video clip")
+                print(f"[media]   pexels REAL video clip")
                 out.append({"type": "video", "path": clip})
                 continue
+            else:
+                print(f"[media]   no clip -> image fallback")
 
         # 5) Image route (sab RANDOM seed/result -> repeat nahi)
         img = None
