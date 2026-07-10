@@ -48,23 +48,34 @@ def _prog(msg: str):
         pass
 
 
-def _send_mail(subject: str, body: str):
-    """Har short ban-ne par turant email (Gmail SMTP). MAIL_USERNAME/MAIL_PASSWORD
-    env/.env me chahiye (Actions me secrets se). Na ho to chup-chaap skip."""
+def _send_mail(subject: str, body: str, attach: str = None):
+    """Har short ban-ne par turant email (Gmail SMTP), VIDEO attached (inbox me hi
+    mil jaaye — GitHub download ki zaroorat nahi). MAIL_USERNAME/MAIL_PASSWORD chahiye.
+    Video 24MB+ ho to attach nahi (Gmail limit) — sirf note."""
     import smtplib
     from email.message import EmailMessage
     user = os.getenv("MAIL_USERNAME")
     pw = os.getenv("MAIL_PASSWORD")
     if not (user and pw):
         return
+    # 18MB cap: base64 encode ~37% inflate karta hai -> Gmail 25MB limit me rahe.
+    can_attach = bool(attach and os.path.exists(attach)
+                      and os.path.getsize(attach) < 18 * 1024 * 1024)
+    if attach and os.path.exists(attach) and not can_attach:
+        body += ("\n\n(Video bada hai — email me attach nahi ho payi; GitHub Actions "
+                 "artifact se download karo.)")
     try:
         msg = EmailMessage()
         msg["From"], msg["To"], msg["Subject"] = user, user, subject
         msg.set_content(body)
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as s:
+        if can_attach:
+            with open(attach, "rb") as f:
+                msg.add_attachment(f.read(), maintype="video", subtype="mp4",
+                                   filename=os.path.basename(attach))
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=180) as s:
             s.login(user, pw.replace(" ", ""))   # app-password bina spaces
             s.send_message(msg)
-        print(f"[auto] 📧 email sent: {subject}")
+        print(f"[auto] 📧 email sent{' (video attached)' if can_attach else ''}: {subject}")
     except Exception as e:
         print(f"[auto] email skip: {e}")
 
@@ -136,12 +147,13 @@ def autopilot(n: int = 3, query: str = None) -> dict:
                             "video": os.path.join(out_dir, "short.mp4")})
             # HAR short ban-ne ke turant baad email
             run_url = os.getenv("RUN_URL", "")
+            vpath = os.path.join(out_dir, "short.mp4")
             _send_mail(
                 f"🎬 Short {i}/{n} ready: {title[:60]}",
                 f"[{mode}] {title}\nTopic: {topic}\n\n"
-                + (f"Run/logs: {run_url}\n" if run_url else "")
-                + "Poora batch complete hone par video download link (artifact) milega.\n"
-                + "Review karke YouTube pe daalo. ⚽")
+                + "Video is email me attached hai — dekho, pasand aaye to upload karo. ⚽\n"
+                + (f"\n(GitHub run: {run_url})" if run_url else ""),
+                attach=vpath)
         except Exception as e:
             print(f"   ❌ FAILED: {e}")
             results.append({"topic": topic, "ok": False, "error": str(e)})
