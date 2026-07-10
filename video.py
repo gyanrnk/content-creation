@@ -499,7 +499,6 @@ def build_short(segments: list[dict], media: list, audio_paths: list[str],
         breath = 0.35                                        # har segment ke baad saans
         dur = lead + voice.duration + config.CROSSFADE + breath
         if lead:
-            from moviepy.editor import CompositeAudioClip
             audio = CompositeAudioClip([voice.set_start(lead)]).set_duration(dur)
         else:
             audio = voice
