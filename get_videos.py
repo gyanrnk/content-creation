@@ -15,6 +15,11 @@ import shutil
 import tempfile
 import subprocess
 
+try:                       # Windows cmd console (cp1252) pe emoji crash na kare
+    sys.stdout.reconfigure(encoding="utf-8")
+except Exception:
+    pass
+
 GH = r"C:\Program Files\GitHub CLI\gh.exe"
 REPO = "gyanrnk/content-creation"
 OUT = "videos"
@@ -33,13 +38,13 @@ def main():
                 "--json", "databaseId", "--jq", ".[0].databaseId")
         rid = (r.stdout or "").strip()
     if not rid:
-        print("❌ koi run nahi mila")
+        print("ERROR: koi run nahi mila")
         return
 
     tmp = tempfile.mkdtemp()
     r = _gh("run", "download", rid, "--repo", REPO, "--dir", tmp)
     if r.returncode != 0:
-        print(f"❌ download fail (run {rid}): {r.stderr[:200]}")
+        print(f"ERROR: download fail (run {rid}): {r.stderr[:200]}")
         shutil.rmtree(tmp, ignore_errors=True)
         return
 
@@ -55,10 +60,10 @@ def main():
             if os.path.exists(src):
                 shutil.copy(src, os.path.join(OUT, f"{base}_{extra}"))
         n += 1
-        print(f"  ✅ {OUT}/{base}.mp4")
+        print(f"  OK: {OUT}/{base}.mp4")
 
     shutil.rmtree(tmp, ignore_errors=True)
-    print(f"\n🎉 {n} video(s) -> '{OUT}/' folder (readable naam, ek jagah)")
+    print(f"\nDONE: {n} video(s) -> '{OUT}/' folder (readable naam, ek jagah)")
 
 
 if __name__ == "__main__":
