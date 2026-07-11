@@ -464,11 +464,15 @@ def _trim_silence_file(path: str) -> str:
         import imageio_ffmpeg
         ff = imageio_ffmpeg.get_ffmpeg_exe()
         out = os.path.splitext(path)[0] + "_t.mp3"
-        # -45dB threshold = SAFE (soft speech na kate). start_silence 0.05 =
-        # sirf 0.05s silence rakho -> gaps chhote (~0.17s) par speech intact.
-        one = ("silenceremove=start_periods=1:start_silence=0.05:"
-               "start_threshold=-45dB:detection=peak")
-        filt = f"{one},areverse,{one},areverse"
+        # LEADING trim: -45dB, 0.05s cushion (gap chhota).
+        # TRAILING trim: GENTLER -- -52dB + 0.12s cushion. Warna word ke soft
+        # ending consonant (s/sh/f) beech me kat jaata tha -> waveform jhatka =
+        # click/pop = "adhoora word noise". Ab tail intact rahega.
+        lead_f = ("silenceremove=start_periods=1:start_silence=0.05:"
+                  "start_threshold=-45dB:detection=peak")
+        trail_f = ("silenceremove=start_periods=1:start_silence=0.12:"
+                   "start_threshold=-52dB:detection=peak")
+        filt = f"{lead_f},areverse,{trail_f},areverse"
         r = subprocess.run([ff, "-y", "-i", path, "-af", filt, out],
                            capture_output=True)
         if r.returncode == 0 and os.path.exists(out) and os.path.getsize(out) > 1000:
@@ -495,6 +499,12 @@ def build_short(segments: list[dict], media: list, audio_paths: list[str],
         # CONTROLLED pauses add karo: har segment ke baad breathing pause; quiz reveal
         # (suspense_before) se PEHLE bada dramatic pause = suspense.
         voice = AudioFileClip(_trim_silence_file(audio_paths[i]))
+        # Micro fade in/out: trim ke abrupt cut se jo click/pop ("adhoora word
+        # noise") aata tha use smooth karo. Kaan ko sirf saaf lagega.
+        try:
+            voice = voice.audio_fadein(0.03).audio_fadeout(0.07)
+        except Exception as _e:
+            print(f"[video]   fade skip ({_e})")
         lead = 0.9 if seg.get("suspense_before") else 0.0   # reveal se pehle suspense
         breath = 0.35                                        # har segment ke baad saans
         dur = lead + voice.duration + config.CROSSFADE + breath
