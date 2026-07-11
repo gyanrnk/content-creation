@@ -284,7 +284,8 @@ def _pixabay_video(query: str, idx: int, exclude=None):
                [h for h in hits if str(h.get("id")) in exclude]
         for h in hits:
             vf = h.get("videos", {})
-            pick = next((vf[k] for k in ("medium", "small", "large", "tiny")
+            # 'small' pehle -> chhoti file (81MB 'medium' waste tha), fast render
+            pick = next((vf[k] for k in ("small", "medium", "tiny", "large")
                          if vf.get(k) and vf[k].get("url")), None)
             if not pick:
                 continue
