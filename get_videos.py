@@ -32,38 +32,48 @@ def _gh(*args):
 def main():
     _gh("auth", "switch", "--user", "gyanrnk", "--hostname", "github.com")
 
-    rid = sys.argv[1] if len(sys.argv) > 1 else None
-    if not rid:
-        r = _gh("run", "list", "--repo", REPO, "--limit", "1",
-                "--json", "databaseId", "--jq", ".[0].databaseId")
-        rid = (r.stdout or "").strip()
-    if not rid:
+    # Agar run-id diya hai to sirf wahi; warna pichhle 12 successful run try karo
+    if len(sys.argv) > 1:
+        run_ids = [sys.argv[1]]
+    else:
+        r = _gh("run", "list", "--repo", REPO, "--limit", "12",
+                "--status", "success", "--workflow", "daily-shorts.yml",
+                "--json", "databaseId", "--jq", ".[].databaseId")
+        run_ids = [x for x in (r.stdout or "").split() if x.strip()]
+    if not run_ids:
         print("ERROR: koi run nahi mila")
-        return
-
-    tmp = tempfile.mkdtemp()
-    r = _gh("run", "download", rid, "--repo", REPO, "--dir", tmp)
-    if r.returncode != 0:
-        print(f"ERROR: download fail (run {rid}): {r.stderr[:200]}")
-        shutil.rmtree(tmp, ignore_errors=True)
         return
 
     os.makedirs(OUT, exist_ok=True)
     n = 0
-    for mp4 in glob.glob(os.path.join(tmp, "**", "short.mp4"), recursive=True):
-        seg = os.path.basename(os.path.dirname(mp4))                    # 01_world-cup-2026
-        date = os.path.basename(os.path.dirname(os.path.dirname(mp4)))  # 2026-07-10_1040
-        base = f"{date}__{seg}"
-        shutil.copy(mp4, os.path.join(OUT, base + ".mp4"))
-        for extra in ("thumbnail.jpg", "post.txt"):
-            src = os.path.join(os.path.dirname(mp4), extra)
-            if os.path.exists(src):
-                shutil.copy(src, os.path.join(OUT, f"{base}_{extra}"))
-        n += 1
-        print(f"  OK: {OUT}/{base}.mp4")
+    for rid in run_ids:
+        tmp = tempfile.mkdtemp()
+        r = _gh("run", "download", rid, "--repo", REPO, "--dir", tmp)
+        mp4s = glob.glob(os.path.join(tmp, "**", "short.mp4"), recursive=True)
+        if r.returncode != 0 or not mp4s:
+            shutil.rmtree(tmp, ignore_errors=True)
+            continue                        # is run me video nahi — agla try karo
+        for mp4 in mp4s:
+            seg = os.path.basename(os.path.dirname(mp4))                    # 01_world-cup
+            date = os.path.basename(os.path.dirname(os.path.dirname(mp4)))  # 2026-07-10_1040
+            base = f"{date}__{seg}"
+            dest = os.path.join(OUT, base + ".mp4")
+            if os.path.exists(dest):
+                continue                     # pehle se download hai — skip (dedup)
+            shutil.copy(mp4, dest)
+            for extra in ("thumbnail.jpg", "post.txt"):
+                src = os.path.join(os.path.dirname(mp4), extra)
+                if os.path.exists(src):
+                    shutil.copy(src, os.path.join(OUT, f"{base}_{extra}"))
+            n += 1
+            print(f"  OK: {OUT}/{base}.mp4")
+        shutil.rmtree(tmp, ignore_errors=True)
+        if len(sys.argv) > 1:
+            break                            # specific run tha to yahin ruk jao
 
-    shutil.rmtree(tmp, ignore_errors=True)
-    print(f"\nDONE: {n} video(s) -> '{OUT}/' folder (readable naam, ek jagah)")
+    if n == 0:
+        print("  (koi NAYI video nahi mili — sab pehle se videos/ me hain)")
+    print(f"\nDONE: {n} nayi video(s) -> '{OUT}/' folder")
 
 
 if __name__ == "__main__":
