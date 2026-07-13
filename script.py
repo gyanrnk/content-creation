@@ -483,17 +483,35 @@ def _call_openai(system: str, user: str) -> str:
 
 
 def _call_groq(system: str, user: str) -> str:
-    # Groq is OpenAI-compatible
-    from openai import OpenAI
-    client = OpenAI(api_key=os.getenv("GROQ_API_KEY"),
-                    base_url="https://api.groq.com/openai/v1")
-    resp = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=[{"role": "system", "content": system},
-                  {"role": "user", "content": user}],
-        temperature=0.9,
-    )
-    return resp.choices[0].message.content
+    # Groq is OpenAI-compatible. RAW request use karte hain (OpenAI SDK NAHI) kyunki
+    # SDK ka User-Agent ab Groq ke Cloudflare se 403 (error 1010) khaata hai. Browser
+    # jaisa User-Agent header = Cloudflare pass. 70b busy/rate-limit ho to 8b backup.
+    import requests
+    key = os.getenv("GROQ_API_KEY")
+    headers = {"Authorization": f"Bearer {key}",
+               "Content-Type": "application/json",
+               "User-Agent": "Mozilla/5.0"}
+    last = "no response"
+    for model in ("llama-3.3-70b-versatile", "llama-3.1-8b-instant"):
+        for attempt in range(3):
+            try:
+                r = requests.post(
+                    "https://api.groq.com/openai/v1/chat/completions",
+                    headers=headers,
+                    json={"model": model,
+                          "messages": [{"role": "system", "content": system},
+                                       {"role": "user", "content": user}],
+                          "temperature": 0.9},
+                    timeout=45)
+                if r.status_code == 200:
+                    return r.json()["choices"][0]["message"]["content"]
+                last = f"HTTP {r.status_code} {r.text[:120]}"
+                if r.status_code in (401, 403):   # auth/CF block: retry se fayda nahi
+                    break
+            except Exception as e:
+                last = str(e)
+            import time; time.sleep(2 + attempt * 2)
+    raise RuntimeError(f"Groq failed (last: {last})")
 
 
 def _extract_json(text: str, required_key: str = None):
