@@ -132,6 +132,9 @@ def autopilot(n: int = 3, query: str = None) -> dict:
         plan.append((topic, mode, key))
 
     print(f"\n🤖 AUTO-PILOT — {n} shorts\n" + "=" * 45)
+    # Auto-upload sirf tab jab token.json ho (cloud pe secret se banta hai; local pe nahi).
+    do_upload = os.path.exists("token.json")
+    privacy = os.getenv("UPLOAD_PRIVACY", "public")
     results = []
     for i, (topic, mode, key) in enumerate(plan, 1):
         out_dir = os.path.join(run_dir, batch._slug(topic, i))
@@ -142,18 +145,42 @@ def autopilot(n: int = 3, query: str = None) -> dict:
             if history:
                 history.mark("subjects", key)  # future runs isko repeat na karein
             title = (data or {}).get("youtube_title") or topic
-            results.append({"topic": topic, "mode": mode, "ok": True,
-                            "dir": out_dir, "title": title,
-                            "video": os.path.join(out_dir, "short.mp4")})
-            # HAR short ban-ne ke turant baad email
-            run_url = os.getenv("RUN_URL", "")
             vpath = os.path.join(out_dir, "short.mp4")
-            _send_mail(
-                f"🎬 Short {i}/{n} ready: {title[:60]}",
-                f"[{mode}] {title}\nTopic: {topic}\n\n"
-                + "Video is email me attached hai — dekho, pasand aaye to upload karo. ⚽\n"
-                + (f"\n(GitHub run: {run_url})" if run_url else ""),
-                attach=vpath)
+            results.append({"topic": topic, "mode": mode, "ok": True,
+                            "dir": out_dir, "title": title, "video": vpath})
+
+            # --- ban-ne ke turant baad UPLOAD (agar token hai) ---
+            yt_url = ""
+            if do_upload:
+                try:
+                    import upload_youtube
+                    yt_url = upload_youtube.upload_from_output(privacy, outdir=out_dir)
+                    results[-1]["url"] = yt_url
+                    print(f"[auto] ⬆️ uploaded ({privacy}): {yt_url}")
+                except Exception as ue:
+                    yt_url = f"__FAIL__{ue}"
+                    print(f"[auto] ⚠️ upload failed: {ue}")
+
+            # --- phir EMAIL (upload ke baad, live link ke saath) ---
+            run_url = os.getenv("RUN_URL", "")
+            tail = (f"\n(GitHub run: {run_url})" if run_url else "")
+            if yt_url.startswith("http"):                    # upload success
+                _send_mail(
+                    f"✅ Short {i}/{n} LIVE: {title[:55]}",
+                    f"[{mode}] {title}\nTopic: {topic}\n\n"
+                    f"🎉 YouTube pe LIVE ho gaya ({privacy}):\n{yt_url}\n" + tail)
+            elif yt_url.startswith("__FAIL__"):              # bana par upload fail
+                _send_mail(
+                    f"⚠️ Short {i}/{n} bana, UPLOAD FAIL: {title[:45]}",
+                    f"[{mode}] {title}\nTopic: {topic}\n\n"
+                    f"Upload error: {yt_url[8:]}\nVideo attached — manually daal do.\n" + tail,
+                    attach=vpath)
+            else:                                            # upload off (local)
+                _send_mail(
+                    f"🎬 Short {i}/{n} ready: {title[:60]}",
+                    f"[{mode}] {title}\nTopic: {topic}\n\n"
+                    "Video email me attached hai. ⚽\n" + tail,
+                    attach=vpath)
         except Exception as e:
             print(f"   ❌ FAILED: {e}")
             results.append({"topic": topic, "ok": False, "error": str(e)})
@@ -170,7 +197,7 @@ def autopilot(n: int = 3, query: str = None) -> dict:
         mark = "✅" if r["ok"] else "❌"
         print(f"  {mark}  {r['topic'][:45]}")
     _prog(f"✅ Done — {ok}/{len(results)} shorts ready in {run_dir}")
-    print(f"\n🎉 {ok}/{len(results)} ready in '{run_dir}'  (upload manual)\n")
+    print(f"\n🎉 {ok}/{len(results)} ready in '{run_dir}'  (auto-upload on cloud)\n")
     return summary
 
 

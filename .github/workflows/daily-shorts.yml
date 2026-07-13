@@ -73,18 +73,11 @@ jobs:
       - name: Config for CI (CLIP off = fast/light)
         run: sed -i 's/^REAL_PHOTO_CLIP = True/REAL_PHOTO_CLIP = False/' config.py
 
-      - name: Build shorts
+      - name: Build + upload shorts (upload auto.py ke andar hota hai — har video ban-te hi upload + email with live link)
         env:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          UPLOAD_PRIVACY: ${{ github.event.inputs.privacy || 'public' }}
         run: python auto.py "${{ github.event.inputs.count || '1' }}"
-
-      - name: Upload to YouTube (public, if token set)
-        run: |
-          if [ -f token.json ]; then
-            python upload_youtube.py upload-auto "${{ github.event.inputs.privacy || 'public' }}" || true
-          else
-            echo "No YT_TOKEN secret -> skipping upload (videos artifact me milenge)"
-          fi
 
       - name: Save videos as artifact (download/review)
         uses: actions/upload-artifact@v4
