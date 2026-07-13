@@ -38,6 +38,14 @@ PLAYERS = [
     "Lionel Messi", "Cristiano Ronaldo", "Neymar", "Pele", "Diego Maradona",
     "Ronaldinho", "Zinedine Zidane", "Luka Modric", "Sunil Chhetri",
 ]
+# Mega-draw naam — data: bade naam = zyada views (Ronaldo 1120, chhote-naam debate 45).
+# Topic-picker inhe pehle prefer karta hai (trending ke baad), taaki har video ka
+# subject high-interest ho. Baaki PLAYERS variety/dedup ke liye rehte hain.
+TOP_TIER = [
+    "Cristiano Ronaldo", "Lionel Messi", "Kylian Mbappe", "Neymar",
+    "Erling Haaland", "Lamine Yamal", "Jude Bellingham", "Vinicius Junior",
+    "Ronaldinho", "Diego Maradona", "Pele",
+]
 TEAMS = ["Brazil", "Argentina", "Portugal", "France", "Spain", "Germany",
          "England", "Netherlands", "Italy", "Belgium", "Morocco", "Croatia",
          "Real Madrid", "Barcelona", "Manchester City", "Manchester United",
@@ -154,9 +162,17 @@ def topic_for_mode(mode: str, i: int = 0, query: str = None, used: set = None):
     import random
     used = used or set()
     trend = trending_subjects()
-    # trending players (news me aaye) + baaki diverse pool — used hataao
+    # trending players (news me aaye) — views ke liye sabse pehle inhe
     trend_players = [x for x in trend if x in PLAYERS]
-    subj_pool = trend_players + [p for p in PLAYERS if p not in trend_players]
+
+    def _pick_star(extra_used=None):
+        """Views-first player pick: pehle trending, phir mega-names, phir baaki. Dedup."""
+        u = used | (extra_used or set())
+        for tier in (trend_players, TOP_TIER, PLAYERS):
+            fresh = [p for p in tier if p not in u]
+            if fresh:
+                return random.choice(fresh)
+        return random.choice(PLAYERS)
 
     if mode == "facts":                       # timely/news (SEO + trending)
         ideas = [x for x in get_ideas(6, query) if x not in used] or \
@@ -164,20 +180,20 @@ def topic_for_mode(mode: str, i: int = 0, query: str = None, used: set = None):
         t = ideas[i % len(ideas)]
         return t, t
     if mode == "quiz":
-        s = _pick(subj_pool, used)
+        s = _pick_star()
         return s, s
-    if mode == "debate":                      # X vs Y (do alag, dono fresh)
-        a = _pick(subj_pool, used)
-        b = _pick(subj_pool, used | {a})
+    if mode == "debate":                      # X vs Y — dono BADE naam (flop se bacho)
+        a = _pick_star()
+        b = _pick_star({a})
         return f"{a} vs {b}", f"{a} vs {b}"
     if mode == "ranking":                     # Top 5 <category> (categories diverse)
         c = _pick(RANKING_CATEGORIES, used)
         return "Top 5 " + c, c
     if mode == "story":                       # rags-to-riches journey
-        s = _pick(subj_pool, used)
+        s = _pick_star()
         return f"{s} career journey", s
     if mode == "player":
-        s = _pick(subj_pool, used)
+        s = _pick_star()
         return s, s
     ideas = get_ideas(3, query) or ["FIFA World Cup 2026"]
     t = ideas[i % len(ideas)]

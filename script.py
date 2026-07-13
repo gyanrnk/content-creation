@@ -125,7 +125,7 @@ def _build_messages(topic: str, mode: str, num_segments: int, context: str = "")
         "TURN in the middle ('but then...'), and make the viewer feel it. Not a dry "
         "report. Keep the WORDS simple, but the STORY gripping and full of energy. ***\n"
         "- voice_english = ONE FULL sentence in SIMPLE, PLAIN, everyday spoken "
-        "ENGLISH, 12-18 words long (short & punchy for a fast Short), the way a normal "
+        "ENGLISH, 10-15 words long (short & punchy for a fast Short), the way a normal "
         "person casually tells a friend what happened. *** It MUST be a full sentence "
         "with 2 connected clauses "
         "joined by simple words like 'but', 'and', 'so', 'after', 'when', 'because' "

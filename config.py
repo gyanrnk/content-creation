@@ -29,7 +29,7 @@ CUSTOM_SCRIPT = """मेसी और रोनाल्डो, फुटबॉ
 
 # Kitne segments. 5 = ~35-40s video = Shorts sweet-spot (completion+loop zyada) + fast render.
 # (6+ lambा video ban raha tha = 57s + slow render.)
-NUM_SEGMENTS = 5
+NUM_SEGMENTS = 4          # 4 x ~12 words ≈ 32-36s (short = zyada completion = algorithm push)
 
 # ── VIDEO FORMAT (9:16 vertical — Shorts / Reels / FB) ─────────────────────────
 
