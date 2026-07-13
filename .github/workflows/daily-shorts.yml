@@ -19,7 +19,7 @@ on:
         default: "1"
       privacy:
         description: "YouTube privacy (unlisted/private/public)"
-        default: "unlisted"
+        default: "public"
 
 permissions:
   contents: write        # asset_history.json wapas commit karne ke liye (dedup)
@@ -78,10 +78,10 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: python auto.py "${{ github.event.inputs.count || '1' }}"
 
-      - name: Upload to YouTube (unlisted, if token set)
+      - name: Upload to YouTube (public, if token set)
         run: |
           if [ -f token.json ]; then
-            python upload_youtube.py upload-auto "${{ github.event.inputs.privacy || 'unlisted' }}" || true
+            python upload_youtube.py upload-auto "${{ github.event.inputs.privacy || 'public' }}" || true
           else
             echo "No YT_TOKEN secret -> skipping upload (videos artifact me milenge)"
           fi
