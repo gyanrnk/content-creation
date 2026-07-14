@@ -21,6 +21,9 @@ on:
       privacy:
         description: "YouTube privacy (unlisted/private/public)"
         default: "public"
+      mode:
+        description: "Ek mode force karo (stats/facts/story/ranking/quiz/debate). Khali = rotation"
+        default: ""
 
 permissions:
   contents: write        # asset_history.json wapas commit karne ke liye (dedup)
@@ -78,6 +81,7 @@ jobs:
         env:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           UPLOAD_PRIVACY: ${{ github.event.inputs.privacy || 'public' }}
+          AUTO_MODE: ${{ github.event.inputs.mode || '' }}
         run: python auto.py "${{ github.event.inputs.count || '1' }}"
 
       - name: Save videos as artifact (download/review)

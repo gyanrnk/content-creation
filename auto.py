@@ -121,9 +121,16 @@ def autopilot(n: int = 3, query: str = None) -> dict:
     now = datetime.datetime.now()
     day_off = now.timetuple().tm_yday
     hour = now.hour
+    # AUTO_MODE env se ek mode FORCE kar sakte ho (e.g. abhi wala hot stats short).
+    forced = os.getenv("AUTO_MODE", "").strip().lower()
+    if forced and forced not in _AUTO_MODES:
+        print(f"[auto] unknown AUTO_MODE={forced!r} — rotation use karenge")
+        forced = ""
+    if forced:
+        print(f"[auto] MODE FORCED -> {forced}")
     plan = []
     for i in range(n):
-        mode = _AUTO_MODES[(day_off + hour + i) % len(_AUTO_MODES)]
+        mode = forced or _AUTO_MODES[(day_off + hour + i) % len(_AUTO_MODES)]
         if i == 0 and query:
             topic, key = query, query          # user hint -> pehla video usi pe
         else:
