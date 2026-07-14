@@ -179,6 +179,15 @@ def topic_for_mode(mode: str, i: int = 0, query: str = None, used: set = None):
                 get_ideas(6, query) or ["FIFA World Cup 2026 latest"]
         t = ideas[i % len(ideas)]
         return t, t
+    if mode == "stats":                       # LIVE data (golden boot / league table)
+        try:
+            from stats import current_stats
+            t, _gt = current_stats()
+            if t:
+                return t, t                   # roz naya data = roz fresh (repeat OK)
+        except Exception:
+            pass
+        return "Top 5 goal scorers in football right now", "stats"
     if mode == "quiz":
         s = _pick_star()
         return s, s

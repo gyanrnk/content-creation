@@ -22,6 +22,14 @@ load_dotenv()
 
 # ── Mode-specific guidance ──────────────────────────────────────────────────────
 MODE_GUIDE = {
+    "stats": (
+        "LIVE STATS RACE from the REAL numbers in the facts above (Golden Boot race / "
+        "league table). Build it like a race with suspense: start from the LOWER names "
+        "and climb up, revealing the LEADER last. Use the EXACT player names, goal "
+        "counts and teams from the data — NEVER invent or change a number. Each segment "
+        "= one mini-reveal that raises the stakes ('X ke paas N goals hain... lekin "
+        "sabse upar kaun?'). End with the leader + a bold verdict."
+    ),
     "facts": (
         "A gripping mini-story built around ONE football topic/event. Weave "
         "surprising facts into a flowing narrative (not a disconnected list) that "
@@ -167,6 +175,10 @@ def _build_messages(topic: str, mode: str, num_segments: int, context: str = "")
         "decides if viewers stay. Withhold the payoff/answer for later segments.\n"
         "- LOOP: the LAST segment must connect back to the hook (echo segment 1's "
         "question/theme) so the video replays seamlessly — do NOT introduce a new topic.\n"
+        "- CONCLUSION (punchy, yaad rehne wala): the LAST segment must END with a SHORT "
+        "mic-drop line — a bold verdict or one killer stat that LANDS (e.g. 'Sirf 2 goal "
+        "ka fark — aur Golden Boot daav pe hai.'). NO weak fade-out like 'his legacy will "
+        "live on' / 'time will tell'. Viewer ko ek line yaad reh jaani chahiye.\n"
         "- hook_english = 3-6 word punchy on-screen title (the hook, big text).\n"
         "- cta_english = a SPECIFIC opinion question that begs a comment (NOT generic "
         "'follow for more'). E.g. 'Messi ya Ronaldo? Comment karo', 'Isko 1-10 rate karo', "
@@ -722,6 +734,15 @@ def generate_script(topic: str = None, mode: str = None,
                 if w:
                     print(f"[script] wiki-facts grounding ON ({w.count(chr(10)) + 1} entries)")
                     ctx = (ctx + "\n\n" + w).strip() if ctx else w
+            if mode == "stats":                 # LIVE table/scorers = ground truth
+                try:
+                    from stats import current_stats
+                    _t, gt = current_stats()
+                    if gt:
+                        print(f"[script] LIVE stats grounding ON ({gt.count(chr(10))} rows)")
+                        ctx = gt
+                except Exception as e:
+                    print(f"[script] stats-grounding skip: {e}")
             context = ctx
         system, user = _build_messages(topic, mode, num_segments, context or "")
         data = _json_via_provider(system, user, "segments", "[core]", tries=10)
