@@ -4,15 +4,17 @@ name: Daily Football Shorts
 # Manual bhi chala sakte ho (Actions tab -> Run workflow) with count/privacy.
 on:
   schedule:
-    # IST = UTC+5:30. Har ghante 1 short. NOTE: GitHub cron BEST-EFFORT hai (10-45 min
-    # late ho sakta, :00 top-of-hour sabse congested) — isliye :10 past rakha (kam delay).
-    # Times approx: ~10:40, 11:40, 12:40, 13:40, 14:40 IST.
-    - cron: "10 5 * * *"
-    - cron: "10 6 * * *"
-    - cron: "10 7 * * *"
-    - cron: "10 8 * * *"
-    - cron: "10 9 * * *"
-    - cron: "10 10 * * *"    # 6th = 15:40 IST (6 x 1600 = 9600 units, quota 10k ke andar)
+    # IST = UTC+5:30. Har ghante 1 short (6/din = 6 x 1600 = 9600 units, quota 10k ke andar).
+    # SHAAM ke peak pe upload (India ka prime viewing 7-11 PM IST) — Shorts upload ke turant
+    # baad push hoti hain, toh peak pe daalna = zyada initial velocity = zyada reach.
+    # NOTE: GitHub cron BEST-EFFORT (10-45 min late; :00 top-of-hour congested) -> :10 past.
+    # Build ~10 min lagta hai, toh upload approx: ~6:00, 7:00, 8:00, 9:00, 10:00, 11:00 PM IST.
+    - cron: "10 12 * * *"    # ~6 PM IST
+    - cron: "10 13 * * *"    # ~7 PM IST
+    - cron: "10 14 * * *"    # ~8 PM IST  (peak)
+    - cron: "10 15 * * *"    # ~9 PM IST  (peak)
+    - cron: "10 16 * * *"    # ~10 PM IST (peak)
+    - cron: "10 17 * * *"    # ~11 PM IST
   workflow_dispatch:
     inputs:
       count:
