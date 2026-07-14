@@ -442,14 +442,38 @@ def fetch_media(segments: list[dict], user_images: list[str] = None,
             except Exception as e:
                 print(f"[media]   stat-bg fail ({e})")
 
-        # 4) Pexels REAL VIDEO clip — user: JYADATAR clips dikhao. PREFER_VIDEO_CLIPS ON
-        #    ho to HAR segment (real bhi) ke liye clip try karo; image sirf fallback.
+        # 4) NAMED player/team (itype 'real') -> ASLI photo PEHLE. Generic stock clip
+        #    named player nahi dikhata (random log dikhte => fake lagta). User: REAL
+        #    dikhao. Toh Ronaldo/Messi ke liye unki asli photo (Wikidata/Commons, legal)
+        #    priority; photo na mile TABHI clip/AI (niche). Photo Ken-Burns se animate hoti.
+        credit = None
+        img = None
+        if itype == "real" and getattr(config, "USE_REAL_PHOTO_LAYER", False):
+            try:
+                from realphoto import real_photo
+                sent = seg.get("subtitle_english") if getattr(
+                    config, "REAL_PHOTO_CLIP", True) else None
+                img, credit, fname = real_photo(
+                    query, sentence=sent, exclude=used_real,
+                    date=getattr(config, "NEWS_DATE", "") or None)
+                if img is not None:
+                    used_real.add(str(fname))              # is video me dobara na aaye
+                    if history:
+                        history.mark("real_photos", fname)  # future videos me na aaye
+                    img = _grade(_cover_crop(img, config.WIDTH, config.HEIGHT))
+                    out.append({"type": "image", "path": _save(img, i),
+                                "credit": credit})
+                    print(f"[media]   REAL photo of '{query}' (actual player) credit={credit}")
+                    continue
+            except Exception as e:
+                print(f"[media]   real-photo fail ({e}) -> clip/AI fallback")
+            img = None
+
+        # 5) VIDEO CLIP — atmospheric/generic segments (ya real jiska photo NA mila).
         _prefer_vid = getattr(config, "PREFER_VIDEO_CLIPS", False)
         if config.VIDEO_SOURCE == "pexels" and (_prefer_vid or itype != "real"):
-            # 'real' (specific player naam) ka Pexels pe clip nahi milega -> football
-            # B-roll query. 'ai'/generic ke liye segment query (ya b-roll).
             if itype == "real":
-                q = _BROLL[i % len(_BROLL)]
+                q = _BROLL[i % len(_BROLL)]               # named player -> football b-roll
             else:
                 q = query if query and query.lower() not in (
                     "football stadium", "football stadium action") \
@@ -472,26 +496,9 @@ def fetch_media(segments: list[dict], user_images: list[str] = None,
             else:
                 print(f"[media]   no clip -> image fallback")
 
-        # 5) Image route (sab RANDOM seed/result -> repeat nahi)
+        # 6) Image route (sab RANDOM seed/result -> repeat nahi)
         img = None
-
-        # 5a) REAL PHOTO LAYER — named player/team -> asli photo (Wikidata P18 + CLIP)
         credit = None
-        if itype == "real" and getattr(config, "USE_REAL_PHOTO_LAYER", False):
-            try:
-                from realphoto import real_photo
-                sent = seg.get("subtitle_english") if getattr(
-                    config, "REAL_PHOTO_CLIP", True) else None
-                img, credit, fname = real_photo(
-                    query, sentence=sent, exclude=used_real,
-                    date=getattr(config, "NEWS_DATE", "") or None)
-                if img is not None:
-                    used_real.add(str(fname))          # is video me dobara na aaye
-                    if history:
-                        history.mark("real_photos", fname)   # future videos me na aaye
-                    print(f"[media]   REAL photo (Wikidata/CLIP) credit={credit}")
-            except Exception as e:
-                print(f"[media]   real-photo-layer fail ({e})")
 
         if img is not None:
             pass
