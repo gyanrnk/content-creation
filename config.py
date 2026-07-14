@@ -169,8 +169,8 @@ BGM_VOLUME  = 0.12
 # ── BRANDING (har video par) ───────────────────────────────────────────────────
 
 SHOW_WATERMARK = True
-BRAND_NAME     = "Footy Hindi"      # corner watermark text
-BRAND_HANDLE   = "@footyhindi"      # handle (subscribe identity)
+BRAND_NAME     = "Footy Gyaan"      # corner watermark text (asli channel naam)
+BRAND_HANDLE   = "@FootyGyaan"      # handle (subscribe identity)
 LOGO_PATH      = "assets/logo.png"  # optional — file ho to top par overlay hoga
 
 # ── THUMBNAIL (YouTube 16:9) ───────────────────────────────────────────────────

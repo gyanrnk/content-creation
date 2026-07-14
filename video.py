@@ -550,15 +550,32 @@ def build_short(segments: list[dict], media: list, audio_paths: list[str],
         print(f"[video]   segment {i+1}/{len(segments)} ({dur:.1f}s) "
               f"[{media[i]['type']}]")
 
-    # CTA end card
-    cta_text = script_data.get("cta_english", "Follow for more!")
-    cta_png = _make_banner_png(cta_text, "cta", top=False)
-    cta_bg = _bg_clip(media[-1], 1.8, len(segments))
+    # CTA end card — ab BOLA bhi jaata hai: comment question + SUBSCRIBE nudge.
+    # (Pehle sirf silent text tha = subs ka bada leak: 10k views par sirf 19 subs.)
+    cta_text = script_data.get("cta_english", "Aapko kya lagta hai?")
+    brand = getattr(config, "BRAND_NAME", "Footy Gyaan")
+    cta_dur, cta_audio = 1.8, None
+    try:
+        import voice as _voice
+        spoken = (f"{cta_text}. Aur roz aise football shorts ke liye "
+                  f"{brand} ko subscribe karo!")
+        cta_mp3 = os.path.join(os.path.dirname(audio_paths[0]), "cta_voice.mp3")
+        if _voice._edge(spoken, cta_mp3):
+            cta_audio = AudioFileClip(_trim_silence_file(cta_mp3))
+            cta_dur = cta_audio.duration + 0.5          # thodi saans
+    except Exception as e:
+        print(f"[video] cta voice skip ({e}) — silent card")
+    banner_text = f"{cta_text}  —  SUBSCRIBE {getattr(config, 'BRAND_HANDLE', '')}"
+    cta_png = _make_banner_png(banner_text, "cta", top=False)
+    cta_bg = _bg_clip(media[-1], cta_dur, len(segments))
     cta_clip = CompositeVideoClip(
-        [cta_bg, ImageClip(cta_png).set_duration(1.8).set_position(("center", "center"))],
-        size=(W, H)).set_duration(1.8).crossfadein(config.CROSSFADE)
+        [cta_bg, ImageClip(cta_png).set_duration(cta_dur).set_position(("center", "center"))],
+        size=(W, H)).set_duration(cta_dur).crossfadein(config.CROSSFADE)
+    if cta_audio is not None:
+        cta_clip = cta_clip.set_audio(cta_audio)
+    print(f"[video]   CTA card ({cta_dur:.1f}s) — spoken subscribe nudge")
     seg_clips.append(cta_clip)
-    seg_durs.append(1.8)
+    seg_durs.append(cta_dur)
 
     # ── Attribution (real photos — CC-BY). Card OFF; credits.txt hamesha likhega ──
     credits = list(dict.fromkeys(m.get("credit") for m in media if m.get("credit")))
