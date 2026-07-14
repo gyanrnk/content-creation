@@ -25,11 +25,11 @@ MODE = "facts"
 # CUSTOM SCRIPT — agar yahan apna pura script likhoge to system sirf USE BOLEGA,
 # kuch add/predict nahi karega (TOPIC/MODE ignore ho jaayenge). Khaali "" = auto-generate.
 # Naya short auto banana ho to ise wapas "" kar dena.
-CUSTOM_SCRIPT = """मेसी और रोनाल्डो, फुटबॉल के दो सबसे बड़े सितारे। लियोनेल मेसी ने अर्जेंटीना को वर्ल्ड कप जिताया। क्रिस्टियानो रोनाल्डो ने पुर्तगाल के लिए रिकॉर्ड गोल किए। नेमार जैसे स्टार भी उनके सामने फीके पड़ जाते हैं। दोनों ने मिलकर फुटबॉल की दुनिया बदल दी। तुम्हारा GOAT कौन है? कमेंट में बताओ।"""
+CUSTOM_SCRIPT = ""   # khali = auto/LLM script use hoga (yahan text ho to wahi override kar deta tha)
 
 # Kitne segments. 5 = ~35-40s video = Shorts sweet-spot (completion+loop zyada) + fast render.
 # (6+ lambा video ban raha tha = 57s + slow render.)
-NUM_SEGMENTS = 4          # 4 x ~12 words ≈ 32-36s (short = zyada completion = algorithm push)
+NUM_SEGMENTS = 5          # 5 x ~12 words ≈ 35-40s (arc/drama ke liye room; 4 = content patla)
 
 # ── VIDEO FORMAT (9:16 vertical — Shorts / Reels / FB) ─────────────────────────
 
