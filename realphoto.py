@@ -120,6 +120,31 @@ def _commons_search(query: str, n: int = 6):
         return []
 
 
+def _openverse_photos(query: str, n: int = 6):
+    """Openverse (CC image aggregator: Flickr + Commons + museums, NO API key) se
+    COMMERCIAL-safe + modification-allowed photos. Flickr ke press/fan shots aksar
+    Wikimedia se ZYADA RECENT hote hain. Returns list of (url, year, credit)."""
+    try:
+        r = _get("https://api.openverse.org/v1/images/",
+                 params={"q": query, "page_size": n,
+                         "license_type": "commercial,modification",
+                         "mature": "false"})
+        out = []
+        for it in r.json().get("results", []):
+            u = it.get("url")
+            if not u:
+                continue
+            creator = (it.get("creator") or "").strip()
+            lic = (it.get("license") or "").upper()
+            ver = (it.get("license_version") or "").strip()
+            tag = f"CC {lic} {ver}".strip()
+            credit = f"{creator} ({tag})" if creator and lic else (tag or None)
+            out.append((u, None, credit))
+        return out
+    except Exception:
+        return []
+
+
 def _download(url: str):
     try:
         r = _get(url)
@@ -213,10 +238,11 @@ def real_photo(query: str, sentence: str = None, n: int = 10, exclude=None,
 
     cands = []   # dicts {url, fn, year}
 
-    def _add(u, year=None):
+    def _add(u, year=None, credit=None):
         if not u:
             return
-        cands.append({"url": u, "fn": _filename_from_url(u), "year": year})
+        cands.append({"url": u, "fn": _filename_from_url(u),
+                      "year": year, "credit": credit})
 
     _add(_wikidata_p18(query))
     _add(_wiki_lead(query.replace(" ", "_")))
@@ -226,6 +252,10 @@ def real_photo(query: str, sentence: str = None, n: int = 10, exclude=None,
         _add(u, yr)
     for u, yr in _commons_search(q, n):
         _add(u, yr)
+    # Openverse (Flickr etc.) — zyada candidates + aksar RECENT match photos, key-free.
+    # Sirf naam (extra words se result 0 ho jaate); unique naam = football hi milta.
+    for u, yr, cr in _openverse_photos(query, n):
+        _add(u, yr, cr)
 
     # dedupe
     seen, uniq = set(), []
@@ -255,11 +285,11 @@ def real_photo(query: str, sentence: str = None, n: int = 10, exclude=None,
         fresh.sort(key=lambda c: abs((c["year"] or target_year + 60) - target_year))
     ordered = fresh + stale
 
-    pairs = []   # (url, fn, image)
+    pairs = []   # (url, fn, image, credit)
     for c in ordered:
         img = _download(c["url"])
         if img:
-            pairs.append((c["url"], c["fn"], img))
+            pairs.append((c["url"], c["fn"], img, c.get("credit")))
         if len(pairs) >= n:
             break
     if not pairs:
@@ -269,12 +299,12 @@ def real_photo(query: str, sentence: str = None, n: int = 10, exclude=None,
     # date ho to closest-era candidates ko priority (top 4 me se CLIP pick)
     pool = fresh_pairs[:4] if target_year else fresh_pairs
     if sentence and len(pool) > 1:
-        idx = _clip_best_idx(sentence, [im for _, _, im in pool])
+        idx = _clip_best_idx(sentence, [im for _, _, im, _ in pool])
     else:
         idx = 0
-    url, fn, img = pool[idx]
+    url, fn, img, cr = pool[idx]
     print(f"[realphoto] {query!r} date={target_year}: {len(pairs)} cands")
-    return img, _credit_for(url), (fn or url)
+    return img, (cr or _credit_for(url)), (fn or url)
 
 
 if __name__ == "__main__":
