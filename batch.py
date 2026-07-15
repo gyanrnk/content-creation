@@ -68,7 +68,7 @@ def build_one(topic: str, mode: str, out_dir: str) -> dict:
     save_post_text(data, os.path.join(out_dir, "post.txt"))
 
     audio_paths = generate_segment_voices(segments)
-    media = fetch_media(segments)
+    media = fetch_media(segments, mode=mode)
     build_short(segments, media, audio_paths, data)
     if config.MAKE_THUMBNAIL:
         make_thumbnail(data, media, os.path.join(out_dir, "thumbnail.jpg"))

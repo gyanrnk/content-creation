@@ -352,7 +352,7 @@ def _get_clip(query: str, idx: int, exclude=None):
 
 # ── Public API ───────────────────────────────────────────────────────────────────
 def fetch_media(segments: list[dict], user_images: list[str] = None,
-                user_videos: list[str] = None) -> list[dict]:
+                user_videos: list[str] = None, mode: str = "") -> list[dict]:
     """
     Har segment ke liye media descriptor: {"type": "image"|"video", "path": ".."}
 
@@ -377,6 +377,11 @@ def fetch_media(segments: list[dict], user_images: list[str] = None,
 
     main_subject = _main_subject(segments)   # stat cards ke background ke liye
     _news_date = getattr(config, "NEWS_DATE", "") or None
+    # Player-video (quiz NAHI) me atmospheric 'ai' segments par bhi MAIN player ki asli
+    # photo dikhao (generic clip nahi). Quiz me reveal tak mystery rakhni hai -> skip.
+    _player_mode = bool(main_subject) and mode.lower() != "quiz"
+    if _player_mode:
+        print(f"[media] player-mode: '{main_subject}' ki asli photo har segment pe")
 
     for i, seg in enumerate(segments):
         query = (seg.get("image_query") or "").strip() or config.TOPIC
@@ -448,13 +453,17 @@ def fetch_media(segments: list[dict], user_images: list[str] = None,
         #    priority; photo na mile TABHI clip/AI (niche). Photo Ken-Burns se animate hoti.
         credit = None
         img = None
-        if itype == "real" and getattr(config, "USE_REAL_PHOTO_LAYER", False):
+        # 'real' segment = us line ka named player. Player-mode me 'ai'/atmospheric segment
+        # par bhi MAIN player ki asli photo (query abstract hota, isliye main_subject use).
+        real_name = query if itype == "real" else (
+            main_subject if _player_mode else None)
+        if real_name and getattr(config, "USE_REAL_PHOTO_LAYER", False):
             try:
                 from realphoto import real_photo
                 sent = seg.get("subtitle_english") if getattr(
                     config, "REAL_PHOTO_CLIP", True) else None
                 img, credit, fname = real_photo(
-                    query, sentence=sent, exclude=used_real,
+                    real_name, sentence=sent, exclude=used_real,
                     date=getattr(config, "NEWS_DATE", "") or None)
                 if img is not None:
                     used_real.add(str(fname))              # is video me dobara na aaye
@@ -463,7 +472,7 @@ def fetch_media(segments: list[dict], user_images: list[str] = None,
                     img = _grade(_cover_crop(img, config.WIDTH, config.HEIGHT))
                     out.append({"type": "image", "path": _save(img, i),
                                 "credit": credit})
-                    print(f"[media]   REAL photo of '{query}' (actual player) credit={credit}")
+                    print(f"[media]   REAL photo of '{real_name}' (actual player) credit={credit}")
                     continue
             except Exception as e:
                 print(f"[media]   real-photo fail ({e}) -> clip/AI fallback")
