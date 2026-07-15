@@ -9,12 +9,12 @@ on:
     # baad push hoti hain, toh peak pe daalna = zyada initial velocity = zyada reach.
     # NOTE: GitHub cron BEST-EFFORT (10-45 min late; :00 top-of-hour congested) -> :10 past.
     # Build ~10 min lagta hai, toh upload approx: ~6:00, 7:00, 8:00, 9:00, 10:00, 11:00 PM IST.
-    - cron: "10 12 * * *"    # ~6 PM IST
-    - cron: "10 13 * * *"    # ~7 PM IST
-    - cron: "10 14 * * *"    # ~8 PM IST  (peak)
-    - cron: "10 15 * * *"    # ~9 PM IST  (peak)
-    - cron: "10 16 * * *"    # ~10 PM IST (peak)
-    - cron: "10 17 * * *"    # ~11 PM IST
+    - cron: "5 6 * * *"      # ~11:35 AM IST
+    - cron: "5 8 * * *"      # ~1:35 PM IST
+    - cron: "5 10 * * *"     # ~3:35 PM IST
+    - cron: "5 12 * * *"     # ~5:35 PM IST
+    - cron: "5 14 * * *"     # ~7:35 PM IST (evening peak)
+    - cron: "5 16 * * *"     # ~9:35 PM IST (evening peak)
   workflow_dispatch:
     inputs:
       count:
