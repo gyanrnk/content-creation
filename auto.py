@@ -83,6 +83,23 @@ def _send_mail(subject: str, body: str, attach: str = None):
         print(f"[auto] email skip: {e}")
 
 
+def _publish_at_iso(offset: int = 0):
+    """Scheduled publish ("offline push") ke liye ISO-UTC timestamp + IST display.
+    Video PRIVATE upload hoti hai, YouTube use PEAK time pe khud PUBLIC karta —
+    build kabhi bhi ho (cron flaky), publish exact peak pe. India Shorts peak:
+    7-10 PM IST (+ midday). Slot nikal gaya (build already peak/late) -> (None, None) = turant public."""
+    IST = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
+    now = datetime.datetime.now(IST)
+    slots = [(19, 0), (20, 0), (21, 0), (22, 0), (12, 30), (13, 30)]   # evening-heavy
+    h, m = slots[(now.hour + offset) % len(slots)]
+    target = now.replace(hour=h, minute=m, second=0, microsecond=0)
+    if target <= now + datetime.timedelta(minutes=6):
+        return None, None
+    iso = target.astimezone(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    disp = target.strftime("%I:%M %p IST").lstrip("0")
+    return iso, disp
+
+
 def _apply_settings():
     """Agar output/auto/settings.json hai (app ne likha), config me apply karo."""
     p = os.path.join(AUTO_DIR, "settings.json")
@@ -159,22 +176,31 @@ def autopilot(n: int = 3, query: str = None) -> dict:
             results.append({"topic": topic, "mode": mode, "ok": True,
                             "dir": out_dir, "title": title, "video": vpath})
 
-            # --- ban-ne ke turant baad UPLOAD (agar token hai) ---
+            # --- ban-ne ke baad UPLOAD — PEAK time pe scheduled publish ("offline push") ---
             yt_url = ""
+            pub_at, pub_disp = (_publish_at_iso(i - 1) if do_upload else (None, None))
             if do_upload:
                 try:
                     import upload_youtube
-                    yt_url = upload_youtube.upload_from_output(privacy, outdir=out_dir)
+                    yt_url = upload_youtube.upload_from_output(
+                        privacy, outdir=out_dir, publish_at=pub_at)
                     results[-1]["url"] = yt_url
-                    print(f"[auto] ⬆️ uploaded ({privacy}): {yt_url}")
+                    print(f"[auto] ⬆️ uploaded "
+                          f"({'scheduled ' + pub_disp if pub_at else privacy}): {yt_url}")
                 except Exception as ue:
                     yt_url = f"__FAIL__{ue}"
                     print(f"[auto] ⚠️ upload failed: {ue}")
 
-            # --- phir EMAIL (upload ke baad, live link ke saath) ---
+            # --- phir EMAIL (upload ke baad, live/scheduled link ke saath) ---
             run_url = os.getenv("RUN_URL", "")
             tail = (f"\n(GitHub run: {run_url})" if run_url else "")
-            if yt_url.startswith("http"):                    # upload success
+            if yt_url.startswith("http") and pub_at:         # scheduled at peak
+                _send_mail(
+                    f"⏰ Short {i}/{n} SCHEDULED ({pub_disp}): {title[:45]}",
+                    f"[{mode}] {title}\nTopic: {topic}\n\n"
+                    f"⏰ YouTube khud PUBLIC karega peak time pe: {pub_disp}\n{yt_url}\n"
+                    "(abhi private hai, us time apne-aap live ho jaayega)\n" + tail)
+            elif yt_url.startswith("http"):                  # upload success (immediate)
                 _send_mail(
                     f"✅ Short {i}/{n} LIVE: {title[:55]}",
                     f"[{mode}] {title}\nTopic: {topic}\n\n"

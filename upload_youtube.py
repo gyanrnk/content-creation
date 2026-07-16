@@ -73,16 +73,25 @@ def get_service():
 
 
 def upload(video: str, title: str, description: str, tags=None,
-           privacy: str = "unlisted", thumbnail: str = None) -> str:
+           privacy: str = "unlisted", thumbnail: str = None,
+           publish_at: str = None) -> str:
     from googleapiclient.http import MediaFileUpload
     yt = get_service()
     title = (title or "Football Short")[:100]
     if "#shorts" not in (description or "").lower():
         description = (description or "") + "\n\n#Shorts"
+    # publish_at (ISO UTC) ho to: PRIVATE upload + scheduled publish -> YouTube khud us
+    # peak time pe PUBLIC kar dega ("offline push"). Warna turant given privacy pe.
+    status = {"selfDeclaredMadeForKids": False}
+    if publish_at:
+        status["privacyStatus"] = "private"
+        status["publishAt"] = publish_at
+    else:
+        status["privacyStatus"] = privacy
     body = {
         "snippet": {"title": title, "description": description[:4900],
                     "tags": (tags or [])[:15], "categoryId": "17"},   # 17 = Sports
-        "status": {"privacyStatus": privacy, "selfDeclaredMadeForKids": False},
+        "status": status,
     }
     media = MediaFileUpload(video, chunksize=-1, resumable=True, mimetype="video/*")
     req = yt.videos().insert(part="snippet,status", body=body, media_body=media)
@@ -97,11 +106,12 @@ def upload(video: str, title: str, description: str, tags=None,
         except Exception as e:
             print(f"[upload] thumbnail skip ({e})")
     url = f"https://youtu.be/{vid}"
-    print(f"✅ Uploaded ({privacy}): {url}")
+    print(f"✅ Uploaded ({'scheduled ' + publish_at if publish_at else privacy}): {url}")
     return url
 
 
-def upload_from_output(privacy: str = "unlisted", outdir: str = "output") -> str:
+def upload_from_output(privacy: str = "unlisted", outdir: str = "output",
+                       publish_at: str = None) -> str:
     """output/ me jo video+script+thumbnail bana, use upload karo."""
     with open(os.path.join(outdir, "script.json"), encoding="utf-8") as f:
         data = json.load(f)
@@ -114,7 +124,7 @@ def upload_from_output(privacy: str = "unlisted", outdir: str = "output") -> str
             desc += "\n\n" + f.read()
     tags = [t.strip("#") for t in data.get("hashtags", "").split() if t.startswith("#")]
     return upload(os.path.join(outdir, "short.mp4"), title, desc, tags, privacy,
-                  os.path.join(outdir, "thumbnail.jpg"))
+                  os.path.join(outdir, "thumbnail.jpg"), publish_at=publish_at)
 
 
 def upload_auto(privacy: str = "unlisted") -> list:
