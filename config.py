@@ -113,7 +113,7 @@ ELEVENLABS_VOICE_ID = "21m00Tcm4TlvDq8ikWAM"
 SCRIPT_PROVIDER = "groq"
 # GEMINI_API_KEY (.env / GitHub secret) ho to Gemini AUTO primary ban jaata hai
 # (behtar quality), Groq/Pollinations fallback rehte. Key na ho to sab pehle jaisa.
-GEMINI_MODEL = "gemini-2.0-flash"
+GEMINI_MODEL = "gemini-flash-latest"   # free-tier pe yahi chalta (2.0/2.5-flash 429/404)
 
 # ── IMAGES ─────────────────────────────────────────────────────────────────────
 

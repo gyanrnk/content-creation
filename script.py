@@ -536,16 +536,17 @@ def _call_gemini(system: str, user: str) -> str:
     key = os.getenv("GEMINI_API_KEY")
     if not key:
         raise RuntimeError("no GEMINI_API_KEY")
-    model = getattr(config, "GEMINI_MODEL", "gemini-2.0-flash")
+    model = getattr(config, "GEMINI_MODEL", "gemini-flash-latest")
     url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
-           f"{model}:generateContent?key={key}")
+           f"{model}:generateContent")
+    headers = {"Content-Type": "application/json", "X-goog-api-key": key,
+               "User-Agent": "Mozilla/5.0"}
     body = {"contents": [{"parts": [{"text": system + "\n\n" + user}]}],
-            "generationConfig": {"temperature": 0.9, "maxOutputTokens": 2048}}
+            "generationConfig": {"temperature": 0.9, "maxOutputTokens": 8192}}
     last = "no response"
     for attempt in range(3):
         try:
-            r = requests.post(url, json=body, timeout=45,
-                              headers={"User-Agent": "Mozilla/5.0"})
+            r = requests.post(url, json=body, timeout=45, headers=headers)
             if r.status_code == 200:
                 cands = r.json().get("candidates", [])
                 if cands:
