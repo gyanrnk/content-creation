@@ -209,13 +209,14 @@ def _make_brand_overlay() -> str | None:
 _MOTIONS = ["in", "left", "out", "right", "up", "in", "down"]
 
 
-def _ken_burns(img_path: str, duration: float, motion: str = "in"):
+def _ken_burns(img_path: str, duration: float, motion: str = "in", zoom: float = None):
     """
     FAST Ken Burns — image ko ek baar bada karke har frame me sirf numpy CROP
     (slicing) karta hai. Per-frame resize NAHI (moviepy ka bottleneck) -> 10x fast.
     Motion = moving pan window (in/out diagonal, left/right/up/down).
+    zoom = crop tightness (None = config default; bada = punch-in shot).
     """
-    z = config.KEN_BURNS_ZOOM
+    z = zoom or config.KEN_BURNS_ZOOM
     bw, bh = int(W * z), int(H * z)
     big = Image.open(img_path).convert("RGB").resize((bw, bh), Image.LANCZOS)
     arr = np.asarray(big)
@@ -265,6 +266,27 @@ def _bg_clip(media: dict, duration: float, idx: int):
             return ColorClip((W, H), color=(15, 30, 60)).set_duration(duration)
     motion = _MOTIONS[idx % len(_MOTIONS)]
     return _ken_burns(media["path"], duration, motion)
+
+
+def _two_shot_bg(media: dict, duration: float, idx: int):
+    """FASTER CUTS (research: har 2-4 sec ek cut = retention up). Image segment ko 2
+    shots me todo: pehla WIDE, doosra PUNCH-IN (tighter zoom) — beech me HARD CUT.
+    Ek hi photo se dynamic feel, koi naya asset nahi. Video clip pehle se motion me."""
+    if (media.get("type") == "video" or not getattr(config, "FAST_CUTS", True)
+            or duration < 3.0):
+        return _bg_clip(media, duration, idx)
+    try:
+        path = media["path"]
+        half = duration / 2.0
+        z = config.KEN_BURNS_ZOOM
+        shot1 = _ken_burns(path, half, _MOTIONS[idx % len(_MOTIONS)], zoom=z)
+        shot2 = _ken_burns(path, half, _MOTIONS[(idx + 3) % len(_MOTIONS)],
+                           zoom=z * 1.30)                     # punch-in cut
+        return concatenate_videoclips([shot1, shot2],
+                                      method="compose").set_duration(duration)
+    except Exception as e:
+        print(f"[video]   two-shot fail ({e}) -> single shot")
+        return _bg_clip(media, duration, idx)
 
 
 # ── Combined overlay: vignette + grain + watermark + logo (ek hi static layer) ───
@@ -519,7 +541,7 @@ def build_short(segments: list[dict], media: list, audio_paths: list[str],
         else:
             audio = voice
 
-        bg = _bg_clip(media[i], dur, i)
+        bg = _two_shot_bg(media[i], dur, i)
         layers = [bg]
 
         sub = seg.get("subtitle_english", "")

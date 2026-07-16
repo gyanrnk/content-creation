@@ -35,7 +35,10 @@ AUTO_DIR = os.path.join("output", "auto")
 
 # 5 DISTINCT varieties. n=5 (daily default) => har format ka EK-EK short (full variety).
 # n<5 => day-offset rotation se har din alag format. Sab generic auto topics pe kaam karte.
-_AUTO_MODES = ["facts", "stats", "story", "ranking", "quiz", "debate"]
+# QUIZ-HEAVY (research: quiz = #1 faceless format — guess-the-player me log answer
+# mann me dete + reveal tak rukte + tag karte). 6 me se 3 quiz, baaki engaging formats.
+# (Top channels: quiz+debate+stats core; facts/story weaker the -> daily se hataya.)
+_AUTO_MODES = ["quiz", "stats", "quiz", "debate", "quiz", "ranking"]
 
 
 def _prog(msg: str):
