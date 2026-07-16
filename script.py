@@ -73,8 +73,11 @@ MODE_GUIDE = {
     "ranking": (
         "TOP-5 style COUNTDOWN. Rank from #5 up to #1 (best/biggest LAST for suspense). "
         "Tease that #1 will shock them in the hook. Each ranked segment states the rank "
-        "number + who/what + a one-line reason. Every ranked segment: image_type 'real' "
-        "with that player/team's exact name in image_query."
+        "number + who + a SPECIFIC concrete reason (a real stat, trophy, record, or iconic "
+        "moment — e.g. 'scored 800+ career goals', 'bent that free-kick vs Greece'). "
+        "*** BANNED lazy/circular reasons: 'his skills are praised', 'is very good', 'is "
+        "talented', 'everyone loves him', 'is amazing' — these say NOTHING. Give a real "
+        "why. *** Every ranked segment: image_type 'real' with that player's exact name."
     ),
     "story": (
         "RAGS-TO-RICHES emotional player JOURNEY. ONE player. Arc: humble/struggling "
@@ -491,6 +494,10 @@ def _build_meta_messages(topic: str, mode: str, segments: list, context: str = "
         f"Video covers: {subs}\n"
         'JSON shape: {"youtube_title":"..","title_options":["..","..",".."],'
         '"description":"..","hashtags":".."}\n'
+        "*** TITLE MUST MATCH THE VIDEO TYPE — do NOT mislead. A Top-5 countdown is a "
+        "RANKING (title like 'Top 5 Free-Kick Kings 🎯'), NOT a 1-v-1 'X vs Y battle'. A "
+        "goal-scorer chart is a RACE. Never invent a head-to-head that the video is not "
+        "about. The title must describe what the viewer will ACTUALLY see. ***\n"
         "- title_options = 3 DIFFERENT scroll-stopping, CLICK-WORTHY titles (Hinglish). "
         "Use a CURIOSITY GAP or emotional/bold angle + a power word (Shocking, Emotional, "
         "Insane, Secret, Nobody, Finally, End). Angles: (1) a curiosity question, (2) a "
