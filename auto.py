@@ -191,6 +191,17 @@ def autopilot(n: int = 3, query: str = None) -> dict:
                     yt_url = f"__FAIL__{ue}"
                     print(f"[auto] ⚠️ upload failed: {ue}")
 
+            # --- DATA LOG: script + voice + render + youtube (fine-tune ke liye) ---
+            try:
+                import datalog
+                datalog.log_build(
+                    mode, topic, data, video_path=vpath,
+                    yt_url=(yt_url if yt_url.startswith("http") else None),
+                    publish_at=pub_at, privacy=privacy,
+                    provider=(data or {}).get("_provider"))
+            except Exception as le:
+                print(f"[auto] datalog skip ({le})")
+
             # --- phir EMAIL (upload ke baad, live/scheduled link ke saath) ---
             run_url = os.getenv("RUN_URL", "")
             tail = (f"\n(GitHub run: {run_url})" if run_url else "")

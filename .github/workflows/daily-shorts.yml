@@ -99,12 +99,13 @@ jobs:
           retention-days: 14
           if-no-files-found: warn
 
-      - name: Persist dedup history
+      - name: Persist dedup history + build data log
         run: |
           git config user.name "shorts-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add asset_history.json || true
-          git commit -m "chore: update asset dedup history [skip ci]" || echo "nothing to commit"
+          git pull --rebase || true
+          git add asset_history.json data/build_log.jsonl || true
+          git commit -m "chore: update dedup history + build log [skip ci]" || echo "nothing to commit"
           git push || echo "push skipped"
 
       # NOTE: email ab auto.py se HAR short ke baad turant jaata hai (per-video),

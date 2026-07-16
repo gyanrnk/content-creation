@@ -686,6 +686,7 @@ def _json_via_provider(system, user, required_key, label, tries):
             obj = _extract_json(_call_gemini(system, user), required_key)
             if obj:
                 print(f"[script] {label} OK (gemini).")
+                obj["_provider"] = "gemini"        # datalog ke liye track
                 return obj
             print(f"[script] {label} gemini empty -> groq")
         except Exception as e:
@@ -697,6 +698,7 @@ def _json_via_provider(system, user, required_key, label, tries):
             obj = _extract_json(_call_groq(system, user), required_key)
             if obj:
                 print(f"[script] {label} OK (groq).")
+                obj["_provider"] = "groq"
                 return obj
             print(f"[script] {label} groq empty -> pollinations fallback")
         except Exception as e:
