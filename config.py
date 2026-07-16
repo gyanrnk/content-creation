@@ -38,7 +38,7 @@ HEIGHT = 1920
 FPS    = 24      # cinematic standard; 30 se ~20% fast render
 
 # Ken Burns zoom factor per image (1.10 = halka, 1.30 = strong cinematic motion)
-KEN_BURNS_ZOOM = 1.30
+KEN_BURNS_ZOOM = 1.42   # zyada zoom-travel = zyada motion (static feel kam) — legal
 
 # Crossfade between segments (seconds)
 CROSSFADE = 0.25

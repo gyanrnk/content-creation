@@ -483,6 +483,12 @@ def _trim_silence_file(path: str) -> str:
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────────
+def _pop_in(clip, grow: float = 0.32):
+    """Chhota entrance animation: 0.62x -> 1.0x scale (pop) pehle `grow` seconds me.
+    Sirf ek chhote element pe (stat card/hook) -> render cost na ke barabar, feel dynamic."""
+    return clip.resize(lambda t: 0.62 + 0.38 * min(1.0, t / max(0.01, grow)))
+
+
 def build_short(segments: list[dict], media: list, audio_paths: list[str],
                 script_data: dict) -> str:
     # media: list of {"type","path"} (ya purane format me string image paths)
@@ -522,8 +528,8 @@ def build_short(segments: list[dict], media: list, audio_paths: list[str],
         if stat:
             # BIG stat card (number + label) + chhota static subtitle neeche
             print(f"[video]   stat card: {stat[0]} {stat[1]}")
-            layers.append(ImageClip(_make_stat_png(stat[0], stat[1], i))
-                          .set_duration(dur).set_position(("center", "center")))
+            stat_clip = ImageClip(_make_stat_png(stat[0], stat[1], i)).set_duration(dur)
+            layers.append(_pop_in(stat_clip).set_position(("center", "center")))
             layers.append(ImageClip(_make_subtitle_png(sub, i)).set_duration(dur)
                           .set_position(("center", "center")))
         elif config.ANIMATED_CAPTIONS:
