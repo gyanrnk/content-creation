@@ -529,6 +529,42 @@ def _call_openai(system: str, user: str) -> str:
     return resp.choices[0].message.content
 
 
+def _call_gemini(system: str, user: str) -> str:
+    """Google Gemini Flash — FREE tier (aistudio.google.com se key, NO card). Groq se
+    kaafi behtar/coherent scripts. GEMINI_API_KEY na ho to raise -> Groq pe gir jaata."""
+    import requests
+    key = os.getenv("GEMINI_API_KEY")
+    if not key:
+        raise RuntimeError("no GEMINI_API_KEY")
+    model = getattr(config, "GEMINI_MODEL", "gemini-2.0-flash")
+    url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
+           f"{model}:generateContent?key={key}")
+    body = {"contents": [{"parts": [{"text": system + "\n\n" + user}]}],
+            "generationConfig": {"temperature": 0.9, "maxOutputTokens": 2048}}
+    last = "no response"
+    for attempt in range(3):
+        try:
+            r = requests.post(url, json=body, timeout=45,
+                              headers={"User-Agent": "Mozilla/5.0"})
+            if r.status_code == 200:
+                cands = r.json().get("candidates", [])
+                if cands:
+                    parts = cands[0].get("content", {}).get("parts", [{}])
+                    txt = "".join(p.get("text", "") for p in parts)
+                    if txt:
+                        return txt
+                last = "empty"
+            else:
+                last = f"HTTP {r.status_code} {r.text[:120]}"
+                if r.status_code in (400, 401, 403):   # bad key/model: retry bekaar
+                    break
+        except Exception as e:
+            last = str(e)
+        import time
+        time.sleep(2 + attempt * 2)
+    raise RuntimeError(f"Gemini failed (last: {last})")
+
+
 def _call_groq(system: str, user: str) -> str:
     # Groq is OpenAI-compatible. RAW request use karte hain (OpenAI SDK NAHI) kyunki
     # SDK ka User-Agent ab Groq ke Cloudflare se 403 (error 1010) khaata hai. Browser
@@ -640,6 +676,17 @@ def _json_via_provider(system, user, required_key, label, tries):
     Groq key dead/missing ya fail ho to seamlessly Pollinations pe gir jaata hai —
     build kabhi nahi rukta. Valid Groq key = behtar quality apne aap.
     """
+    # Gemini Flash sabse pehle (best quality, free) — GEMINI_API_KEY ho tabhi.
+    if os.getenv("GEMINI_API_KEY"):
+        try:
+            obj = _extract_json(_call_gemini(system, user), required_key)
+            if obj:
+                print(f"[script] {label} OK (gemini).")
+                return obj
+            print(f"[script] {label} gemini empty -> groq")
+        except Exception as e:
+            print(f"[script] {label} gemini failed ({e}) -> groq")
+
     prov = getattr(config, "SCRIPT_PROVIDER", "pollinations")
     if prov == "groq":
         try:

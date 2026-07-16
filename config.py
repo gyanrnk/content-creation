@@ -111,6 +111,9 @@ ELEVENLABS_VOICE_ID = "21m00Tcm4TlvDq8ikWAM"
 # Pollinations pe gir jaata hai. To 'groq' safe default hai: valid key = behtar
 # quality, warna free Pollinations se kaam chalta rehta hai.
 SCRIPT_PROVIDER = "groq"
+# GEMINI_API_KEY (.env / GitHub secret) ho to Gemini AUTO primary ban jaata hai
+# (behtar quality), Groq/Pollinations fallback rehte. Key na ho to sab pehle jaisa.
+GEMINI_MODEL = "gemini-2.0-flash"
 
 # ── IMAGES ─────────────────────────────────────────────────────────────────────
 
