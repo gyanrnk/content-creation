@@ -494,19 +494,39 @@ def _build_meta_messages(topic: str, mode: str, segments: list, context: str = "
         quiz_rule = ("*** THIS IS A GUESS-THE-PLAYER QUIZ: the title/title_options and "
                      "description must NOT name or reveal the mystery player — keep them "
                      "teasers like 'Guess this player? 🤔' / 'Pehchaan kaun?'. ***\n")
+    # Abhi YouTube pe jo shorts CHAL RAHE hain unke titles — LLM ko dikhao taaki wo
+    # aaj ka HOOK-style pakde (naam kaafi nahi, angle/curiosity asli cheez hai).
+    hot = ""
+    try:
+        from trending import hot_titles
+        ht = hot_titles(6)
+        if ht:
+            hot = ("These football Shorts are pulling the MOST VIEWS right now — study "
+                   "the HOOK/ANGLE style (do NOT copy them, write about OUR topic):\n"
+                   + "\n".join(f"  - {t}" for t in ht) + "\n\n")
+    except Exception:
+        pass
     system = "You are a JSON generator. Output ONLY a JSON object, no explanation."
     user = (
-        ground + quiz_rule +
+        ground + quiz_rule + hot +
         f"Football short topic: {topic}.\n"
         f"Video covers: {subs}\n"
         'JSON shape: {"youtube_title":"..","title_options":["..","..",".."],'
         '"description":"..","hashtags":".."}\n'
         + ("" if mode == "quiz" else
-           "*** BIGGEST RULE — PUT THE FAMOUS NAME IN THE TITLE. The youtube_title MUST "
-           "contain the actual player/team name the video is about (Ronaldo/CR7, Messi, "
-           "Mbappe, Real Madrid, Brazil...) in the FIRST half of the title. A title "
-           "without a recognisable name gets far fewer clicks. If the video covers "
-           "several people, name the BIGGEST one. ***\n") +
+           "*** TITLE = the single biggest lever. Two rules, BOTH required:\n"
+           "  (1) NAME: put the famous player/team name (Ronaldo/CR7, Messi, Mbappe, "
+           "Real Madrid...) in the FIRST half of the title.\n"
+           "  (2) HOOK: the name ALONE is NOT enough — it needs a curiosity-gap or a "
+           "shock. Our REAL numbers prove it:\n"
+           "      'CR7 ka Secret Revealed'          -> 1,274 views (name + curiosity ✅)\n"
+           "      'Mbappe vs Neymar: Kaun Hai Better?' -> 8 views (name, but a flat "
+           "boring question ❌)\n"
+           "      'World Cup Kyun Nahi Jeet Paye Ye 5 Legends?' -> 103 (no name, but a "
+           "strong hook)\n"
+           "  So: NAME + a promise of something SECRET/SHOCKING/UNKNOWN. Never a bland "
+           "'X vs Y: kaun better?' or 'X ke baare me jaano'. Make the viewer NEED the "
+           "answer. ***\n") +
         "*** TITLE MUST MATCH THE VIDEO TYPE — do NOT mislead. A Top-5 countdown is a "
         "RANKING (title like 'Top 5 Free-Kick Kings 🎯'), NOT a 1-v-1 'X vs Y battle'. A "
         "goal-scorer chart is a RACE. Never invent a head-to-head that the video is not "

@@ -106,6 +106,17 @@ def hot_subjects(force: bool = False) -> list:
     return c.get("subjects", [])
 
 
+def hot_titles(n: int = 8) -> list:
+    """Abhi sabse zyada views wale football shorts ke TITLES (cache se, 0 quota).
+    Sirf naam nahi — asli HOOK/ANGLE inhi titles me hota hai; LLM ko dikha ke
+    hamara title bhi wahi energy pakde (copy nahi — angle samjhe)."""
+    c = _fresh_cache()
+    if c is None:
+        hot_subjects()               # cache refresh kar do
+        c = _fresh_cache()
+    return (c or {}).get("titles", [])[:n]
+
+
 if __name__ == "__main__":
     subs = hot_subjects(force=True)
     print("YouTube pe ABHI hot:", subs[:10] or "(YOUTUBE_API_KEY nahi / kuch nahi mila)")
