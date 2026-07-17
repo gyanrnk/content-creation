@@ -333,8 +333,15 @@ def _make_overlay():
 
 
 # ── Animated word-by-word captions ───────────────────────────────────────────────
-def _caption_clips(text: str, duration: float, idx: int):
-    """Word-by-word reveal captions (viral style). Returns list of timed ImageClips."""
+def _caption_clips(text: str, duration: float, idx: int, start_at: float = 0.0):
+    """Word-by-word reveal captions (viral style). Returns list of timed ImageClips.
+
+    ALIGNMENT: `duration` = sirf VOICE ki length (poore segment ki NAHI) aur `start_at`
+    = voice kab shuru hoti. Pehle words poore segment me (trailing pause + crossfade
+    sameत) faile hue the -> voice khatam, par words chalte rehte the = mismatch.
+    Ab har word ka time uski LENGTH ke hisaab se (lamba word = zyada der) — even
+    split se kaafi behtar speech-sync.
+    """
     words = text.upper().split()
     if not words:
         return []
@@ -372,7 +379,10 @@ def _caption_clips(text: str, duration: float, idx: int):
             gi += 1
 
     n = len(positions)
-    per = duration / n
+    # har word ka hissa uski length se (bolne me lamba word zyada time leta) — flat
+    # duration/n se behtar sync. Sab mila ke exactly `duration` banta hai.
+    weights = [max(2, len(w)) for w, _, _ in positions]
+    tw = sum(weights)
     out_dir = os.path.join(config.OUTPUT_DIR, "subs")
     os.makedirs(out_dir, exist_ok=True)
 
@@ -397,9 +407,12 @@ def _caption_clips(text: str, duration: float, idx: int):
                 d.text((x, y), w, font=font, fill=(255, 255, 255, 255))
         p = os.path.join(out_dir, f"cap_{idx:02d}_{k:02d}.png")
         img.save(p)
-        start = k * per
-        # NON-OVERLAPPING slices -> har time sirf 1 caption layer (fast render)
-        dur_k = per if k < n - 1 else (duration - start)
+        # voice ke saath aligned: start_at (voice shuru) + pichhle words ka weighted time
+        start = start_at + duration * (sum(weights[:k]) / tw)
+        # NON-OVERLAPPING slices -> har time sirf 1 caption layer (fast render).
+        # Aakhri word segment ke ant tak tikta (voice khatam hone ke baad bhi padha jaa sake).
+        dur_k = (duration * weights[k] / tw) if k < n - 1 else max(
+            0.1, (start_at + duration + 0.6) - start)
         clips.append(ImageClip(p).set_start(start).set_duration(dur_k)
                      .set_position(("center", "center")))
     return clips
@@ -556,7 +569,8 @@ def build_short(segments: list[dict], media: list, audio_paths: list[str],
                           .set_position(("center", "center")))
         elif config.ANIMATED_CAPTIONS:
             try:
-                layers += _caption_clips(sub, dur, i)
+                # VOICE window pe align (dur nahi — usme trailing pause+crossfade hai)
+                layers += _caption_clips(sub, voice.duration, i, start_at=lead)
             except Exception as e:
                 print(f"[video]   caption anim failed ({e}) -> static")
                 layers.append(ImageClip(_make_subtitle_png(sub, i)).set_duration(dur)
