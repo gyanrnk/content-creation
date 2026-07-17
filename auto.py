@@ -35,15 +35,15 @@ AUTO_DIR = os.path.join("output", "auto")
 
 # 5 DISTINCT varieties. n=5 (daily default) => har format ka EK-EK short (full variety).
 # n<5 => day-offset rotation se har din alag format. Sab generic auto topics pe kaam karte.
-# ASLI CHANNEL DATA (2026-07-16) se — format-wise views, n>=3 har format pe:
-#   story/facts (EK bade player ki kahani) : 1623, 1274, 1120, 1090, 822   <- JEET
-#   ranking (Top 5)                        : 777, 241, 103                 <- theek
-#   debate (X vs Y)                        : 45, 8, 8                      <- HAAR
-#   quiz (Pehchaan kaun)                   : 2, 2, 1, 0                    <- HAAR
-# Isliye: debate + quiz daily rotation se BAHAR. Story/facts heavy + thoda ranking/stats.
-# (NOTE: ye chhote channel ka data hai — quiz/debate bade channels pe chalte hain,
-#  jinhe feed se distribution milta. Data badle to yahi list badal dena.)
-_AUTO_MODES = ["story", "facts", "stats", "story", "ranking", "facts"]
+# MATURE data (48h+ purane videos) se — NAYE video ke views dekh ke faisla MAT karo,
+# wo 0-2 se 600-900 tak badhte hain (Norway quiz: 3 -> 612; France facts: 1 -> 959):
+#   facts/story (ek bade player/event ki kahani): 1623, 1300, 1120, 1090, 959, 822  <- JEET
+#   quiz (Pehchaan kaun)                        : 777, 612                          <- chalta hai!
+#   ranking (Top 5)                             : 241, 103                          <- theek
+#   debate (X vs Y)                             : 45, 8, 8                          <- sabse kamzor
+# Isliye: facts/story heavy + quiz wapas; debate abhi bahar (sabse kam). Variety bhi
+# rehti hai (inauthentic-policy safe). RULE: 48h se naye video pe format mat badlo.
+_AUTO_MODES = ["story", "facts", "quiz", "stats", "story", "ranking"]
 
 
 def _prog(msg: str):
@@ -95,11 +95,18 @@ def _publish_at_iso(offset: int = 0):
     7-10 PM IST (+ midday). Slot nikal gaya (build already peak/late) -> (None, None) = turant public."""
     IST = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
     now = datetime.datetime.now(IST)
-    slots = [(19, 0), (20, 0), (21, 0), (22, 0), (12, 30), (13, 30)]   # evening-heavy
-    h, m = slots[(now.hour + offset) % len(slots)]
-    target = now.replace(hour=h, minute=m, second=0, microsecond=0)
-    if target <= now + datetime.timedelta(minutes=6):
+    # BUG FIX: pehle "hour % len(slots)" se slot chunta tha -> kabhi PAST slot aa jaata
+    # (5 PM build ko 1:30 PM mil gaya) -> schedule cancel hoke turant public ho jaata.
+    # Ab: sirf FUTURE evening slots me se chuno, offset se un्ही me spread.
+    evening = [(19, 0), (20, 0), (21, 0), (22, 0)]        # India Shorts peak
+    future = []
+    for h, m in evening:
+        t = now.replace(hour=h, minute=m, second=0, microsecond=0)
+        if t > now + datetime.timedelta(minutes=6):
+            future.append(t)
+    if not future:                       # saare slot nikal gaye (late build) -> turant
         return None, None
+    target = future[offset % len(future)]
     iso = target.astimezone(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     disp = target.strftime("%I:%M %p IST").lstrip("0")
     return iso, disp
