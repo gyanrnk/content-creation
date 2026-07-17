@@ -93,7 +93,9 @@ EDGE_VOICE = "hi-IN-MadhurNeural"   # USER-LOCKED (native Hindi male). Naam Deva
 # natural bolti (क्रिस्टियानो रोनाल्डो) — isliye native voices ke liye name-Latin jugaad OFF
 # hai (dekho script.py translate loop). Remy (fr-FR) chhod diya — robotic/foreign lag raha tha.
 # Voice speed: "+0%" normal, "+8%" halka fast (natural), "+15%" fast
-EDGE_RATE = "+25%"   # tez pace = utne hi 35-40s me ZYADA content (user: "pace badha do")
+EDGE_RATE = "+50%"   # USER-LOCKED: samples me se "H" chuna ("same waisa hi awaz chahiye").
+                     # Tez pace = utne hi time me zyada content + chhoti video. Ye rate
+                     # user ne KAAN se chuna hai — bina puche mat badalna.
 # Voice pitch: "+0Hz" normal, "-3Hz" deeper/warmer male, "+5Hz" lighter
 EDGE_PITCH = "+0Hz"
 
