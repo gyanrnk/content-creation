@@ -165,10 +165,20 @@ def topic_for_mode(mode: str, i: int = 0, query: str = None, used: set = None):
     # trending players (news me aaye) — views ke liye sabse pehle inhe
     trend_players = [x for x in trend if x in PLAYERS]
 
+    # YouTube pe ABHI jin players ke shorts pe views aa rahe (trend-riding) — sabse
+    # strong signal, isliye news/mega-names se bhi pehle. Cache se aata (0 quota).
+    try:
+        from trending import hot_subjects
+        yt_hot = [p for p in hot_subjects() if p in PLAYERS]
+        if yt_hot:
+            print(f"[ideas] YouTube-trending: {yt_hot[:4]}")
+    except Exception:
+        yt_hot = []
+
     def _pick_star(extra_used=None):
-        """Views-first player pick: pehle trending, phir mega-names, phir baaki. Dedup."""
+        """Views-first pick: YouTube-hot -> news-trending -> mega-names -> baaki. Dedup."""
         u = used | (extra_used or set())
-        for tier in (trend_players, TOP_TIER, PLAYERS):
+        for tier in (yt_hot, trend_players, TOP_TIER, PLAYERS):
             fresh = [p for p in tier if p not in u]
             if fresh:
                 return random.choice(fresh)
