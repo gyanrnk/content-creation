@@ -16,10 +16,15 @@ purane news-based trending pe chalta rehta (kuch tootta nahi).
 """
 
 import os
-import re
 import json
 import time
 import datetime
+
+try:                       # .env se YOUTUBE_API_KEY khud load ho (standalone bhi chale)
+    from dotenv import load_dotenv
+    load_dotenv()
+except Exception:
+    pass
 
 CACHE = os.path.join("data", "trending_cache.json")
 TTL_HOURS = 12          # itni der purana cache chalega (quota bachane ko)
@@ -70,15 +75,22 @@ def hot_subjects(force: bool = False) -> list:
     order me. Cache se — din me 1-2 baar hi asli search (quota safe)."""
     c = None if force else _fresh_cache()
     if c is None:
-        titles = _search_titles()
+        # 3 alag queries = zyada coverage (ek query se sirf 25 results aate)
+        titles = []
+        for q in ("football", "football shorts", "messi ronaldo football"):
+            titles += _search_titles(q)
         if not titles:
             return []                      # key nahi / fail -> chup-chaap khali
         from ideas import PLAYERS, TEAMS
         blob = " || ".join(titles).lower()
-        # jo naam trending titles me sabse zyada baar aaye, wahi sabse hot
+        # jo naam trending titles me sabse zyada baar aaye, wahi sabse hot.
+        # LAST NAME se bhi match — log title me "Messi" likhte hain, "Lionel Messi" nahi.
         hits = []
-        for nm in sorted(PLAYERS + TEAMS, key=len, reverse=True):
+        for nm in PLAYERS + TEAMS:
+            last = nm.split()[-1].lower()
             cnt = blob.count(nm.lower())
+            if len(last) > 4:              # chhote/aam shabd (e.g. "Kane") skip
+                cnt += blob.count(last)
             if cnt:
                 hits.append((cnt, nm))
         hits.sort(reverse=True)
