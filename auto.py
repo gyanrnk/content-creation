@@ -35,10 +35,13 @@ AUTO_DIR = os.path.join("output", "auto")
 
 # 5 DISTINCT varieties. n=5 (daily default) => har format ka EK-EK short (full variety).
 # n<5 => day-offset rotation se har din alag format. Sab generic auto topics pe kaam karte.
-# QUIZ-HEAVY (research: quiz = #1 faceless format — guess-the-player me log answer
-# mann me dete + reveal tak rukte + tag karte). 6 me se 3 quiz, baaki engaging formats.
-# (Top channels: quiz+debate+stats core; facts/story weaker the -> daily se hataya.)
-_AUTO_MODES = ["quiz", "stats", "quiz", "debate", "quiz", "ranking"]
+# NAME-FORWARD (2026-07-16 ASLI DATA se): title me BADA NAAM = views.
+#   "CR7 ka Secret Revealed"        -> 1,274 views  (naam title me)
+#   "Guess The Player / Pehchaan Kaun" -> 0-2 views  (quiz naam CHHUPATA hai)
+# Quiz research me #1 tha, par wo BADE channels ke liye (unhe feed se distribution
+# milta). NAYE channel ko title/search se discovery chahiye -> naam zaroori.
+# Isliye quiz daily rotation se bahar; naam-wale formats (story/debate/stats/facts).
+_AUTO_MODES = ["story", "debate", "stats", "facts", "story", "ranking"]
 
 
 def _prog(msg: str):

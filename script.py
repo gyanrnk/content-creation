@@ -497,6 +497,12 @@ def _build_meta_messages(topic: str, mode: str, segments: list, context: str = "
         f"Video covers: {subs}\n"
         'JSON shape: {"youtube_title":"..","title_options":["..","..",".."],'
         '"description":"..","hashtags":".."}\n'
+        "*** BIGGEST RULE — PUT THE FAMOUS NAME IN THE TITLE (real data: a title with "
+        "'CR7' got 1,274 views; name-less titles like 'Guess The Player' got 0-2). The "
+        "youtube_title MUST contain the actual player/team name the video is about "
+        "(Ronaldo/CR7, Messi, Mbappe, Real Madrid, Brazil...) and it must be in the "
+        "FIRST half of the title. A title without a recognisable name = nobody clicks. "
+        "If the video covers several people, name the BIGGEST one. ***\n"
         "*** TITLE MUST MATCH THE VIDEO TYPE — do NOT mislead. A Top-5 countdown is a "
         "RANKING (title like 'Top 5 Free-Kick Kings 🎯'), NOT a 1-v-1 'X vs Y battle'. A "
         "goal-scorer chart is a RACE. Never invent a head-to-head that the video is not "
@@ -539,33 +545,42 @@ def _call_gemini(system: str, user: str) -> str:
     key = os.getenv("GEMINI_API_KEY")
     if not key:
         raise RuntimeError("no GEMINI_API_KEY")
-    model = getattr(config, "GEMINI_MODEL", "gemini-flash-latest")
-    url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
-           f"{model}:generateContent")
+    import time
+    # Free-tier quota "PerProjectPerMODEL" hai -> HAR model ka apna alag daily quota.
+    # Isliye model-CHAIN: ek ka quota khatam (429) -> turant agle model pe. ~5x free
+    # capacity, bina paise. Sab khatam ho to Groq fallback (upar wala chain).
+    models = (getattr(config, "GEMINI_MODELS", None)
+              or [getattr(config, "GEMINI_MODEL", "gemini-flash-latest")])
     headers = {"Content-Type": "application/json", "X-goog-api-key": key,
                "User-Agent": "Mozilla/5.0"}
     body = {"contents": [{"parts": [{"text": system + "\n\n" + user}]}],
             "generationConfig": {"temperature": 0.9, "maxOutputTokens": 8192}}
     last = "no response"
-    for attempt in range(3):
-        try:
-            r = requests.post(url, json=body, timeout=45, headers=headers)
-            if r.status_code == 200:
-                cands = r.json().get("candidates", [])
-                if cands:
-                    parts = cands[0].get("content", {}).get("parts", [{}])
-                    txt = "".join(p.get("text", "") for p in parts)
-                    if txt:
-                        return txt
-                last = "empty"
-            else:
-                last = f"HTTP {r.status_code} {r.text[:120]}"
-                if r.status_code in (400, 401, 403):   # bad key/model: retry bekaar
-                    break
-        except Exception as e:
-            last = str(e)
-        import time
-        time.sleep(2 + attempt * 2)
+    for model in models:
+        url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
+               f"{model}:generateContent")
+        for attempt in range(2):
+            try:
+                r = requests.post(url, json=body, timeout=45, headers=headers)
+                if r.status_code == 200:
+                    cands = r.json().get("candidates", [])
+                    if cands:
+                        parts = cands[0].get("content", {}).get("parts", [{}])
+                        txt = "".join(p.get("text", "") for p in parts)
+                        if txt:
+                            print(f"[script]   gemini model={model}")
+                            return txt
+                    last = f"{model} empty"
+                    break                       # khali -> agla model try karo
+                if r.status_code == 429:        # is model ka DIN ka quota khatam
+                    last = f"{model} quota-full"
+                    break                       # retry bekaar -> agla model
+                last = f"{model} HTTP {r.status_code} {r.text[:80]}"
+                if r.status_code in (400, 401, 403, 404):
+                    break                       # bad key/model -> agla model
+            except Exception as e:
+                last = f"{model}: {e}"
+            time.sleep(2)
     raise RuntimeError(f"Gemini failed (last: {last})")
 
 

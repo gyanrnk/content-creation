@@ -166,10 +166,18 @@ def _openverse(query: str):
 
 
 # Atmospheric segments ke liye real football B-roll queries (rotate by index)
+# Bada pool = kam repeat (user: "same free clip baar-baar aata hai"). 96+ clip-ids
+# already use ho chuke the aur pool sirf 8 query ka tha -> wahi clips ghoom rahe the.
 _BROLL = [
     "football stadium crowd", "soccer ball on grass", "football match action",
     "stadium floodlights night", "football fans celebration",
     "soccer player running", "football pitch aerial", "trophy celebration",
+    "soccer goal net close up", "football boots close up", "soccer dribbling skills",
+    "goalkeeper diving save", "corner kick stadium", "football tactics board",
+    "soccer training session", "packed stadium tifo", "referee whistle match",
+    "soccer ball slow motion", "night match stadium lights", "football crowd chanting",
+    "empty football stadium", "soccer penalty kick", "football team huddle",
+    "green grass pitch closeup", "stadium seats sunset", "soccer ball spinning",
 ]
 
 

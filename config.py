@@ -114,7 +114,16 @@ ELEVENLABS_VOICE_ID = "21m00Tcm4TlvDq8ikWAM"
 SCRIPT_PROVIDER = "groq"
 # GEMINI_API_KEY (.env / GitHub secret) ho to Gemini AUTO primary ban jaata hai
 # (behtar quality), Groq/Pollinations fallback rehte. Key na ho to sab pehle jaisa.
-GEMINI_MODEL = "gemini-flash-latest"   # free-tier pe yahi chalta (2.0/2.5-flash 429/404)
+GEMINI_MODEL = "gemini-flash-latest"
+# Free quota HAR MODEL ka alag hota hai (PerProjectPerModel) -> chain: ek ka din ka
+# quota khatam (429) to agla. ~5x free capacity. Sab khatam -> Groq fallback.
+GEMINI_MODELS = [
+    "gemini-flash-latest",        # best quality
+    "gemini-flash-lite-latest",
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-001",
+    "gemini-2.0-flash-lite",
+]
 
 # ── IMAGES ─────────────────────────────────────────────────────────────────────
 
