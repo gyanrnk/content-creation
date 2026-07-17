@@ -53,13 +53,17 @@ MODE_GUIDE = {
         "player or team name in image_query."
     ),
     "quiz": (
-        "GUESS-THE-PLAYER quiz. Pick ONE famous mystery player. Segments 1..(N-1) give "
+        "GUESS-THE-PLAYER quiz. Pick ONE famous mystery player. Segments 1..(N-2) give "
         "ESCALATING CLUES (nationality, then club, then a big record/stat) WITHOUT ever "
-        "naming them — build suspense and tell the viewer to guess. The FINAL segment "
-        "REVEALS the name dramatically. *** For every CLUE segment set image_type 'ai' "
-        "and image_query a mysterious hidden vibe (e.g. 'mysterious football player "
-        "silhouette in dark stadium') — do NOT reveal the player. ONLY the final reveal "
-        "segment gets image_type 'real' with the player's exact name in image_query. ***"
+        "naming them — build suspense and tell the viewer to guess. "
+        "*** SECOND-LAST segment = the GUESS-LOCK: give the final/biggest clue AND tell "
+        "them to lock their guess in the comments NOW, before the reveal (e.g. 'Naam pata "
+        "chal gaya? Abhi comment karo — phir reveal!'). This is where comments come from. *** "
+        "The FINAL segment REVEALS the name dramatically (this is why viewers stay to the "
+        "end — never skip the reveal). *** For every CLUE segment (incl. the guess-lock) "
+        "set image_type 'ai' and image_query a mysterious hidden vibe (e.g. 'mysterious "
+        "football player silhouette in dark stadium') — do NOT reveal the player. ONLY the "
+        "final reveal segment gets image_type 'real' with the player's exact name. ***"
     ),
     "debate": (
         "CAREER COMPARISON of TWO named players (e.g. Ronaldo vs Messi). Compare their "
@@ -497,12 +501,12 @@ def _build_meta_messages(topic: str, mode: str, segments: list, context: str = "
         f"Video covers: {subs}\n"
         'JSON shape: {"youtube_title":"..","title_options":["..","..",".."],'
         '"description":"..","hashtags":".."}\n'
-        "*** BIGGEST RULE — PUT THE FAMOUS NAME IN THE TITLE (real data: a title with "
-        "'CR7' got 1,274 views; name-less titles like 'Guess The Player' got 0-2). The "
-        "youtube_title MUST contain the actual player/team name the video is about "
-        "(Ronaldo/CR7, Messi, Mbappe, Real Madrid, Brazil...) and it must be in the "
-        "FIRST half of the title. A title without a recognisable name = nobody clicks. "
-        "If the video covers several people, name the BIGGEST one. ***\n"
+        + ("" if mode == "quiz" else
+           "*** BIGGEST RULE — PUT THE FAMOUS NAME IN THE TITLE. The youtube_title MUST "
+           "contain the actual player/team name the video is about (Ronaldo/CR7, Messi, "
+           "Mbappe, Real Madrid, Brazil...) in the FIRST half of the title. A title "
+           "without a recognisable name gets far fewer clicks. If the video covers "
+           "several people, name the BIGGEST one. ***\n") +
         "*** TITLE MUST MATCH THE VIDEO TYPE — do NOT mislead. A Top-5 countdown is a "
         "RANKING (title like 'Top 5 Free-Kick Kings 🎯'), NOT a 1-v-1 'X vs Y battle'. A "
         "goal-scorer chart is a RACE. Never invent a head-to-head that the video is not "
