@@ -52,6 +52,18 @@ MODE_GUIDE = {
         "yet. For player/team segments set image_type 'real' and put the real "
         "player or team name in image_query."
     ),
+    "pundit": (
+        "PUNDIT VERDICT — what experts/pundits/legends are SAYING about a player right "
+        "now (praise or criticism), built ONLY from the VERIFIED FACTS above. "
+        "*** ABSOLUTE RULE: NEVER invent a quote, opinion, or who said it. Use ONLY "
+        "statements that actually appear in the facts above. If the facts contain no "
+        "real quote, do NOT fake one — instead present what the player DID (stats, "
+        "results) and frame the debate around that ('log keh rahe hain...' style, "
+        "without naming a pundit who did not say it). Making up quotes from real people "
+        "is forbidden. *** Structure: seg1 hook with the boldest REAL take; middle "
+        "segments give the claim + the evidence for/against; last segment asks the "
+        "viewer to pick a side. Every segment: image_type 'real' with the player's name."
+    ),
     "quiz": (
         "GUESS-THE-PLAYER quiz. Pick ONE famous mystery player. Segments 1..(N-2) give "
         "ESCALATING CLUES (nationality, then club, then a big record/stat) WITHOUT ever "
@@ -839,7 +851,7 @@ def generate_script(topic: str = None, mode: str = None,
         if context is None:
             ctx = ""
             if getattr(config, "USE_NEWS_CONTEXT", False) \
-                    and mode in {"facts", "preview", "player"}:
+                    and mode in {"facts", "preview", "player", "pundit"}:
                 try:
                     from trends import current_context
                     ctx = current_context(topic) or ""

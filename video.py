@@ -549,10 +549,12 @@ def build_short(segments: list[dict], media: list, audio_paths: list[str],
         lead = 0.9 if seg.get("suspense_before") else 0.0   # reveal se pehle suspense
         breath = 0.35                                        # har segment ke baad saans
         dur = lead + voice.duration + config.CROSSFADE + breath
-        if lead:
-            audio = CompositeAudioClip([voice.set_start(lead)]).set_duration(dur)
-        else:
-            audio = voice
+        # Audio HAMESHA poori clip-length ka (asli silence padding ke saath).
+        # BUG jo fix hua: pehle non-lead case me audio = voice (clip se CHHOTA) tha.
+        # moviepy audio khatam hone ke baad bhi frames maangta hai -> aakhri chunk
+        # repeat/glitch kar deta = "sentence khatam hote hi stutter". CompositeAudioClip
+        # apni range ke bahar asli silence deta hai -> saaf ending.
+        audio = CompositeAudioClip([voice.set_start(lead)]).set_duration(dur)
 
         bg = _two_shot_bg(media[i], dur, i)
         layers = [bg]
@@ -614,7 +616,10 @@ def build_short(segments: list[dict], media: list, audio_paths: list[str],
         [cta_bg, ImageClip(cta_png).set_duration(cta_dur).set_position(("center", "center"))],
         size=(W, H)).set_duration(cta_dur).crossfadein(config.CROSSFADE)
     if cta_audio is not None:
-        cta_clip = cta_clip.set_audio(cta_audio)
+        # yahan bhi audio ko poori clip-length tak silence-pad karo (warna wahi
+        # end-of-clip repeat/stutter jo segments me tha)
+        cta_clip = cta_clip.set_audio(
+            CompositeAudioClip([cta_audio]).set_duration(cta_dur))
     print(f"[video]   CTA card ({cta_dur:.1f}s) — spoken subscribe nudge")
     seg_clips.append(cta_clip)
     seg_durs.append(cta_dur)
