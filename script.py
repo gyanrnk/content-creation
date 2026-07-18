@@ -501,8 +501,13 @@ def _build_meta_messages(topic: str, mode: str, segments: list, context: str = "
         from trending import hot_titles
         ht = hot_titles(6)
         if ht:
-            hot = ("These football Shorts are pulling the MOST VIEWS right now — study "
-                   "the HOOK/ANGLE style (do NOT copy them, write about OUR topic):\n"
+            hot = ("*** TRENDING TITLES — football Shorts pulling the MOST VIEWS right "
+                   "now. USE THESE AS YOUR TEMPLATE: pick the one that best fits our "
+                   "topic, KEEP its hook structure/wording/energy, and just SWAP IN our "
+                   "player/subject + our angle (write it in Hinglish). Do not invent a "
+                   "title from scratch when a proven one can be adapted. The only hard "
+                   "rule: the adapted title must still HONESTLY describe our video "
+                   "(never promise something the video does not show).\n"
                    + "\n".join(f"  - {t}" for t in ht) + "\n\n")
     except Exception:
         pass
