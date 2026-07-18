@@ -52,7 +52,7 @@ def main():
     try:
         import os
         from auto import _send_mail
-        url = os.getenv("REVIEW_APP_URL", "")
+        url = os.getenv("REVIEW_APP_URL", "") or getattr(config, "REVIEW_APP_URL", "")
         lines = "\n".join(
             f"{i}. [{c['mode']}] {c['data'].get('youtube_title','')}"
             for i, c in enumerate(out, 1))

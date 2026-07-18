@@ -198,3 +198,6 @@ THUMB_HEIGHT   = 720
 
 OUTPUT_DIR  = "output"
 FINAL_VIDEO = "output/short.mp4"
+
+# Script review UI (mobile) — make_scripts.py email me ye link bhejta hai
+REVIEW_APP_URL = "https://content-creation-uvx2gfn2ovncvozavhwjdc.streamlit.app"
