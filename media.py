@@ -34,9 +34,41 @@ _MAIN_NAMES = ["messi", "ronaldo", "neymar", "mbappe", "pele", "maradona", "modr
 
 
 def _main_subject(segments) -> str:
-    """Video ka dominant player/team (stat cards ke background ke liye)."""
+    """Video ka dominant PLAYER (ya na mile to team).
+
+    BUG jo fix hua: pehle ek chhoti hardcoded list (_MAIN_NAMES, jyadatar team naam)
+    thi — Leao/Kane/Baggio usme the hi nahi, to "Rafael Leao" wali video "Portugal"
+    pakad leti thi (Leao Portugal ka hai) aur har video me wahi TEAM GROUP PHOTO
+    aa jaati thi. Ab: poora ideas.PLAYERS pool + PLAYER ko TEAM se pehle priority.
+    """
     text = " ".join(((s.get("image_query") or "") + " " +
                      (s.get("subtitle_english") or "")).lower() for s in segments)
+    try:
+        from ideas import PLAYERS, TEAMS
+    except Exception:
+        PLAYERS, TEAMS = [], []
+
+    def _best(names):
+        cnt = collections.Counter()
+        for nm in names:
+            n = nm.lower()
+            c = text.count(n)
+            last = n.split()[-1]
+            if len(last) > 4 and last != n:      # "Leao" bhi ginon, "Rafael Leao" bhi
+                c += text.count(last)
+            if c:
+                cnt[nm] = c
+        return cnt.most_common(1)[0][0] if cnt else None
+
+    # 1) asli PLAYER dhoondo (yahi chehra chahiye)
+    p = _best(PLAYERS)
+    if p:
+        return p
+    # 2) warna team (group photo — sirf jab koi player named na ho)
+    t = _best(TEAMS)
+    if t:
+        return t
+    # 3) purani chhoti list = last resort
     cnt = collections.Counter()
     for nm in _MAIN_NAMES:
         c = text.count(nm)

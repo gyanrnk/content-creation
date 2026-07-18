@@ -37,6 +37,13 @@ PLAYERS = [
     # legends / evergreen
     "Lionel Messi", "Cristiano Ronaldo", "Neymar", "Pele", "Diego Maradona",
     "Ronaldinho", "Zinedine Zidane", "Luka Modric", "Sunil Chhetri",
+    # aur legends — ye pool me na hone se _main_subject unki jagah TEAM pakad leta tha
+    # (Baggio -> "Italy" -> team group photo). Naam pool me = unki asli photo aayegi.
+    "Roberto Baggio", "Paolo Maldini", "Johan Cruyff", "Franz Beckenbauer",
+    "Michel Platini", "Eusebio", "George Best", "Ferenc Puskas", "Garrincha",
+    "Romario", "Ronaldo Nazario", "Andrea Pirlo", "Xavi Hernandez",
+    "Andres Iniesta", "Iker Casillas", "Thierry Henry", "David Beckham",
+    "Steven Gerrard", "Frank Lampard", "Kaka", "Samuel Etoo", "Didier Drogba",
 ]
 # Mega-draw naam — data: bade naam = zyada views (Ronaldo 1120, chhote-naam debate 45).
 # Topic-picker inhe pehle prefer karta hai (trending ke baad), taaki har video ka
