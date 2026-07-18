@@ -145,7 +145,11 @@ def autopilot(n: int = 3, query: str = None) -> dict:
     from ideas import topic_for_mode
     try:
         import history
-        used = history.used("subjects")       # cross-run/cross-day subject dedup
+        # SIRF pichhle ~12 subjects (≈2 din) ka dedup. Pura history dekhne se
+        # Messi/Ronaldo/Yamal hamesha "used" rehte the -> TRENDING kabhi pick hi
+        # nahi hota tha (videos random players pe ban rahe the). Hot player ko
+        # 2 din baad naye angle se dobara banana theek hai.
+        used = history.used("subjects", last=12)
     except Exception:
         history, used = None, set()
     # Day + HOUR offset rotation: har GHANTE wala staggered cron run ALAG variety de

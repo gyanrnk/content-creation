@@ -30,9 +30,18 @@ def _save(d: dict):
         pass
 
 
-def used(kind: str) -> set:
-    """kind = 'real_photos' | 'pexels_ids'. Return set of used keys."""
-    return set(str(k) for k in _load().get(kind, []))
+def used(kind: str, last: int = None) -> set:
+    """kind = 'real_photos' | 'pexels_ids' | 'subjects'. Used keys ka set.
+
+    last = sirf AAKHRI N entries (list append-order me hai, to aakhri = sabse naye).
+    Trending subjects ke liye zaroori: pura history dekhein to Messi/Ronaldo hamesha
+    "used" rehte hain aur TRENDING kabhi pick hi nahi hota — hot player hafte baad
+    naye angle se dobara banana theek hai, bas turant repeat nahi.
+    """
+    lst = [str(k) for k in _load().get(kind, [])]
+    if last is not None:
+        lst = lst[-last:]
+    return set(lst)
 
 
 def mark(kind: str, key) -> None:
