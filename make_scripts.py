@@ -48,6 +48,23 @@ def main():
     queue_scripts.set_pending(out)
     print(f"\n{len(out)} candidate -> data/pending_scripts.json (review ke liye)")
 
+    # Email: "script ready — review karo" + UI ka link (mobile pe kholo)
+    try:
+        import os
+        from auto import _send_mail
+        url = os.getenv("REVIEW_APP_URL", "")
+        lines = "\n".join(
+            f"{i}. [{c['mode']}] {c['data'].get('youtube_title','')}"
+            for i, c in enumerate(out, 1))
+        _send_mail(
+            f"📝 {len(out)} naye script review ke liye taiyaar",
+            f"{len(out)} script ban gaye hain — review/approve karo:\n\n{lines}\n\n"
+            + (f"👉 Review karo (phone pe khol sakte ho):\n{url}\n\n" if url else
+               "(REVIEW_APP_URL set karo to yahan seedha link aayega)\n\n")
+            + "Approve karte hi cron un scripts se video banayega.")
+    except Exception as e:
+        print(f"[make_scripts] mail skip ({e})")
+
 
 if __name__ == "__main__":
     main()

@@ -12,7 +12,3 @@ python-dotenv==1.2.2
 google-api-python-client==2.192.0
 google-auth-oauthlib==1.4.0
 google-auth-httplib2>=0.2.0
-
-# ── Streamlit Cloud (review_app.py) ke liye — GitHub Actions ise NAHI padhta
-# (workflow requirements-build.txt use karta hai, lean rehta hai)
-streamlit>=1.30
