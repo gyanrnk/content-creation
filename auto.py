@@ -184,7 +184,21 @@ def autopilot(n: int = 3, query: str = None) -> dict:
         _prog(f"[{i}/{n}] 🎬 [{mode}] {topic}")
         print(f" -> {out_dir}")
         try:
-            data = batch.build_one(topic, mode, out_dir)
+            # APPROVED queue pehle: user ne jo script review kiya wahi use karo.
+            # Queue khali ho to hamesha ki tarah auto-generate (consistency na ruke).
+            approved = None
+            try:
+                import queue_scripts
+                approved = queue_scripts.pop()
+            except Exception as qe:
+                print(f"[auto] queue skip ({qe})")
+            if approved:
+                topic = approved.get("topic", topic)
+                mode = approved.get("mode", mode)
+                print(f"[auto] ✅ APPROVED script use ho raha (queue me "
+                      f"{queue_scripts.count()} aur bache)")
+            data = batch.build_one(topic, mode, out_dir,
+                                   data=(approved or {}).get("data"))
             if history:
                 history.mark("subjects", key)  # future runs isko repeat na karein
             title = (data or {}).get("youtube_title") or topic

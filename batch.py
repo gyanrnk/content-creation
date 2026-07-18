@@ -52,8 +52,12 @@ def _read_topics(path: str):
     return items
 
 
-def build_one(topic: str, mode: str, out_dir: str) -> dict:
-    """Ek video out_dir me banata hai. config paths temporarily set karta hai."""
+def build_one(topic: str, mode: str, out_dir: str, data: dict = None) -> dict:
+    """Ek video out_dir me banata hai. config paths temporarily set karta hai.
+
+    data = pehle se APPROVED script (queue se). Diya ho to naya generate NAHI hoga —
+    bilkul wahi script use hoga jo user ne review/approve kiya.
+    """
     # config paths is video ke liye point karo (functions call-time par padhte hain)
     config.OUTPUT_DIR = out_dir
     config.FINAL_VIDEO = os.path.join(out_dir, "short.mp4")
@@ -61,7 +65,8 @@ def build_one(topic: str, mode: str, out_dir: str) -> dict:
 
     # custom_script="" -> config.CUSTOM_SCRIPT (purana leftover) ignore karo,
     # hamesha TOPIC se generate karo (warna auto-pilot topic bekaar ho jaata hai)
-    data = generate_script(topic, mode, config.NUM_SEGMENTS, custom_script="")
+    if data is None:
+        data = generate_script(topic, mode, config.NUM_SEGMENTS, custom_script="")
     segments = data["segments"]
     with open(os.path.join(out_dir, "script.json"), "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)

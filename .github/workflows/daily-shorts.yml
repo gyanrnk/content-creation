@@ -106,7 +106,7 @@ jobs:
           git config user.name "shorts-bot"
           git config user.email "bot@users.noreply.github.com"
           git pull --rebase || true
-          git add asset_history.json data/build_log.jsonl || true
+          git add asset_history.json data/build_log.jsonl data/script_queue.json data/pending_scripts.json || true
           git commit -m "chore: update dedup history + build log [skip ci]" || echo "nothing to commit"
           git push || echo "push skipped"
 
