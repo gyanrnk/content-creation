@@ -133,23 +133,29 @@ st.divider()
 for idx, item in enumerate(pending):
     data = item.get("data", {}) or {}
     segs = data.get("segments", []) or []
+    # BUG FIX: widget keys INDEX se nahi, script ki apni STHIR id se. Index se banane
+    # par ek script approve karte hi baaki list khisak jaati thi aur Streamlit purane
+    # index ki value dikhata tha (header kuch, fields kuch aur).
+    uid = str(item.get("id") or abs(hash(
+        (item.get("topic", ""), data.get("youtube_title", ""),
+         (segs[0].get("voice_english", "") if segs else "")))))
     with st.expander(
             f"#{idx+1}  [{item.get('mode')}]  {data.get('youtube_title', item.get('topic'))[:60]}",
             expanded=(idx == 0)):
 
-        title = st.text_input("Title", data.get("youtube_title", ""), key=f"t{idx}")
+        title = st.text_input("Title", data.get("youtube_title", ""), key=f"t_{uid}")
 
         st.markdown("**Script lines** (edit kar sakte ho — yahi TTS bolega)")
         new_lines = []
         for j, s in enumerate(segs):
             line = st.text_area(f"Line {j+1}", s.get("voice_english", ""),
-                                key=f"l{idx}_{j}", height=80)
+                                key=f"l_{uid}_{j}", height=80)
             new_lines.append(line)
 
-        cta = st.text_input("CTA", data.get("cta_english", ""), key=f"c{idx}")
+        cta = st.text_input("CTA", data.get("cta_english", ""), key=f"c_{uid}")
 
         a, b = st.columns(2)
-        if a.button("✅ Approve", key=f"a{idx}", use_container_width=True):
+        if a.button("✅ Approve", key=f"a_{uid}", use_container_width=True):
             data["youtube_title"] = title
             data["cta_english"] = cta
             for j, line in enumerate(new_lines):
@@ -167,7 +173,7 @@ for idx, item in enumerate(pending):
             st.success("Approved! Cron isse video banayega.")
             st.rerun()
 
-        if b.button("🗑️ Reject", key=f"r{idx}", use_container_width=True):
+        if b.button("🗑️ Reject", key=f"r_{uid}", use_container_width=True):
             rest = [p for k, p in enumerate(pending) if k != idx]
             save(PENDING_PATH, rest, p_sha, "reject: drop script")
             st.warning("Hata diya.")

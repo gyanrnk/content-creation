@@ -38,7 +38,11 @@ def main():
         print(f"\n[{i+1}/{n}] {mode} :: {topic}")
         try:
             data = generate_script(topic, mode, config.NUM_SEGMENTS, custom_script="")
-            out.append({"mode": mode, "topic": topic, "key": key, "data": data})
+            # sthir id — review UI widget keys isse bandhe hote hain (index se nahi,
+            # warna ek approve karte hi baaki fields purani value dikhane lagte the)
+            import uuid
+            out.append({"id": uuid.uuid4().hex[:12], "mode": mode, "topic": topic,
+                        "key": key, "data": data})
             print(f"    TITLE: {data.get('youtube_title')}")
             for j, s in enumerate(data.get("segments", []), 1):
                 print(f"      {j}. {s.get('voice_english','')}")
