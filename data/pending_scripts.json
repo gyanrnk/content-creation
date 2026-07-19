@@ -1,1 +1,118 @@
-[]
+[
+ {
+  "mode": "facts",
+  "topic": "Ronaldo vs messi match",
+  "key": "Ronaldo vs messi match",
+  "data": {
+   "title_english": "The Ultimate World Cup Clash",
+   "hook_english": "The Ultimate World Cup Clash?",
+   "cta_english": "Messi or Ronaldo? Comment below!",
+   "segments": [
+    {
+     "voice_english": "Fans always debate the GOAT, because Lionel Messi versus Cristiano Ronaldo has never happened in a World Cup match.",
+     "image_query": "Lionel Messi and Cristiano Ronaldo",
+     "image_type": "real",
+     "subtitle_english": "Fans always debate the GOAT, because Lionel Messi versus Cristiano Ronaldo has never happened in a World Cup match.",
+     "voice_hindi": "प्रशंसक हमेशा GOAT पर बहस करते हैं, क्योंकि विश्व कप मैच में लियोनेल मेस्सी बनाम क्रिस्टियानो रोनाल्डो कभी नहीं हुआ है।"
+    },
+    {
+     "voice_english": "Cristiano Ronaldo spoke about the 2026 World Cup, when he claimed a potential Portugal versus Argentina clash would be top.",
+     "image_query": "Cristiano Ronaldo Portugal national football team",
+     "image_type": "real",
+     "subtitle_english": "Cristiano Ronaldo spoke about the 2026 World Cup, when he claimed a potential Portugal versus Argentina clash would be top.",
+     "voice_hindi": "क्रिस्टियानो रोनाल्डो ने 2026 विश्व कप के बारे में बात की, जब उन्होंने दावा किया कि पुर्तगाल बनाम अर्जेंटीना का संभावित मुकाबला शीर्ष पर होगा।"
+    },
+    {
+     "voice_english": "Fake rumors claimed Jude Bellingham insulted Messi during a match, but journalists proved this viral World Cup story was totally untrue.",
+     "image_query": "Jude Bellingham and Lionel Messi",
+     "image_type": "real",
+     "subtitle_english": "Fake rumors claimed Jude Bellingham insulted Messi during a match, but journalists proved this viral World Cup story was totally untrue.",
+     "voice_hindi": "फर्जी अफवाहों में दावा किया गया कि जूड बेलिंगहैम ने एक मैच के दौरान मेसी का अपमान किया, लेकिन पत्रकारों ने साबित कर दिया कि विश्व कप की यह वायरल कहानी पूरी तरह से झूठी थी।"
+    },
+    {
+     "voice_english": "Experts compared their World Cup knockout statistics, so fans could finally decide who performs best under extreme pressure.",
+     "image_query": "Lionel Messi and Cristiano Ronaldo",
+     "image_type": "real",
+     "subtitle_english": "Experts compared their World Cup knockout statistics, so fans could finally decide who performs best under extreme pressure.",
+     "voice_hindi": "विशेषज्ञों ने उनके विश्व कप नॉकआउट आंकड़ों की तुलना की, ताकि प्रशंसक अंततः यह तय कर सकें कि अत्यधिक दबाव में कौन सर्वश्रेष्ठ प्रदर्शन करता है।"
+    },
+    {
+     "voice_english": "Both legends will try to reach the finals, after they start their last tournament with the ultimate trophy on the line.",
+     "image_query": "FIFA World Cup trophy dramatic gold",
+     "image_type": "ai",
+     "subtitle_english": "Both legends will try to reach the finals, after they start their last tournament with the ultimate trophy on the line.",
+     "voice_hindi": "अंतिम ट्रॉफी के साथ अपना आखिरी टूर्नामेंट शुरू करने के बाद, दोनों दिग्गज फाइनल में पहुंचने की कोशिश करेंगे।"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "परम विश्व कप संघर्ष",
+   "youtube_title": "CR7 vs Messi World Cup Clash? Sach Saamne Aa Gaya! 🤯",
+   "title_options": [
+    "CR7 vs Messi World Cup Clash? Sach Saamne Aa Gaya! 🤯",
+    "Ronaldo Ne Messi Ke Liye Jo Kaha, Aap Shock Ho Jaoge! 🤫",
+    "Messi vs Ronaldo in World Cup 2026? Reality Revealed! 🏆"
+   ],
+   "description": "Kya Messi aur Ronaldo ka ultimate clash World Cup 2026 mein hoga? 🏆 CR7 ne is potential Argentina vs Portugal match par ek bada statement diya hai! Saath hi, Jude Bellingham aur Messi ke viral rumor ka sach bhi jaan lo. Kya aapko lagta hai ye dream match kabhi sach hoga? Comment mein batao! 👇",
+   "hashtags": "#Shorts #Football #Ronaldo #Messi #WorldCup2026 #CR7 #MessiVsRonaldo #trending"
+  },
+  "id": "a0f664248083"
+ },
+ {
+  "mode": "pundit",
+  "topic": "World cup 2026",
+  "key": "World cup 2026",
+  "data": {
+   "title_english": "The Most Expensive Final",
+   "hook_english": "Most Expensive Match Ever!",
+   "cta_english": "Spain or Argentina? Comment below!",
+   "segments": [
+    {
+     "voice_english": "Spain faces Argentina in the final, but fans are shocked that one ticket costs twenty-seven lakh rupees.",
+     "image_query": "Spain national football team",
+     "image_type": "real",
+     "subtitle_english": "Spain faces Argentina in the final, but fans are shocked that one ticket costs twenty-seven lakh rupees.",
+     "voice_hindi": "फाइनल में स्पेन का मुकाबला अर्जेंटीना से है, लेकिन प्रशंसक इस बात से हैरान हैं कि एक टिकट की कीमत सत्ताईस लाख रुपये है."
+    },
+    {
+     "voice_english": "This historic match became America's most expensive sporting event ever, so people are calling it a game for the rich.",
+     "image_query": "Argentina national football team",
+     "image_type": "real",
+     "subtitle_english": "This historic match became America's most expensive sporting event ever, so people are calling it a game for the rich.",
+     "voice_hindi": "यह ऐतिहासिक मैच अमेरिका का अब तक का सबसे महंगा खेल आयोजन बन गया, इसलिए लोग इसे अमीरों के लिए खेल कह रहे हैं।"
+    },
+    {
+     "voice_english": "Shakira rehearsed with Burna Boy for the historic halftime show, so fans can expect a massive musical performance on Sunday.",
+     "image_query": "Shakira",
+     "image_type": "real",
+     "subtitle_english": "Shakira rehearsed with Burna Boy for the historic halftime show, so fans can expect a massive musical performance on Sunday.",
+     "voice_hindi": "शकीरा ने ऐतिहासिक हाफ़टाइम शो के लिए बर्ना बॉय के साथ अभ्यास किया, इसलिए प्रशंसक रविवार को एक विशाल संगीत प्रदर्शन की उम्मीद कर सकते हैं।"
+    },
+    {
+     "voice_english": "France must play England for third place, but their coach openly admitted that neither team wants to play it.",
+     "image_query": "France national football team",
+     "image_type": "real",
+     "subtitle_english": "France must play England for third place, but their coach openly admitted that neither team wants to play it.",
+     "voice_hindi": "फ्रांस को तीसरे स्थान के लिए इंग्लैंड से खेलना होगा, लेकिन उनके कोच ने खुले तौर पर स्वीकार किया कि कोई भी टीम इससे नहीं खेलना चाहती।"
+    },
+    {
+     "voice_english": "Everyone is debating which giant has the best chance to win, so who are you backing in this historic final?",
+     "image_query": "Argentina national football team",
+     "image_type": "real",
+     "subtitle_english": "Everyone is debating which giant has the best chance to win, so who are you backing in this historic final?",
+     "voice_hindi": "हर कोई इस बात पर बहस कर रहा है कि किस दिग्गज के पास जीतने का सबसे अच्छा मौका है, तो इस ऐतिहासिक फाइनल में आप किसका समर्थन कर रहे हैं?"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "सबसे महंगा फाइनल",
+   "youtube_title": "Messi vs Spain Final: Rs 27 Lakh ki Ek Ticket! 🤯",
+   "title_options": [
+    "Messi vs Spain Final: Rs 27 Lakh ki Ek Ticket! 🤯",
+    "Argentina vs Spain: Sabse Mehenga World Cup Final! 💸",
+    "World Cup 2026 Final: 27 Lakh ki Ticket ka Sach! 😱"
+   ],
+   "description": "Spain vs Argentina ka World Cup final toh blockbuster hoga, par kya aapko ticket ka price pata hai? 🤯 Ek ticket pure Rs 27 Lakh ki bik rahi hai, jisne ise America ka sabse mehenga sports event bana diya hai! Saath me Shakira aur Burna Boy halftime show me aag lagane ke liye ready hain. Kya aap ek match ke liye itne paise kharch karenge? Comment me batao! 👇",
+   "hashtags": "#Shorts #Football #viral #WorldCup2026 #Messi #Spain #Argentina #Shakira"
+  },
+  "id": "41b91f248564"
+ }
+]
