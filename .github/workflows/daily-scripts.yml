@@ -1,0 +1,84 @@
+name: Daily Script Candidates (review ke liye)
+
+# Roz subah naye script candidates banao -> pending me daalo -> EMAIL bhejo.
+# Tum phone pe review app me approve karte ho -> approved queue me jaate hain ->
+# daily-shorts.yml cron unse video banata hai.
+#
+# Kyun alag workflow: script banana SASTA hai (koi render/upload nahi, ~2 min).
+# Ye sirf tab chalta hai jab queue kam ho — warna scripts jama hote rahenge.
+
+on:
+  schedule:
+    - cron: "30 3 * * *"      # ~9:00 AM IST — subah review ke liye taiyaar
+  workflow_dispatch:
+    inputs:
+      count:
+        description: "Kitne script candidates banaye"
+        default: "5"
+      min_queue:
+        description: "Queue itne se kam ho tabhi banao (0 = hamesha banao)"
+        default: "4"
+
+permissions:
+  contents: write
+
+jobs:
+  scripts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      TZ: Asia/Kolkata
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install deps
+        run: pip install -r requirements-build.txt
+
+      - name: Secrets -> .env
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+        run: |
+          {
+            echo "GEMINI_API_KEY=$GEMINI_API_KEY"
+            echo "YOUTUBE_API_KEY=$YOUTUBE_API_KEY"
+            echo "GROQ_API_KEY=\"$GROQ_API_KEY\""
+            echo "MAIL_USERNAME=$MAIL_USERNAME"
+            echo "MAIL_PASSWORD=\"$MAIL_PASSWORD\""
+          } > .env
+
+      - name: Generate script candidates (agar queue kam hai)
+        run: |
+          python - <<'PY'
+          import json, os, subprocess, sys
+          MIN = int("${{ github.event.inputs.min_queue || '4' }}")
+          N   = "${{ github.event.inputs.count || '5' }}"
+          def n_of(p):
+              try:
+                  return len(json.load(open(p, encoding="utf-8")))
+              except Exception:
+                  return 0
+          q, pend = n_of("data/script_queue.json"), n_of("data/pending_scripts.json")
+          print(f"queue={q} pending={pend} (threshold {MIN})")
+          if MIN and (q + pend) >= MIN:
+              print("Kaafi scripts hain — aaj naye nahi banaye.")
+              sys.exit(0)
+          sys.exit(subprocess.run([sys.executable, "make_scripts.py", N]).returncode)
+          PY
+
+      - name: Persist pending scripts
+        run: |
+          git config user.name "shorts-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git pull --rebase || true
+          git add data/pending_scripts.json data/trending_cache.json || true
+          git commit -m "scripts: naye candidates review ke liye [skip ci]" || echo "nothing to commit"
+          git push || echo "push skipped"
