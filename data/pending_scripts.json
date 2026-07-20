@@ -1,56 +1,5 @@
 [
  {
-  "id": "147204c42ad8",
-  "mode": "ranking",
-  "topic": "Top 5 best dribblers in football history",
-  "key": "best dribblers in football history",
-  "data": {
-   "title_english": "Top 5 Dribbling Kings",
-   "hook_english": "Who is the true GOAT?",
-   "cta_english": "Messi ya Neymar, kaun hai best?",
-   "segments": [
-    {
-     "voice_english": "Zidane danced past Brazil in 2006, but his elegance hid a truly brutal reality.",
-     "image_query": "Zinedine Zidane 2006 World Cup",
-     "image_type": "real",
-     "subtitle_english": "Zidane danced past Brazil in 2006, but his elegance hid a truly brutal reality.",
-     "voice_hindi": "ज़िदान ने 2006 में ब्राज़ील के सामने नृत्य किया, लेकिन उसकी भव्यता ने वास्तव में एक क्रूर वास्तविकता को छिपा दिया।"
-    },
-    {
-     "voice_english": "Ronaldinho broke Real Madrid hearts at the Bernabeu, so the home fans stood clapping.",
-     "image_query": "Ronaldinho Barcelona Bernabeu applause",
-     "image_type": "real",
-     "subtitle_english": "Ronaldinho broke Real Madrid hearts at the Bernabeu, so the home fans stood clapping.",
-     "voice_hindi": "रोनाल्डिन्हो ने बर्नब्यू में रियल मैड्रिड का दिल तोड़ दिया, इसलिए घरेलू प्रशंसक खड़े होकर तालियां बजा रहे थे।"
-    },
-    {
-     "voice_english": "Ronaldo Nazario left defenders on the floor, but then his knees failed him twice.",
-     "image_query": "Ronaldo Nazario Inter Milan dribble",
-     "image_type": "real",
-     "subtitle_english": "Ronaldo Nazario left defenders on the floor, but then his knees failed him twice.",
-     "voice_hindi": "रोनाल्डो नाज़ारियो ने डिफेंडरों को मैदान पर छोड़ दिया, लेकिन फिर उनके घुटनों ने उन्हें दो बार विफल कर दिया।"
-    },
-    {
-     "voice_english": "Messi completed eleven dribbles against Croatia, so he remains the greatest dribbler of all.",
-     "image_query": "Lionel Messi 2022 World Cup dribbling",
-     "image_type": "real",
-     "subtitle_english": "Messi completed eleven dribbles against Croatia, so he remains the greatest dribbler of all.",
-     "voice_hindi": "मेसी ने क्रोएशिया के खिलाफ ग्यारह ड्रिबल पूरे किए, इसलिए वह सभी में सबसे महान ड्रिबलर बने हुए हैं।"
-    }
-   ],
-   "_provider": "gemini",
-   "title_hindi": "शीर्ष 5 ड्रिब्लिंग किंग",
-   "youtube_title": "Messi aur 4 Legends: Inka Dribbling Secret Kya Tha? 🤯🔥",
-   "title_options": [
-    "Messi aur 4 Legends: Inka Dribbling Secret Kya Tha? 🤯🔥",
-    "Top 5 Insane Dribblers: Inke Skills ne Football badal diya! ⚽⚡",
-    "Ronaldo Nazario ka wo Dark Secret jo koi nahi batata! 💀📉"
-   ],
-   "description": "Football history ke 5 sabse khatarnak dribblers, jinki skills dekh kar aaj bhi log hairan hain. Zidane, Ronaldinho aur Messi ne kaise defenders ko pagal kiya, pura sach yahan dekho! 🤯\n\nKya in players ke bina football itna interesting hota? Aapka favourite dribbler kaun hai? Comments mein batao! 👇⚽",
-   "hashtags": "#Shorts #Football #Dribbling #Messi #Ronaldo #Ronaldinho #Zidane #ViralFootball"
-  }
- },
- {
   "id": "2b17ef1fc365",
   "mode": "story",
   "topic": "Victor Osimhen career journey",
