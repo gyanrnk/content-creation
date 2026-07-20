@@ -1,1 +1,261 @@
+<<<<<<< HEAD
 []
+=======
+[
+ {
+  "id": "8b78970bd630",
+  "mode": "story",
+  "topic": "Zinedine Zidane career journey",
+  "key": "Zinedine Zidane",
+  "data": {
+   "title_english": "Zidane: From Streets to Stardom",
+   "hook_english": "Zizou's path to football greatness",
+   "cta_english": "Is Zidane the greatest midfielder?",
+   "segments": [
+    {
+     "voice_english": "Young Zinedine played on dusty streets, but he dreamt of football stadiums one day.",
+     "image_query": "poor kid playing football on a dusty street at sunset",
+     "image_type": "ai",
+     "subtitle_english": "Young Zinedine played on dusty streets, but he dreamt of football stadiums one day.",
+     "voice_hindi": "युवा जिनेदिन धूल भरी सड़कों पर खेलते थे, लेकिन उन्होंने एक दिन फुटबॉल स्टेडियम का सपना देखा।"
+    },
+    {
+     "voice_english": "He faced many years of development, but his vision and control set him apart.",
+     "image_query": "Zinedine Zidane playing as a young professional midfielder",
+     "image_type": "real",
+     "subtitle_english": "He faced many years of development, but his vision and control set him apart.",
+     "voice_hindi": "उन्हें कई वर्षों के विकास का सामना करना पड़ा, लेकिन उनकी दूरदर्शिता और नियंत्रण ने उन्हें अलग कर दिया।"
+    },
+    {
+     "voice_english": "Zidane won the Ballon d'Or in 1998, because his skills defined pure football elegance.",
+     "image_query": "Zinedine Zidane holding the Ballon d'Or trophy",
+     "image_type": "real",
+     "subtitle_english": "Zidane won the Ballon d'Or in 1998, because his skills defined pure football elegance.",
+     "voice_hindi": "ज़िदान ने 1998 में बैलन डी'ओर जीता, क्योंकि उनके कौशल ने शुद्ध फुटबॉल सुंदरता को परिभाषित किया।"
+    },
+    {
+     "voice_english": "He coached Real Madrid until 2021, and he proved greatness lasts beyond the pitch.",
+     "image_query": "Zinedine Zidane coaching Real Madrid on the sidelines",
+     "image_type": "real",
+     "subtitle_english": "He coached Real Madrid until 2021, and he proved greatness lasts beyond the pitch.",
+     "voice_hindi": "उन्होंने 2021 तक रियल मैड्रिड को कोचिंग दी और उन्होंने साबित कर दिया कि महानता मैदान के परे भी रहती है।"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "ज़िदान: सड़कों से स्टारडम तक",
+   "youtube_title": "Zidane ka Woh Secret Skill jo Sabko Shock kar diya! 🤯⚽",
+   "title_options": [
+    "Zidane ka Woh Secret Skill jo Sabko Shock kar diya! 🤯⚽",
+    "Zinedine Zidane: Gali se Real Madrid tak ka Insane Safar! 🔥",
+    "Zidane ke 3 Greatest Moments jo duniya nahi bhool payegi! 👑"
+   ],
+   "description": "Zizou ka wo magic jo dusty streets se lekar Ballon d'Or tak gaya! 🏆 Dekho kaise Zidane ne apni vision aur control se football ko ek naya level diya. Real Madrid ke coaching days se lekar unki legacy tak, sab kuch yahan hai. ✨ Aapke hisaab se Zizou ka best goal kaunsa tha? Comment mein batao! 👇",
+   "hashtags": "#Shorts #Football #Zidane #RealMadrid #BallonDor #Legend #FootballSkills #Viral"
+  }
+ },
+ {
+  "id": "975df5b3e93c",
+  "mode": "facts",
+  "topic": "World cup 2026 closing ceremony",
+  "key": "World cup 2026 closing ceremony",
+  "data": {
+   "title_english": "World Cup Final Chaos",
+   "hook_english": "Trump delays World Cup final",
+   "cta_english": "Best performance: Shakira or Bieber?",
+   "segments": [
+    {
+     "voice_english": "Trump arrived at the stadium, so logistical delays stalled the World Cup final start.",
+     "image_query": "Donald Trump arrival football stadium",
+     "image_type": "real",
+     "subtitle_english": "Trump arrived at the stadium, so logistical delays stalled the World Cup final start.",
+     "voice_hindi": "ट्रम्प स्टेडियम में पहुंचे, इसलिए साजो-सामान संबंधी देरी के कारण विश्व कप फाइनल की शुरुआत रुक गई।"
+    },
+    {
+     "voice_english": "Fans waited in suspense while Messi set a new record on the historic pitch.",
+     "image_query": "Lionel Messi on pitch World Cup 2026",
+     "image_type": "real",
+     "subtitle_english": "Fans waited in suspense while Messi set a new record on the historic pitch.",
+     "voice_hindi": "प्रशंसक सस्पेंस में इंतजार कर रहे थे जबकि मेसी ने ऐतिहासिक पिच पर एक नया रिकॉर्ड बनाया।"
+    },
+    {
+     "voice_english": "Shakira and Justin Bieber rocked the stage, but BTS stole the colourful closing show.",
+     "image_query": "Shakira and BTS performing at World Cup stage",
+     "image_type": "ai",
+     "subtitle_english": "Shakira and Justin Bieber rocked the stage, but BTS stole the colourful closing show.",
+     "voice_hindi": "शकीरा और जस्टिन बीबर ने मंच पर धमाल मचाया, लेकिन बीटीएस ने रंगारंग समापन शो चुरा लिया।"
+    },
+    {
+     "voice_english": "Spain faced Argentina in the final, but the massive security delays defined the day.",
+     "image_query": "Spain vs Argentina World Cup final stadium",
+     "image_type": "real",
+     "subtitle_english": "Spain faced Argentina in the final, but the massive security delays defined the day.",
+     "voice_hindi": "फ़ाइनल में स्पेन का सामना अर्जेंटीना से हुआ, लेकिन बड़े पैमाने पर सुरक्षा विलंब के कारण दिन की समाप्ति हुई।"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "विश्व कप फाइनल में मची अफरा-तफरी",
+   "youtube_title": "Messi ka Record aur World Cup ka Chaos! 🤯🔥",
+   "title_options": [
+    "Messi ka Record aur World Cup ka Chaos! 🤯🔥",
+    "World Cup 2026: Trump, BTS aur Shocking Delay! 😱⚽",
+    "5 Shocking Moments: World Cup 2026 Final! 🏆✨"
+   ],
+   "description": "World Cup 2026 final mein kya kuch nahi hua! Trump ke arrival se match mein delay, Messi ka naya record, aur BTS ka stage tod performance. Spain vs Argentina ke is historic match mein sabse zyada kya pasand aaya? Comments mein batao! 🏟️✨",
+   "hashtags": "#Shorts #Football #WorldCup2026 #Messi #BTS #Viral #FIFA #FootballShorts"
+  }
+ },
+ {
+  "id": "750b7d04ae99",
+  "mode": "pundit",
+  "topic": "what pundits and legends are saying about Ronaldinho",
+  "key": "Ronaldinho",
+  "data": {
+   "title_english": "Ronaldinho: Genius or Just Hype?",
+   "hook_english": "Is Ronaldinho still the king?",
+   "cta_english": "Is Ronaldinho better than modern stars?",
+   "segments": [
+    {
+     "voice_english": "Pep Guardiola believes Ronaldinho will turn Manchester City into the legendary Barcelona team today.",
+     "image_query": "Pep Guardiola Manchester City",
+     "image_type": "real",
+     "subtitle_english": "Pep Guardiola believes Ronaldinho will turn Manchester City into the legendary Barcelona team today.",
+     "voice_hindi": "पेप गार्डियोला का मानना ​​है कि रोनाल्डिन्हो आज मैनचेस्टर सिटी को दिग्गज बार्सिलोना टीम में बदल देंगे।"
+    },
+    {
+     "voice_english": "Young star Lamine Yamal played alongside Ronaldinho because the legend still has magical skills.",
+     "image_query": "Lamine Yamal Ronaldinho kit advert",
+     "image_type": "real",
+     "subtitle_english": "Young star Lamine Yamal played alongside Ronaldinho because the legend still has magical skills.",
+     "voice_hindi": "युवा स्टार लैमिन यमल ने रोनाल्डिन्हो के साथ खेला क्योंकि इस दिग्गज के पास अभी भी जादुई कौशल हैं।"
+    },
+    {
+     "voice_english": "Gabriel Martinelli is justifying Ronaldinho's crazy comparison because his talent is finally blooming now.",
+     "image_query": "Gabriel Martinelli Brazil",
+     "image_type": "real",
+     "subtitle_english": "Gabriel Martinelli is justifying Ronaldinho's crazy comparison because his talent is finally blooming now.",
+     "voice_hindi": "गेब्रियल मार्टिनेली रोनाल्डिन्हो की पागल तुलना को सही ठहरा रहे हैं क्योंकि उनकी प्रतिभा आखिरकार अब खिल रही है।"
+    },
+    {
+     "voice_english": "Wayne Rooney slammed a show featuring Shakira but Ronaldinho's magic remains the real focus.",
+     "image_query": "Wayne Rooney",
+     "image_type": "real",
+     "subtitle_english": "Wayne Rooney slammed a show featuring Shakira but Ronaldinho's magic remains the real focus.",
+     "voice_hindi": "वेन रूनी ने शकीरा वाले शो की आलोचना की लेकिन असली फोकस रोनाल्डिन्हो का जादू बना हुआ है।"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "रोनाल्डिन्हो: प्रतिभा या महज़ प्रचार?",
+   "youtube_title": "Ronaldinho ka asli magic: Pep aur Yamal ne kya kaha? 🤯⚽",
+   "title_options": [
+    "Ronaldinho ka asli magic: Pep aur Yamal ne kya kaha? 🤯⚽",
+    "Ronaldinho ki wo 3 baatein jo duniya ko shock kar degi! 😱🔥",
+    "Kya Martinelli aur Yamal, Ronaldinho se better hain? 🤔✨"
+   ],
+   "description": "Ronaldinho aaj bhi football ki duniya mein raaj kar rahe hain! Pep Guardiola se lekar Lamine Yamal tak, sabhi legends unki magic tricks ke fan kyun hain? Is video mein dekho kaise Martinelli unke comparisons ko sach kar rahe hain. Aapke hisaab se Ronaldinho jaisa player kya dubara aayega? Comment mein batao! 👇🇧🇷",
+   "hashtags": "#Ronaldinho #Football #Shorts #PepGuardiola #LamineYamal #Martinelli #Viral #FootballLegends"
+  }
+ },
+ {
+  "id": "c11a27b3502a",
+  "mode": "stats",
+  "topic": "World Cup 2026 Golden Boot race — top scorers",
+  "key": "World Cup 2026 Golden Boot race — top scorers",
+  "data": {
+   "title_english": "Golden Boot Race 2026",
+   "hook_english": "Who leads the 2026 race?",
+   "cta_english": "Will Mbappe keep the lead?",
+   "segments": [
+    {
+     "voice_english": "Six stars are fighting for the Golden Boot, but one man dominates today.",
+     "image_query": "Kylian Mbappe France national football team action",
+     "image_type": "real",
+     "subtitle_english": "Six stars are fighting for the Golden Boot, but one man dominates today.",
+     "voice_hindi": "छह सितारे गोल्डन बूट के लिए लड़ रहे हैं, लेकिन एक आदमी आज हावी है।"
+    },
+    {
+     "voice_english": "Harry Kane and Ousmane Dembele scored six goals, so they trail the leaders.",
+     "image_query": "Harry Kane England national football team",
+     "image_type": "real",
+     "subtitle_english": "Harry Kane and Ousmane Dembele scored 6 goals, so they trail the leaders.",
+     "voice_hindi": "हैरी केन और ओस्मान डेम्बेले ने छह गोल किए, इसलिए वे नेताओं से पीछे हैं।"
+    },
+    {
+     "voice_english": "Jude Bellingham and Erling Haaland hit seven goals, but Messi sits at eight.",
+     "image_query": "Lionel Messi Argentina national football team",
+     "image_type": "real",
+     "subtitle_english": "Jude Bellingham and Erling Haaland hit 7 goals, but Messi sits at eight.",
+     "voice_hindi": "जूड बेलिंगहैम और एर्लिंग हालैंड ने सात गोल किए, लेकिन मेसी आठवें स्थान पर रहे।"
+    },
+    {
+     "voice_english": "Kylian Mbappe leads the race with ten goals, so the golden crown awaits.",
+     "image_query": "Kylian Mbappe celebrating goal",
+     "image_type": "real",
+     "subtitle_english": "Kylian Mbappe leads the race with 10 goals, so the golden crown awaits.",
+     "voice_hindi": "किलियन म्बाप्पे दस गोल के साथ दौड़ में सबसे आगे हैं, इसलिए स्वर्ण मुकुट का इंतजार है।"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "गोल्डन बूट रेस 2026",
+   "youtube_title": "Mbappe ka Golden Boot Confirm? 10 Goals ka Asli Sach! 🤯🏆",
+   "title_options": [
+    "Mbappe ka Golden Boot Confirm? 10 Goals ka Asli Sach! 🤯🏆",
+    "Messi vs Mbappe: World Cup 2026 ke Top Scorers ka Shocking List 📊",
+    "Ye 6 Players lad rahe hain Golden Boot ke liye! Kaun Jeetega? ⚽🔥"
+   ],
+   "description": "World Cup 2026 mein goals ki baarish ho rahi hai aur Mbappe 10 goals ke saath sabse aage nikal chuke hain! 🚀 Messi, Haaland aur Bellingham bhi peeche nahi hain, lekin kya koi Mbappe ko rok payega? Dekhiye poori race ka update. Aapke hisaab se Golden Boot kaun le jayega—Mbappe ya Messi? Comments mein batao! 👇⚽",
+   "hashtags": "#Shorts #Football #WorldCup2026 #Mbappe #Messi #GoldenBoot #FootballSkills #Viral"
+  }
+ },
+ {
+  "id": "147204c42ad8",
+  "mode": "ranking",
+  "topic": "Top 5 best dribblers in football history",
+  "key": "best dribblers in football history",
+  "data": {
+   "title_english": "Top 5 Dribbling Kings",
+   "hook_english": "Who is the true GOAT?",
+   "cta_english": "Messi ya Neymar, kaun hai best?",
+   "segments": [
+    {
+     "voice_english": "Zidane danced past Brazil in 2006, but his elegance hid a truly brutal reality.",
+     "image_query": "Zinedine Zidane 2006 World Cup",
+     "image_type": "real",
+     "subtitle_english": "Zidane danced past Brazil in 2006, but his elegance hid a truly brutal reality.",
+     "voice_hindi": "ज़िदान ने 2006 में ब्राज़ील के सामने नृत्य किया, लेकिन उसकी भव्यता ने वास्तव में एक क्रूर वास्तविकता को छिपा दिया।"
+    },
+    {
+     "voice_english": "Ronaldinho broke Real Madrid hearts at the Bernabeu, so the home fans stood clapping.",
+     "image_query": "Ronaldinho Barcelona Bernabeu applause",
+     "image_type": "real",
+     "subtitle_english": "Ronaldinho broke Real Madrid hearts at the Bernabeu, so the home fans stood clapping.",
+     "voice_hindi": "रोनाल्डिन्हो ने बर्नब्यू में रियल मैड्रिड का दिल तोड़ दिया, इसलिए घरेलू प्रशंसक खड़े होकर तालियां बजा रहे थे।"
+    },
+    {
+     "voice_english": "Ronaldo Nazario left defenders on the floor, but then his knees failed him twice.",
+     "image_query": "Ronaldo Nazario Inter Milan dribble",
+     "image_type": "real",
+     "subtitle_english": "Ronaldo Nazario left defenders on the floor, but then his knees failed him twice.",
+     "voice_hindi": "रोनाल्डो नाज़ारियो ने डिफेंडरों को मैदान पर छोड़ दिया, लेकिन फिर उनके घुटनों ने उन्हें दो बार विफल कर दिया।"
+    },
+    {
+     "voice_english": "Messi completed eleven dribbles against Croatia, so he remains the greatest dribbler of all.",
+     "image_query": "Lionel Messi 2022 World Cup dribbling",
+     "image_type": "real",
+     "subtitle_english": "Messi completed eleven dribbles against Croatia, so he remains the greatest dribbler of all.",
+     "voice_hindi": "मेसी ने क्रोएशिया के खिलाफ ग्यारह ड्रिबल पूरे किए, इसलिए वह सभी में सबसे महान ड्रिबलर बने हुए हैं।"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "शीर्ष 5 ड्रिब्लिंग किंग",
+   "youtube_title": "Messi aur 4 Legends: Inka Dribbling Secret Kya Tha? 🤯🔥",
+   "title_options": [
+    "Messi aur 4 Legends: Inka Dribbling Secret Kya Tha? 🤯🔥",
+    "Top 5 Insane Dribblers: Inke Skills ne Football badal diya! ⚽⚡",
+    "Ronaldo Nazario ka wo Dark Secret jo koi nahi batata! 💀📉"
+   ],
+   "description": "Football history ke 5 sabse khatarnak dribblers, jinki skills dekh kar aaj bhi log hairan hain. Zidane, Ronaldinho aur Messi ne kaise defenders ko pagal kiya, pura sach yahan dekho! 🤯\n\nKya in players ke bina football itna interesting hota? Aapka favourite dribbler kaun hai? Comments mein batao! 👇⚽",
+   "hashtags": "#Shorts #Football #Dribbling #Messi #Ronaldo #Ronaldinho #Zidane #ViralFootball"
+  }
+ }
+]
+>>>>>>> 35ddf08 (scripts: 5 fresh candidates in the short format [skip ci])
