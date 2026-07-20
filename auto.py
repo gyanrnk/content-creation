@@ -184,14 +184,31 @@ def autopilot(n: int = 3, query: str = None) -> dict:
         _prog(f"[{i}/{n}] 🎬 [{mode}] {topic}")
         print(f" -> {out_dir}")
         try:
-            # APPROVED queue pehle: user ne jo script review kiya wahi use karo.
-            # Queue khali ho to hamesha ki tarah auto-generate (consistency na ruke).
+            # APPROVED queue se hi banao. User ne "strict review" chuna (option A):
+            # queue khali = koi video NAHI (bina review kuch publish na ho).
             approved = None
             try:
                 import queue_scripts
                 approved = queue_scripts.pop()
             except Exception as qe:
-                print(f"[auto] queue skip ({qe})")
+                print(f"[auto] queue padhne me dikkat ({qe})")
+            if not approved and getattr(config, "REQUIRE_APPROVED_SCRIPT", True):
+                print("[auto] ⏸️  Approved queue KHALI — is slot me koi video nahi "
+                      "(review app me approve karo). Strict review ON hai.")
+                results.append({"topic": topic, "ok": False,
+                                "error": "no approved script in queue"})
+                # Ek hi baar batao (har slot pe 6 mail na aayein)
+                if not globals().get("_QUEUE_MAIL_SENT"):
+                    globals()["_QUEUE_MAIL_SENT"] = True
+                    _send_mail(
+                        "⏸️ Video nahi bana — approved queue khali",
+                        "Strict review ON hai, aur queue me koi approved script nahi,\n"
+                        "isliye is slot me koi video publish NAHI hua.\n\n"
+                        "👉 Review app me jaake approve karo:\n"
+                        f"{getattr(config, 'REVIEW_APP_URL', '')}\n\n"
+                        "(Har slot pe video chahiye bina review ke, to config me\n"
+                        " REQUIRE_APPROVED_SCRIPT = False kar dena.)")
+                continue
             if approved:
                 topic = approved.get("topic", topic)
                 mode = approved.get("mode", mode)

@@ -9,7 +9,8 @@ name: Daily Script Candidates (review ke liye)
 
 on:
   schedule:
-    - cron: "30 3 * * *"      # ~9:00 AM IST — subah review ke liye taiyaar
+    - cron: "30 3 * * *"      # ~9:00 AM IST — subah review ke liye
+    - cron: "30 11 * * *"     # ~5:00 PM IST — shaam ko refill (reject wale bhar jaayein)
   workflow_dispatch:
     inputs:
       count:

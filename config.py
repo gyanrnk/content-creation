@@ -202,3 +202,8 @@ FINAL_VIDEO = "output/short.mp4"
 
 # Script review UI (mobile) — make_scripts.py email me ye link bhejta hai
 REVIEW_APP_URL = "https://content-creation-uvx2gfn2ovncvozavhwjdc.streamlit.app"
+
+# STRICT REVIEW (user ne "A" chuna): sirf approved queue se hi video bane.
+# Queue khali = us slot me koi video nahi (bina review kuch publish na ho).
+# False karo to purana behaviour (queue khali -> cron khud script bana lega).
+REQUIRE_APPROVED_SCRIPT = True
