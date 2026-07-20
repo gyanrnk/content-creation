@@ -205,6 +205,12 @@ def topic_for_mode(mode: str, i: int = 0, query: str = None, used: set = None):
         except Exception:
             pass
         return "Top 5 goal scorers in football right now", "stats"
+    if mode == "pundit":
+        # EK player pe pundits ki raay chahiye -> topic ek PLAYER hona chahiye.
+        # (Pehle koi rule nahi tha -> generic news topic aa jaata tha, aur script
+        #  "pundits say..." jaisa vague ya Trump/halftime jaisi random news ban jaati.)
+        s = _pick_star()
+        return f"what pundits and legends are saying about {s}", s
     if mode == "quiz":
         s = _pick_star()
         return s, s

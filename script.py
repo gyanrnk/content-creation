@@ -53,16 +53,26 @@ MODE_GUIDE = {
         "player or team name in image_query."
     ),
     "pundit": (
-        "PUNDIT VERDICT — what experts/pundits/legends are SAYING about a player right "
-        "now (praise or criticism), built ONLY from the VERIFIED FACTS above. "
-        "*** ABSOLUTE RULE: NEVER invent a quote, opinion, or who said it. Use ONLY "
-        "statements that actually appear in the facts above. If the facts contain no "
-        "real quote, do NOT fake one — instead present what the player DID (stats, "
-        "results) and frame the debate around that ('log keh rahe hain...' style, "
-        "without naming a pundit who did not say it). Making up quotes from real people "
-        "is forbidden. *** Structure: seg1 hook with the boldest REAL take; middle "
-        "segments give the claim + the evidence for/against; last segment asks the "
-        "viewer to pick a side. Every segment: image_type 'real' with the player's name."
+        "PUNDIT VERDICT — WHO said WHAT about ONE player. The whole point is NAMES: each "
+        "line must be '<Named person> ne <player> ko/ka <specific take>'. "
+        "*** EVERY segment MUST name the person giving the take (Thierry Henry, Zlatan "
+        "Ibrahimovic, Wayne Rooney, Gary Neville, Ronaldo Nazario, a coach, a team-mate). "
+        "NEVER write vague lines like 'Pundits say...', 'Experts believe...', 'Fans think', "
+        "'A former Manchester United player...', 'A French legend...' — a take with no name "
+        "is WORTHLESS here. If a fact above does not name the person, SKIP that take and "
+        "use one that does (or use the player's own stats instead). *** "
+        "*** BEST structure = CONTRAST (this is what makes people comment): 2-3 people "
+        "PRAISE him, then ONE person DISMISSES/criticises him — e.g. 'Henry ne Messi ko "
+        "best bola, Ibrahimovic ne bhi khel ki tareef ki, lekin <X> ne use nakaara bataya'. "
+        "End by asking the viewer whose side they are on. *** "
+        "*** ABSOLUTE RULE: use ONLY takes that actually appear in the VERIFIED FACTS "
+        "above. NEVER invent a quote or attribute an opinion to someone who did not say "
+        "it — that is defamation. If the facts only contain a couple of named takes, use "
+        "those and fill the rest with what the player actually DID (stats/results); do "
+        "NOT pad with fake quotes or unrelated news (halftime shows, VIP guests, ticket "
+        "prices) — stay on the player. *** "
+        "Every segment: image_type 'real' — the named PUNDIT's photo when it is their "
+        "take, the player's photo for the evidence lines."
     ),
     "quiz": (
         "GUESS-THE-PLAYER quiz. Pick ONE famous mystery player. Segments 1..(N-2) give "
@@ -873,6 +883,20 @@ def generate_script(topic: str = None, mode: str = None,
                 if w:
                     print(f"[script] wiki-facts grounding ON ({w.count(chr(10)) + 1} entries)")
                     ctx = (ctx + "\n\n" + w).strip() if ctx else w
+            if mode == "pundit" and ctx:
+                # Pundit mode ko NAAM chahiye. Google News ke aadhe headlines vague hote
+                # hain ("Man United Legend predicts...") -> LLM (sahi hi) naam nahi bana
+                # sakta aur line kamzor ban jaati hai. Isliye NAAM-WALE headlines upar
+                # rakho taaki model ke paas naam-wala material pehle ho.
+                import re as _re
+                _named = _re.compile(r"\b[A-Z][a-z]+ [A-Z][a-z]+\b")
+                lines = [l for l in ctx.split("\n") if l.strip()]
+                with_name = [l for l in lines if _named.search(l)]
+                without = [l for l in lines if not _named.search(l)]
+                if with_name:
+                    ctx = "\n".join(with_name + without)
+                    print(f"[script] pundit: {len(with_name)} named takes upar rakhe")
+
             if mode == "stats":                 # LIVE table/scorers = ground truth
                 try:
                     from stats import current_stats
