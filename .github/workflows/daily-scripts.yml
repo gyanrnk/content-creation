@@ -9,16 +9,19 @@ name: Daily Script Candidates (review ke liye)
 
 on:
   schedule:
-    - cron: "30 3 * * *"      # ~9:00 AM IST — subah review ke liye
-    - cron: "30 11 * * *"     # ~5:00 PM IST — shaam ko refill (reject wale bhar jaayein)
+    # Har 4 ghante — reject hone ke baad jaldi replacement aa jaaye (6/din ka target).
+    - cron: "30 1 * * *"      # ~7:00 AM IST
+    - cron: "30 5 * * *"      # ~11:00 AM IST
+    - cron: "30 9 * * *"      # ~3:00 PM IST
+    - cron: "30 13 * * *"     # ~7:00 PM IST
   workflow_dispatch:
     inputs:
-      count:
-        description: "Kitne script candidates banaye"
-        default: "5"
-      min_queue:
-        description: "Queue itne se kam ho tabhi banao (0 = hamesha banao)"
-        default: "4"
+      target:
+        description: "queue+pending ko itne tak TOP-UP karo (6/din target + buffer)"
+        default: "9"
+      max_new:
+        description: "Ek run me max kitne naye banaye"
+        default: "6"
 
 permissions:
   contents: write
@@ -56,23 +59,40 @@ jobs:
             echo "MAIL_PASSWORD=\"$MAIL_PASSWORD\""
           } > .env
 
-      - name: Generate script candidates (agar queue kam hai)
+      - name: Top-up script candidates (6/din target ke liye)
         run: |
           python - <<'PY'
-          import json, os, subprocess, sys
-          MIN = int("${{ github.event.inputs.min_queue || '4' }}")
-          N   = "${{ github.event.inputs.count || '5' }}"
+          import json, subprocess, sys
+          TARGET  = int("${{ github.event.inputs.target || '9' }}")
+          MAX_NEW = int("${{ github.event.inputs.max_new || '6' }}")
+
           def n_of(p):
               try:
                   return len(json.load(open(p, encoding="utf-8")))
               except Exception:
                   return 0
+
           q, pend = n_of("data/script_queue.json"), n_of("data/pending_scripts.json")
-          print(f"queue={q} pending={pend} (threshold {MIN})")
-          if MIN and (q + pend) >= MIN:
-              print("Kaafi scripts hain — aaj naye nahi banaye.")
+          have = q + pend
+          need = min(MAX_NEW, max(0, TARGET - have))
+          print(f"approved={q} pending={pend} total={have} target={TARGET} -> banane hain {need}")
+          if need == 0:
+              print("Stock poora hai — naye nahi banaye.")
               sys.exit(0)
-          sys.exit(subprocess.run([sys.executable, "make_scripts.py", N]).returncode)
+          # NOTE: make_scripts.py pending ko REPLACE karta hai, isliye purane pending
+          # bacha ke naye ke saath jod dete hain (warna review-baaki scripts ud jaate).
+          old = []
+          try:
+              old = json.load(open("data/pending_scripts.json", encoding="utf-8"))
+          except Exception:
+              pass
+          rc = subprocess.run([sys.executable, "make_scripts.py", str(need)]).returncode
+          if rc == 0 and old:
+              new = json.load(open("data/pending_scripts.json", encoding="utf-8"))
+              json.dump(old + new, open("data/pending_scripts.json", "w", encoding="utf-8"),
+                        ensure_ascii=False, indent=1)
+              print(f"purane {len(old)} + naye {len(new)} = {len(old)+len(new)} pending")
+          sys.exit(rc)
           PY
 
       - name: Persist pending scripts
