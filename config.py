@@ -29,7 +29,8 @@ CUSTOM_SCRIPT = ""   # khali = auto/LLM script use hoga (yahan text ho to wahi o
 
 # Kitne segments. 5 = ~35-40s video = Shorts sweet-spot (completion+loop zyada) + fast render.
 # (6+ lambा video ban raha tha = 57s + slow render.)
-NUM_SEGMENTS = 5          # 5 x ~12 words ≈ 35-40s (arc/drama ke liye room; 4 = content patla)
+NUM_SEGMENTS = 4          # DATA (2026-07-20): 26-27s/~45 words = 1,274 views;
+                          # 40-42s/~100 words = 0-29 views. Chhota JEETTA hai.
 
 # ── VIDEO FORMAT (9:16 vertical — Shorts / Reels / FB) ─────────────────────────
 
