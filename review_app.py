@@ -209,7 +209,7 @@ for idx, item in enumerate(pending):
         for j, s in enumerate(segs):
             txt = s.get("voice_english", "")
             n = len(txt.split())
-            tag = "✅" if 17 <= n <= 22 else ("⚠️ chhoti" if n < 17 else "⚠️ lambi")
+            tag = "✅" if 10 <= n <= 14 else ("⚠️ chhoti" if n < 10 else "⚠️ lambi")
             line = st.text_area(f"Line {j+1}  ·  {n} words {tag}", txt,
                                 key=f"l_{uid}_{j}", height=80)
             new_lines.append(line)
