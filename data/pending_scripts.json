@@ -1,56 +1,5 @@
 [
  {
-  "id": "750b7d04ae99",
-  "mode": "pundit",
-  "topic": "what pundits and legends are saying about Ronaldinho",
-  "key": "Ronaldinho",
-  "data": {
-   "title_english": "Ronaldinho: Genius or Just Hype?",
-   "hook_english": "Is Ronaldinho still the king?",
-   "cta_english": "Is Ronaldinho better than modern stars?",
-   "segments": [
-    {
-     "voice_english": "Pep Guardiola believes Ronaldinho will turn Manchester City into the legendary Barcelona team today.",
-     "image_query": "Pep Guardiola Manchester City",
-     "image_type": "real",
-     "subtitle_english": "Pep Guardiola believes Ronaldinho will turn Manchester City into the legendary Barcelona team today.",
-     "voice_hindi": "पेप गार्डियोला का मानना ​​है कि रोनाल्डिन्हो आज मैनचेस्टर सिटी को दिग्गज बार्सिलोना टीम में बदल देंगे।"
-    },
-    {
-     "voice_english": "Young star Lamine Yamal played alongside Ronaldinho because the legend still has magical skills.",
-     "image_query": "Lamine Yamal Ronaldinho kit advert",
-     "image_type": "real",
-     "subtitle_english": "Young star Lamine Yamal played alongside Ronaldinho because the legend still has magical skills.",
-     "voice_hindi": "युवा स्टार लैमिन यमल ने रोनाल्डिन्हो के साथ खेला क्योंकि इस दिग्गज के पास अभी भी जादुई कौशल हैं।"
-    },
-    {
-     "voice_english": "Gabriel Martinelli is justifying Ronaldinho's crazy comparison because his talent is finally blooming now.",
-     "image_query": "Gabriel Martinelli Brazil",
-     "image_type": "real",
-     "subtitle_english": "Gabriel Martinelli is justifying Ronaldinho's crazy comparison because his talent is finally blooming now.",
-     "voice_hindi": "गेब्रियल मार्टिनेली रोनाल्डिन्हो की पागल तुलना को सही ठहरा रहे हैं क्योंकि उनकी प्रतिभा आखिरकार अब खिल रही है।"
-    },
-    {
-     "voice_english": "Wayne Rooney slammed a show featuring Shakira but Ronaldinho's magic remains the real focus.",
-     "image_query": "Wayne Rooney",
-     "image_type": "real",
-     "subtitle_english": "Wayne Rooney slammed a show featuring Shakira but Ronaldinho's magic remains the real focus.",
-     "voice_hindi": "वेन रूनी ने शकीरा वाले शो की आलोचना की लेकिन असली फोकस रोनाल्डिन्हो का जादू बना हुआ है।"
-    }
-   ],
-   "_provider": "gemini",
-   "title_hindi": "रोनाल्डिन्हो: प्रतिभा या महज़ प्रचार?",
-   "youtube_title": "Ronaldinho ka asli magic: Pep aur Yamal ne kya kaha? 🤯⚽",
-   "title_options": [
-    "Ronaldinho ka asli magic: Pep aur Yamal ne kya kaha? 🤯⚽",
-    "Ronaldinho ki wo 3 baatein jo duniya ko shock kar degi! 😱🔥",
-    "Kya Martinelli aur Yamal, Ronaldinho se better hain? 🤔✨"
-   ],
-   "description": "Ronaldinho aaj bhi football ki duniya mein raaj kar rahe hain! Pep Guardiola se lekar Lamine Yamal tak, sabhi legends unki magic tricks ke fan kyun hain? Is video mein dekho kaise Martinelli unke comparisons ko sach kar rahe hain. Aapke hisaab se Ronaldinho jaisa player kya dubara aayega? Comment mein batao! 👇🇧🇷",
-   "hashtags": "#Ronaldinho #Football #Shorts #PepGuardiola #LamineYamal #Martinelli #Viral #FootballLegends"
-  }
- },
- {
   "id": "c11a27b3502a",
   "mode": "stats",
   "topic": "World Cup 2026 Golden Boot race — top scorers",
