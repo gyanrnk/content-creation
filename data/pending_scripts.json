@@ -1,1 +1,308 @@
-[]
+[
+ {
+  "id": "17fc7e89c51d",
+  "mode": "story",
+  "topic": "Cristiano Ronaldo career journey",
+  "key": "Cristiano Ronaldo",
+  "data": {
+   "title_english": "Ronaldo's Rags to Riches",
+   "hook_english": "From Nothing to 5 Ballon d'Ors!",
+   "cta_english": "Is CR7 the greatest of all time? Comment below!",
+   "segments": [
+    {
+     "voice_english": "A poor Portuguese kid had nothing, but he later won five Ballon d'Ors.",
+     "image_query": "poor Portuguese kid playing football on a dusty street sunset",
+     "image_type": "ai",
+     "subtitle_english": "A poor Portuguese kid had nothing, but he later won five Ballon d'Ors.",
+     "voice_hindi": "एक गरीब पुर्तगाली बच्चे के पास कुछ भी नहीं था, लेकिन बाद में उसने पांच बैलन डी'ऑर्स जीते।"
+    },
+    {
+     "voice_english": "Many people doubted his dream, but he still became the Portugal national captain.",
+     "image_query": "depressed young football player sitting on a bench crying in the rain",
+     "image_type": "ai",
+     "subtitle_english": "Many people doubted his dream, but he still became the Portugal national captain.",
+     "voice_hindi": "कई लोगों को उनके सपने पर संदेह था, लेकिन फिर भी वे पुर्तगाल के राष्ट्रीय कप्तान बने।"
+    },
+    {
+     "voice_english": "He dominated Europe with his goals and won four European Golden Shoes.",
+     "image_query": "Cristiano Ronaldo holding European Golden Shoe trophy smiling",
+     "image_type": "real",
+     "subtitle_english": "He dominated Europe with his goals and won four European Golden Shoes.",
+     "voice_hindi": "उन्होंने अपने लक्ष्यों से यूरोप पर दबदबा बनाया और चार यूरोपीय गोल्डन शूज़ जीते।"
+    },
+    {
+     "voice_english": "He won three UEFA Men's Player awards, so that poor kid captains Al-Nassr.",
+     "image_query": "Cristiano Ronaldo Al-Nassr captain celebrating on the field",
+     "image_type": "real",
+     "subtitle_english": "He won three UEFA Men's Player awards, so that poor kid captains Al-Nassr.",
+     "voice_hindi": "उन्होंने तीन यूईएफए पुरुष खिलाड़ी पुरस्कार जीते, जिससे गरीब बच्चा अल-नासर की कप्तानी कर सका।"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "रोनाल्डो की रैग्स टू रिचेस",
+   "youtube_title": "CR7 ki Zero se Hero Wali Insane Journey 🔥",
+   "title_options": [
+    "CR7 ki Zero se Hero Wali Insane Journey 🔥",
+    "CR7: Ek Gareeb Bachha Kaise Bana King? 🥺",
+    "Ronaldo ke Is Secret ne Sabko Shock Kiya! 🤯"
+   ],
+   "description": "Ek gareeb bacha jiske paas kuch nahi tha, wo football ka King kaise bana? 🤯 CR7 ne saare doubts ko piche chodkar 5 Ballon d'Or aur 4 European Golden Shoes apne naam kiye. Aaj wo Al-Nassr aur Portugal ke captain hain, par ye safar bilkul aasan nahi tha. Kya Ronaldo hi football history ka ultimate GOAT hai? Comment me batao! 👇",
+   "hashtags": "#Shorts #Football #Viral #CR7 #CristianoRonaldo #AlNassr #FootballJourney #GOAT"
+  }
+ },
+ {
+  "id": "fd4ec11068fa",
+  "mode": "facts",
+  "topic": "World cup 2026",
+  "key": "World cup 2026",
+  "data": {
+   "title_english": "Spain Wins World Cup 2026",
+   "hook_english": "Spain Destroys Argentina's Dream",
+   "cta_english": "Was Spain's win deserved?",
+   "segments": [
+    {
+     "voice_english": "Argentina wanted consecutive trophies, but Spain defeated them in the dramatic 2026 final.",
+     "image_query": "Argentina national football team",
+     "image_type": "real",
+     "subtitle_english": "Argentina wanted consecutive trophies, but Spain defeated them in the dramatic 2026 final.",
+     "voice_hindi": "अर्जेंटीना लगातार ट्रॉफियां चाहता था, लेकिन नाटकीय 2026 फाइनल में स्पेन ने उन्हें हरा दिया।"
+    },
+    {
+     "voice_english": "The intense match remained goalless, so both teams fought hard into extra time.",
+     "image_query": "football stadium intense match night",
+     "image_type": "ai",
+     "subtitle_english": "The intense match remained goalless, so both teams fought hard into extra time.",
+     "voice_hindi": "यह कड़ा मुकाबला गोलरहित रहा, इसलिए दोनों टीमों ने अतिरिक्त समय में कड़ा संघर्ष किया।"
+    },
+    {
+     "voice_english": "Ferran Torres scored the winning goal, and Spain secured their second World Cup.",
+     "image_query": "Ferran Torres Spain",
+     "image_type": "real",
+     "subtitle_english": "Ferran Torres scored the winning goal, and Spain secured their 2 World Cup.",
+     "voice_hindi": "फेरान टोरेस ने विजयी गोल किया और स्पेन ने अपना दूसरा विश्व कप सुरक्षित कर लिया।"
+    },
+    {
+     "voice_english": "Argentina lost the epic match, because Paredes got into a fight with Garcia.",
+     "image_query": "Leandro Paredes",
+     "image_type": "real",
+     "subtitle_english": "Argentina lost the epic match, because Paredes got into a fight with Garcia.",
+     "voice_hindi": "अर्जेंटीना यह ऐतिहासिक मैच हार गया, क्योंकि पेरेडेस का गार्सिया से झगड़ा हो गया।"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "स्पेन ने विश्व कप 2026 जीता",
+   "youtube_title": "Argentina Ka Sapna Toota! 💔 Spain Won World Cup!",
+   "title_options": [
+    "Argentina Ka Sapna Toota! 💔 Spain Won World Cup!",
+    "Paredes Ka Shocking Fight! 😡 Spain vs Argentina",
+    "Spain Ne Argentina Ko Kaise Haraya? 🤯 World Cup Final"
+   ],
+   "description": "Argentina ka consecutive World Cup jeetne ka sapna toot gaya! 💔 Extra time mein Ferran Torres ke insane goal se Spain ne 1-0 se baazi maar li. Match ke baad Paredes aur Garcia ki fight ne drama aur badha diya! 😡 Kya Spain ye trophy deserve karti thi? Comment mein batao! 👇",
+   "hashtags": "#Shorts #Football #Viral #WorldCup2026 #ArgentinaVsSpain #FerranTorres #Paredes #FIFAWorldCup"
+  }
+ },
+ {
+  "id": "5b58f426da51",
+  "mode": "pundit",
+  "topic": "what pundits and legends are saying about Lamine Yamal",
+  "key": "Lamine Yamal",
+  "data": {
+   "title_english": "Legends React to Lamine Yamal",
+   "hook_english": "Messi's huge Yamal claim!",
+   "cta_english": "Is Yamal the next Messi? Comment below!",
+   "segments": [
+    {
+     "voice_english": "Lionel Messi praised Lamine Yamal because there is no doubt about his future.",
+     "image_query": "Lionel Messi",
+     "image_type": "real",
+     "subtitle_english": "Lionel Messi praised Lamine Yamal because there is no doubt about his future.",
+     "voice_hindi": "लियोनेल मेसी ने लैमिन यमल की तारीफ की क्योंकि उनके भविष्य को लेकर कोई संदेह नहीं है."
+    },
+    {
+     "voice_english": "Andres Iniesta backed Yamal, and he opened up about his future coaching ambitions.",
+     "image_query": "Andres Iniesta",
+     "image_type": "real",
+     "subtitle_english": "Andres Iniesta backed Yamal, and he opened up about his future coaching ambitions.",
+     "voice_hindi": "एंड्रेस इनिएस्ता ने यमल का समर्थन किया, और उन्होंने अपनी भविष्य की कोचिंग महत्वाकांक्षाओं के बारे में खुलकर बात की।"
+    },
+    {
+     "voice_english": "Thibaut Courtois revealed his message when he eventually bumps into the winger.",
+     "image_query": "Thibaut Courtois",
+     "image_type": "real",
+     "subtitle_english": "Thibaut Courtois revealed his message when he eventually bumps into the winger.",
+     "voice_hindi": "थिबॉट कर्टोइस ने अपना संदेश तब प्रकट किया जब वह अंततः विंगर से टकराया।"
+    },
+    {
+     "voice_english": "But Kaka dismissed these comparisons because nobody can compare anyone to Lionel Messi.",
+     "image_query": "Kaka AC Milan",
+     "image_type": "real",
+     "subtitle_english": "But Kaka dismissed these comparisons because nobody can compare anyone to Lionel Messi.",
+     "voice_hindi": "लेकिन काका ने इन तुलनाओं को खारिज कर दिया क्योंकि लियोनेल मेसी से कोई किसी की तुलना नहीं कर सकता."
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "लेमिन यमल पर महापुरूषों की प्रतिक्रिया",
+   "youtube_title": "Messi Ka Lamine Yamal Par Shocking Sach! 🤯",
+   "title_options": [
+    "Messi Ka Lamine Yamal Par Shocking Sach! 🤯",
+    "Kaka Ka Yamal-Messi Comparison Par Brutal Jawab! 🤫",
+    "Courtois Ka Lamine Yamal Ko Secret Message? 🤐"
+   ],
+   "description": "Kya Lamine Yamal sach me naye Messi hain? Legends ka toh dimaag ghum chuka hai! 🤯 Lionel Messi aur Iniesta ne Yamal ko future star bola hai, lekin AC Milan legend Kaka ne is comparison ko bilkul kharij kar diya! Aapko kya lagta hai, kya Yamal sach me Messi ke level tak pahunch payenge? Comment me batao! 👇",
+   "hashtags": "#Shorts #Football #viral #LamineYamal #Messi #Iniesta #Kaka #Barcelona"
+  }
+ },
+ {
+  "id": "1f35c267161f",
+  "mode": "stats",
+  "topic": "World Cup 2026 Golden Boot race — top scorers",
+  "key": "World Cup 2026 Golden Boot race — top scorers",
+  "data": {
+   "title_english": "Golden Boot Race",
+   "hook_english": "Who wins the Boot?",
+   "cta_english": "Can Messi beat Mbappe? Comment below!",
+   "segments": [
+    {
+     "voice_english": "Six goals put Kane in the race, but Dembélé is matching him closely.",
+     "image_query": "Harry Kane",
+     "image_type": "real",
+     "subtitle_english": "6 goals put Kane in the race, but Dembélé is matching him closely.",
+     "voice_hindi": "छह गोलों ने केन को दौड़ में बना दिया है, लेकिन डेम्बेले उनसे बराबरी कर रहे हैं।"
+    },
+    {
+     "voice_english": "Young Bellingham scored seven goals, and Haaland reached the exact same number.",
+     "image_query": "Jude Bellingham",
+     "image_type": "real",
+     "subtitle_english": "Young Bellingham scored 7 goals, and Haaland reached the exact same number.",
+     "voice_hindi": "यंग बेलिंगहैम ने सात गोल किए और हालैंड बिल्कुल उसी संख्या पर पहुंच गया।"
+    },
+    {
+     "voice_english": "Legend Messi stands at eight goals because he wants another Golden Boot.",
+     "image_query": "Lionel Messi",
+     "image_type": "real",
+     "subtitle_english": "Legend Messi stands at 8 goals because he wants another Golden Boot.",
+     "voice_hindi": "लीजेंड मेस्सी आठ गोल पर हैं क्योंकि वह एक और गोल्डन बूट चाहते हैं।"
+    },
+    {
+     "voice_english": "Mbappé dominates with ten goals, so the others must chase his massive lead.",
+     "image_query": "Kylian Mbappe",
+     "image_type": "real",
+     "subtitle_english": "Mbappé dominates with 10 goals, so the others must chase his massive lead.",
+     "voice_hindi": "एमबीप्पे दस गोल के साथ हावी है, इसलिए दूसरों को उसकी विशाल बढ़त का पीछा करना होगा।"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "गोल्डन बूट रेस",
+   "youtube_title": "Messi chasing Mbappe? WC 2026 Top Scorers Shock! 😱",
+   "title_options": [
+    "Messi chasing Mbappe? WC 2026 Top Scorers Shock! 😱",
+    "Mbappe is Unstoppable! WC 2026 Golden Boot Race 🏆",
+    "Mbappe X Messi: WC 2026 Golden Boot Top 6! 💀🔥"
+   ],
+   "description": "World Cup 2026 ki Golden Boot race bohot crazy ho chuki hai! 😱 Kane aur Dembélé 6 goals par hain, jabki Bellingham aur Haaland ke 7 goals hain. Legend Messi 8 goals ke saath chase kar rahe hain, par Mbappé 10 goals ke saath sabse aage hain! Kya Messi Mbappe ko piche chhod payenge? Comment me batao! 👇⚽",
+   "hashtags": "#Shorts #Football #Viral #WorldCup2026 #Mbappe #Messi #GoldenBoot"
+  }
+ },
+ {
+  "id": "5dbd86414c12",
+  "mode": "ranking",
+  "topic": "Top 5 most iconic football rivalries",
+  "key": "most iconic football rivalries",
+  "data": {
+   "title_english": "El Clasico's Wildest Clashes Ranked",
+   "hook_english": "El Clasico's Most Toxic Moments",
+   "cta_english": "Messi or Ronaldo? Comment below!",
+   "segments": [
+    {
+     "voice_english": "Figo joined Madrid, but fans threw a pig head at him in 2002.",
+     "image_query": "Luis Figo Real Madrid 2002",
+     "image_type": "real",
+     "subtitle_english": "Figo joined Madrid, but fans threw a pig head at him in 2002.",
+     "voice_hindi": "फ़िगो मैड्रिड में शामिल हो गए, लेकिन 2002 में प्रशंसकों ने उन पर सुअर का सिर फेंक दिया।"
+    },
+    {
+     "voice_english": "Mourinho got angry in 2011, so he poked Tito Vilanova directly in the eye.",
+     "image_query": "Jose Mourinho Tito Vilanova 2011",
+     "image_type": "real",
+     "subtitle_english": "Mourinho got angry in 2011, so he poked Tito Vilanova directly in the eye.",
+     "voice_hindi": "2011 में मोरिन्हो को गुस्सा आया तो उन्होंने सीधे टीटो विलानोवा की आंख में प्रहार कर दिया।"
+    },
+    {
+     "voice_english": "Messi scored in minute 92, so he held his shirt up to Madrid fans.",
+     "image_query": "Lionel Messi shirt celebration Bernabeu",
+     "image_type": "real",
+     "subtitle_english": "Messi scored in minute 92, so he held his shirt up to Madrid fans.",
+     "voice_hindi": "मेसी ने 92वें मिनट में गोल किया, इसलिए उन्होंने मैड्रिड के प्रशंसकों के सामने अपनी शर्ट ऊपर कर दी।"
+    },
+    {
+     "voice_english": "Ronaldo silenced Camp Nou when he gestured calma to eighty thousand angry fans.",
+     "image_query": "Cristiano Ronaldo calma celebration Camp Nou",
+     "image_type": "real",
+     "subtitle_english": "Ronaldo silenced Camp Nou when he gestured calma to 80000 angry fans.",
+     "voice_hindi": "रोनाल्डो ने कैंप नोउ को तब चुप करा दिया जब उन्होंने अपने अस्सी हजार नाराज प्रशंसकों को शांत भाव से इशारा किया।"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "एल क्लासिको की सबसे बेतहाशा झड़पों की रैंकिंग",
+   "youtube_title": "Real Madrid vs Barca: Top 5 Insane Moments 🤯⚽",
+   "title_options": [
+    "Real Madrid vs Barca: Top 5 Insane Moments 🤯⚽",
+    "Ronaldo aur Messi ke 5 Sabse Shocking Moments 💀🔥",
+    "El Clasico: CR7 aur Messi ke 5 Unbelievable Moments 😱"
+   ],
+   "description": "El Clasico ki dushmani next level par hai! Real Madrid aur Barca ke ye moments dekh kar aap dang reh jaoge. 😱 Figo par pig head fekne se lekar Ronaldo ka iconic 'Calma' celebration tak sab kuch! Aapka sabse favourite El Clasico moment kaunsa hai? Comment me batao! 👇⚽",
+   "hashtags": "#Shorts #Football #viral #RealMadrid #Barca #Messi #CR7 #ElClasico"
+  }
+ },
+ {
+  "id": "597ad7fd3c08",
+  "mode": "story",
+  "topic": "Jude Bellingham career journey",
+  "key": "Jude Bellingham",
+  "data": {
+   "title_english": "Jude Bellingham's Rise",
+   "hook_english": "His Dream Became Real",
+   "cta_english": "Is he the best midfielder? Comment below",
+   "segments": [
+    {
+     "voice_english": "A young English boy dreamed of greatness, but nobody expected his rapid rise.",
+     "image_query": "poor young boy playing football on a dusty street at sunset",
+     "image_type": "ai",
+     "subtitle_english": "A young English boy dreamed of greatness, but nobody expected his rapid rise.",
+     "voice_hindi": "एक युवा अंग्रेज लड़के ने महानता का सपना देखा, लेकिन किसी को भी उसके इतनी तेजी से आगे बढ़ने की उम्मीद नहीं थी।"
+    },
+    {
+     "voice_english": "He had to prove his athleticism in midfield because critics doubted his age.",
+     "image_query": "young football player sitting alone on bench under heavy rain",
+     "image_type": "ai",
+     "subtitle_english": "He had to prove his athleticism in midfield because critics doubted his age.",
+     "voice_hindi": "उन्हें मिडफ़ील्ड में अपनी एथलेटिक प्रतिभा साबित करनी पड़ी क्योंकि आलोचकों को उनकी उम्र पर संदेह था।"
+    },
+    {
+     "voice_english": "Real Madrid signed the English midfielder, and his ball winning shocked everyone.",
+     "image_query": "Jude Bellingham Real Madrid",
+     "image_type": "real",
+     "subtitle_english": "Real Madrid signed the English midfielder, and his ball winning shocked everyone.",
+     "voice_hindi": "रियल मैड्रिड ने इंग्लिश मिडफील्डर को साइन किया और उसकी बॉल जीत ने सभी को चौंका दिया।"
+    },
+    {
+     "voice_english": "Now he plays for England as a superstar, so that childhood dream is real.",
+     "image_query": "Jude Bellingham England national football team",
+     "image_type": "real",
+     "subtitle_english": "Now he plays for England as a superstar, so that childhood dream is real.",
+     "voice_hindi": "अब वह एक सुपरस्टार के रूप में इंग्लैंड के लिए खेलते हैं, इसलिए बचपन का वह सपना सच हो गया है।"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "जूड बेलिंगहैम का उदय",
+   "youtube_title": "Bellingham ka Secret: Boy to Madrid King 👑",
+   "title_options": [
+    "Bellingham ka Secret: Boy to Madrid King 👑",
+    "Bellingham ne Sabko Shock Kaise Kiya? 🤯",
+    "Bellingham: Real Madrid ka Sabse Bada Sach! 🤫"
+   ],
+   "description": "Ek chota ladka jise sabne doubt kiya, aaj Real Madrid aur England ka sabse bada hero ban gaya hai! 🏴󠁧󠁢󠁥󠁮󠁧󠁿✨ Jude Bellingham ne apni insane athleticism aur ball-winning se pure football world ko heran kar diya. Kya Bellingham is saal Ballon d'Or jeet payega? Comments me batao! 👇⚽",
+   "hashtags": "#Shorts #Football #Reels #viral #Bellingham #RealMadrid #England #LaLiga"
+  }
+ }
+]
