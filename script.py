@@ -53,7 +53,9 @@ MODE_GUIDE = {
         "player or team name in image_query."
     ),
     "pundit": (
-        "PUNDIT VERDICT — WHO said WHAT about ONE player. The whole point is NAMES: each "
+        "WHY EVERYONE IS TALKING ABOUT ONE PLAYER — framed as curiosity, not a quote "
+        "dump. Open with WHY he is suddenly the topic, then back it with WHO said "
+        "what. The whole point is NAMES: each "
         "line must be '<Named person> ne <player> ko/ka <specific take>'. "
         "*** EVERY segment MUST name the person giving the take (Thierry Henry, Zlatan "
         "Ibrahimovic, Wayne Rooney, Gary Neville, Ronaldo Nazario, a coach, a team-mate). "
@@ -73,6 +75,31 @@ MODE_GUIDE = {
         "prices) — stay on the player. *** "
         "Every segment: image_type 'real' — the named PUNDIT's photo when it is their "
         "take, the player's photo for the evidence lines."
+    ),
+    "wonderkid": (
+        "THE NEXT BIG THING — a teenager/very young player who is already breaking "
+        "records. Audience is 14-24, so this must feel like INSIDER knowledge: 'you will "
+        "know this name in a year'. Structure: hook on the shocking age/number → what he "
+        "already did (goals, debut age, transfer value, records) → who he is being "
+        "compared to → why big clubs are scared/chasing him → ask if he will really make "
+        "it. *** Use CONCRETE numbers from the facts: his exact age, debut age, goals, "
+        "market value, records broken. 'He is very talented' is banned. *** "
+        "Do NOT claim a transfer/record that is not in the facts. "
+        "Every segment: image_type 'real' with the young player's exact name."
+    ),
+    "controversy": (
+        "A FOOTBALL CONTROVERSY people still argue about — a disputed goal/decision, a "
+        "transfer that broke trust, a ban, a scandal. Emotion = outrage + debate, which "
+        "is what drives comments. Structure: hook on the moment → what actually happened "
+        "(exact match, year, minute) → why one side felt cheated → the consequence → ask "
+        "the viewer whose side they are on. "
+        "*** ONLY use incidents that appear in the VERIFIED FACTS above or are famous, "
+        "well-documented events. NEVER invent a scandal, a ban, or an accusation about a "
+        "real person — that is defamation and a channel-killer. Stick to what actually "
+        "happened; state it factually and let the audience argue. *** "
+        "*** No slurs, no unproven criminal claims, nothing about a player's private "
+        "life or family. Keep it to on-pitch/football-business controversies. *** "
+        "Every segment: image_type 'real' with the player/team name involved."
     ),
     "quiz": (
         "GUESS-THE-PLAYER quiz. Pick ONE famous mystery player. Segments 1..(N-2) give "
@@ -97,7 +124,13 @@ MODE_GUIDE = {
         "Every segment: image_type 'real', relevant player name in image_query (alternate)."
     ),
     "ranking": (
-        "COUNTDOWN ranking. *** The number of ranked items MUST EQUAL the number of "
+        "COUNTDOWN ranking with a CONTROVERSIAL edge — a plain 'Top 5 best dribblers' "
+        "is saturated and nobody argues with it. Frame it so fans WANT to fight: a "
+        "surprising omission, a shocking #1, or a placement that will annoy a fanbase "
+        "(e.g. '3 players ranked above Messi here'). "
+        "*** NEVER cite a source you were not given — do NOT write 'according to Opta/FIFA/UEFA' unless that source literally appears in the facts above. A fake "
+        "citation destroys channel trust. Own the ranking as an opinion instead. *** "
+        "*** The number of ranked items MUST EQUAL the number of "
         "segments you are asked for — if you get 4 segments it is a TOP 4, not a Top 5. "
         "The title/hook must say the SAME number (never promise Top 5 and show 4). *** "
         "Rank from the LAST place UP to #1 (best/biggest LAST for suspense). "
@@ -115,11 +148,18 @@ MODE_GUIDE = {
         "Every ranked segment: image_type 'real' with that player's exact name."
     ),
     "story": (
-        "RAGS-TO-RICHES emotional player JOURNEY. ONE player. Arc: humble/struggling "
-        "start → obstacles & setbacks → breakthrough → triumph/legacy. Deeply emotional, "
-        "cinematic narration that makes viewers feel it. Use image_type 'ai' for early/"
-        "childhood/struggle scenes (e.g. 'poor kid playing football on a dusty street at "
-        "sunset') and image_type 'real' with the player's name for their career/peak."
+        "EMOTIONAL player JOURNEY. ONE player, ONE emotional angle. "
+        "*** DO NOT default to rags-to-riches/poverty — every player story sounds the "
+        "same that way and viewers tune out. PICK the angle that this player's REAL life "
+        "actually fits (from the facts above): "
+        "(a) TRAGEDY — a loss/death he played through; "
+        "(b) REJECTED — academies/clubs that turned him down before he made it; "
+        "(c) INJURY COMEBACK — doctors said it was over, he came back; "
+        "(d) MENTALITY — the obsessive habit/routine that built him; "
+        "(e) MIGRATION — left his country as a kid, now carries its flag. "
+        "Only use poverty if the facts genuinely support it AND no better angle exists. *** "
+        "Arc: gripping setup → the setback → the turn → what he became. Use image_type "
+        "'ai' for early/struggle scenes, 'real' with his name for career/peak."
     ),
 }
 
@@ -231,6 +271,19 @@ def _build_messages(topic: str, mode: str, num_segments: int, context: str = "")
         "- image_type = 'real' ONLY when a specific real famous person/team/stadium "
         "is named; otherwise 'ai'. Prefer 'ai' for abstract/atmospheric segments.\n"
         "*** GROWTH RULES (for max views — apply to EVERY video): ***\n"
+        "*** RETENTION STRUCTURE (target: 85% average view, low swipe-away): ***\n"
+        "1. NEVER START WITH THE PLAYER'S NAME. Lead with the INFORMATION GAP, reveal the "
+        "name after. Bad: 'Lionel Messi was rejected by...'. Good: 'Ek academy ne bacche "
+        "ko reject kiya kyunki doctors ne kaha wo bahut chhota hai...'. The name landing "
+        "LATE is what keeps them watching.\n"
+        "2. EVERY line must add NEW information — never restate or summarise the previous "
+        "line in different words.\n"
+        "3. The MIDDLE line must carry a SURPRISE or a CONTRADICTION (the 'but actually...' "
+        "beat) — this is where most viewers decide to stay or swipe.\n"
+        "4. The LAST line must trigger an OPINION, not applause: 'Aap use X se upar rakhoge?' "
+        "beats 'kya legend hai'.\n"
+        "5. Concrete numbers, dates, clubs, records wherever possible. BANNED empty praise: "
+        "'amazing', 'legendary', 'great player', 'unbelievable talent'.\n"
         "- Segment 1 = a SCROLL-STOPPING HOOK — 50-60% viewers swipe in the first 3 "
         "SECONDS, so the FIRST 3-4 WORDS must hit: a bold/shocking claim OR a curiosity-"
         "gap question that promises a payoff. Lead with the most surprising fact or the "
@@ -880,7 +933,7 @@ def generate_script(topic: str = None, mode: str = None,
         if context is None:
             ctx = ""
             if getattr(config, "USE_NEWS_CONTEXT", False) \
-                    and mode in {"facts", "preview", "player", "pundit"}:
+                    and mode in {"facts", "preview", "player", "pundit", "controversy"}:
                 try:
                     from trends import current_context
                     ctx = current_context(topic) or ""
@@ -888,7 +941,7 @@ def generate_script(topic: str = None, mode: str = None,
                         print(f"[script] news-grounding ON ({ctx.count(chr(10)) + 1} headlines)")
                 except Exception as e:
                     print(f"[script] news-grounding skip: {e}")
-            if mode in {"quiz", "story", "debate", "player"}:
+            if mode in {"quiz", "story", "debate", "player", "wonderkid", "controversy"}:
                 w = _wiki_context_for(topic, mode)
                 if w:
                     print(f"[script] wiki-facts grounding ON ({w.count(chr(10)) + 1} entries)")

@@ -43,7 +43,14 @@ AUTO_DIR = os.path.join("output", "auto")
 #   debate (X vs Y)                             : 45, 8, 8                          <- sabse kamzor
 # Isliye: facts/story heavy + quiz wapas; debate abhi bahar (sabse kam). Variety bhi
 # rehti hai (inauthentic-policy safe). RULE: 48h se naye video pe format mat badlo.
-_AUTO_MODES = ["story", "facts", "pundit", "stats", "story", "ranking"]
+_AUTO_MODES = [
+    "story",         # emotional angle rotate (tragedy/rejected/injury/mentality/migration)
+    "controversy",   # outrage + debate = highest comment rate
+    "wonderkid",     # 14-24 audience, low competition, evergreen search
+    "stats",         # live numbers (Golden Boot / league table)
+    "ranking",       # controversial countdown
+    "pundit",        # "why everyone is talking about X"
+]
 
 
 def _prog(msg: str):

@@ -53,6 +53,33 @@ TOP_TIER = [
     "Erling Haaland", "Lamine Yamal", "Jude Bellingham", "Vinicius Junior",
     "Ronaldinho", "Diego Maradona", "Pele",
 ]
+# WONDERKIDS — 14-24 audience ka favourite, low competition, evergreen search.
+# (Umar badhne par yahan se hata dena — "wonderkid" 24+ pe fit nahi baithta.)
+WONDERKIDS = [
+    "Lamine Yamal", "Endrick", "Arda Guler", "Pau Cubarsi", "Warren Zaire-Emery",
+    "Kobbie Mainoo", "Rodrigo Mora", "Estevao Willian", "Franco Mastantuono",
+    "Ethan Nwaneri", "Desire Doue", "Mathys Tel", "Kenan Yildiz", "Savinho",
+]
+
+# CONTROVERSY angles — asli, well-documented cheezein (jhoothi kahani NAHI).
+# News grounding se aur bhi taaza mile to wo prefer hota hai.
+# SPECIFIC, well-documented incidents — vague angles ("the offside call that changed
+# a final") pe LLM kahani GADH deta tha (test me "Argentina lost the 2022 final" likh
+# diya, jabki Argentina JEETA tha). Naam-wale asli waqiye = LLM ki knowledge pakki +
+# Wikipedia grounding bhi milti hai.
+CONTROVERSY_ANGLES = [
+    "Maradona Hand of God goal 1986 England",
+    "Thierry Henry handball against Ireland 2009 playoff",
+    "Frank Lampard ghost goal England Germany 2010",
+    "Zinedine Zidane headbutt 2006 World Cup final",
+    "Luis Suarez handball against Ghana 2010",
+    "Figo transfer from Barcelona to Real Madrid 2000",
+    "Battle of Nuremberg 2006 Portugal Netherlands red cards",
+    "Roy Keane tackle on Alf-Inge Haaland",
+    "Sergio Ramos challenge on Mohamed Salah 2018 final",
+    "Ronaldinho free kick over David Seaman 2002",
+]
+
 TEAMS = ["Brazil", "Argentina", "Portugal", "France", "Spain", "Germany",
          "England", "Netherlands", "Italy", "Belgium", "Morocco", "Croatia",
          "Real Madrid", "Barcelona", "Manchester City", "Manchester United",
@@ -205,6 +232,14 @@ def topic_for_mode(mode: str, i: int = 0, query: str = None, used: set = None):
         except Exception:
             pass
         return "Top 5 goal scorers in football right now", "stats"
+    if mode == "wonderkid":
+        u = used
+        fresh = [w for w in WONDERKIDS if w not in u] or WONDERKIDS
+        w = random.choice(fresh)
+        return f"{w} young football wonderkid records and hype", w
+    if mode == "controversy":
+        a = _pick(CONTROVERSY_ANGLES, used)
+        return a, a
     if mode == "pundit":
         # EK player pe pundits ki raay chahiye -> topic ek PLAYER hona chahiye.
         # (Pehle koi rule nahi tha -> generic news topic aa jaata tha, aur script
