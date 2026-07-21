@@ -1,56 +1,5 @@
 [
  {
-  "id": "5b58f426da51",
-  "mode": "pundit",
-  "topic": "what pundits and legends are saying about Lamine Yamal",
-  "key": "Lamine Yamal",
-  "data": {
-   "title_english": "Legends React to Lamine Yamal",
-   "hook_english": "Messi's huge Yamal claim!",
-   "cta_english": "Is Yamal the next Messi? Comment below!",
-   "segments": [
-    {
-     "voice_english": "Lionel Messi praised Lamine Yamal because there is no doubt about his future.",
-     "image_query": "Lionel Messi",
-     "image_type": "real",
-     "subtitle_english": "Lionel Messi praised Lamine Yamal because there is no doubt about his future.",
-     "voice_hindi": "लियोनेल मेसी ने लैमिन यमल की तारीफ की क्योंकि उनके भविष्य को लेकर कोई संदेह नहीं है."
-    },
-    {
-     "voice_english": "Andres Iniesta backed Yamal, and he opened up about his future coaching ambitions.",
-     "image_query": "Andres Iniesta",
-     "image_type": "real",
-     "subtitle_english": "Andres Iniesta backed Yamal, and he opened up about his future coaching ambitions.",
-     "voice_hindi": "एंड्रेस इनिएस्ता ने यमल का समर्थन किया, और उन्होंने अपनी भविष्य की कोचिंग महत्वाकांक्षाओं के बारे में खुलकर बात की।"
-    },
-    {
-     "voice_english": "Thibaut Courtois revealed his message when he eventually bumps into the winger.",
-     "image_query": "Thibaut Courtois",
-     "image_type": "real",
-     "subtitle_english": "Thibaut Courtois revealed his message when he eventually bumps into the winger.",
-     "voice_hindi": "थिबॉट कर्टोइस ने अपना संदेश तब प्रकट किया जब वह अंततः विंगर से टकराया।"
-    },
-    {
-     "voice_english": "But Kaka dismissed these comparisons because nobody can compare anyone to Lionel Messi.",
-     "image_query": "Kaka AC Milan",
-     "image_type": "real",
-     "subtitle_english": "But Kaka dismissed these comparisons because nobody can compare anyone to Lionel Messi.",
-     "voice_hindi": "लेकिन काका ने इन तुलनाओं को खारिज कर दिया क्योंकि लियोनेल मेसी से कोई किसी की तुलना नहीं कर सकता."
-    }
-   ],
-   "_provider": "gemini",
-   "title_hindi": "लेमिन यमल पर महापुरूषों की प्रतिक्रिया",
-   "youtube_title": "Messi Ka Lamine Yamal Par Shocking Sach! 🤯",
-   "title_options": [
-    "Messi Ka Lamine Yamal Par Shocking Sach! 🤯",
-    "Kaka Ka Yamal-Messi Comparison Par Brutal Jawab! 🤫",
-    "Courtois Ka Lamine Yamal Ko Secret Message? 🤐"
-   ],
-   "description": "Kya Lamine Yamal sach me naye Messi hain? Legends ka toh dimaag ghum chuka hai! 🤯 Lionel Messi aur Iniesta ne Yamal ko future star bola hai, lekin AC Milan legend Kaka ne is comparison ko bilkul kharij kar diya! Aapko kya lagta hai, kya Yamal sach me Messi ke level tak pahunch payenge? Comment me batao! 👇",
-   "hashtags": "#Shorts #Football #viral #LamineYamal #Messi #Iniesta #Kaka #Barcelona"
-  }
- },
- {
   "id": "5dbd86414c12",
   "mode": "ranking",
   "topic": "Top 5 most iconic football rivalries",
