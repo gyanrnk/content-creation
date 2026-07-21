@@ -209,7 +209,8 @@ for idx, item in enumerate(pending):
         for j, s in enumerate(segs):
             txt = s.get("voice_english", "")
             n = len(txt.split())
-            tag = "✅" if 10 <= n <= 14 else ("⚠️ chhoti" if n < 10 else "⚠️ lambi")
+            # band script.py ke prompt ke sath match karna chahiye (13-16 words)
+            tag = "✅" if 13 <= n <= 16 else ("⚠️ chhoti" if n < 13 else "⚠️ lambi")
             line = st.text_area(f"Line {j+1}  ·  {n} words {tag}", txt,
                                 key=f"l_{uid}_{j}", height=80)
             new_lines.append(line)
