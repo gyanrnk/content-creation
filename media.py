@@ -33,6 +33,68 @@ _MAIN_NAMES = ["messi", "ronaldo", "neymar", "mbappe", "pele", "maradona", "modr
                "france", "spain", "germany", "england", "italy", "japan", "morocco"]
 
 
+# ye capitalised hote hain par insaan ka naam nahi — inse "FIFA World" jaisa
+# bekaar lookup banta tha
+_NOT_A_PERSON = {"FIFA", "UEFA", "WORLD", "CUP", "PREMIER", "LEAGUE", "CHAMPIONS",
+                 "EUROPA", "COPA", "EURO", "AFRICA", "ASIAN", "OLYMPIC", "CLASICO"}
+
+
+def _person_in(query: str) -> str:
+    """image_query me se ASLI player/team ka naam nikaalo.
+
+    BUG jo fix hua: model descriptive query deta hai — "Cristiano Ronaldo calma
+    celebration Camp Nou". Wo poora string seedha real_photo() ko jaa raha tha, jo
+    Wikidata pe entity dhoondhta hai. Poora phrase kisi entity se match nahi karta,
+    to lookup FAIL hota tha aur har aisa segment generic stock b-roll pe gir jaata
+    tha — isiliye visuals script se match nahi kar rahe the. Ab pehle naam alag
+    karte hain ("Cristiano Ronaldo"), phir hi lookup.
+    """
+    if not query:
+        return ""
+    q = query.lower()
+    try:
+        from ideas import PLAYERS, TEAMS
+    except Exception:
+        PLAYERS, TEAMS = [], []
+
+    def _match(names):
+        # sabse LAMBA match jeeta ("Ronaldo" se pehle "Cristiano Ronaldo")
+        best = ""
+        for nm in names:
+            n = nm.lower()
+            hit = n in q
+            if not hit:
+                last = n.split()[-1]
+                hit = len(last) > 4 and last in q
+            if hit and len(nm) > len(best):
+                best = nm
+        return best
+
+    # 1) known PLAYER — sabse bharosemand
+    name = _match(PLAYERS)
+    if name:
+        return name
+
+    # 2) Query aam taur pe apne SUBJECT se shuru hoti hai, to shuru ke do capitalised
+    #    shabd utha lo. Ye TEAM se PEHLE chalta hai — warna "Luis Figo Real Madrid 2002"
+    #    me "Real Madrid" jeet jaata hai aur Figo ki jagah team group photo aa jaata hai.
+    #    (Legends/manager/pundit — Figo, Mourinho, Ferdinand — PLAYERS pool me nahi hote.)
+    words, guess = query.split(), []
+    for w in words:
+        clean = w.strip(".,")
+        if clean[:1].isupper() and all(c.isalpha() or c in "'-" for c in clean):
+            if clean.upper() in _NOT_A_PERSON:       # FIFA/UEFA... naam nahi hai
+                break
+            guess.append(clean)
+            if len(guess) == 2:
+                return " ".join(guess)
+        elif guess:
+            break
+
+    # 3) aakhir me TEAM (group photo — tabhi jab koi person na mile)
+    return _match(TEAMS)
+
+
 def _main_subject(segments) -> str:
     """Video ka dominant PLAYER (ya na mile to team).
 
@@ -495,7 +557,9 @@ def fetch_media(segments: list[dict], user_images: list[str] = None,
         img = None
         # 'real' segment = us line ka named player. Player-mode me 'ai'/atmospheric segment
         # par bhi MAIN player ki asli photo (query abstract hota, isliye main_subject use).
-        real_name = query if itype == "real" else (
+        # query descriptive hota hai -> usme se sirf naam nikaalo, warna Wikidata
+        # lookup fail hoke generic b-roll aa jaata hai (dekho _person_in).
+        real_name = (_person_in(query) or query) if itype == "real" else (
             main_subject if _player_mode else None)
         if real_name and getattr(config, "USE_REAL_PHOTO_LAYER", False):
             try:
