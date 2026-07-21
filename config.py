@@ -43,8 +43,12 @@ FPS    = 24      # cinematic standard; 30 se ~20% fast render
 # Ken Burns zoom factor per image (1.10 = halka, 1.30 = strong cinematic motion)
 KEN_BURNS_ZOOM = 1.42   # zyada zoom-travel = zyada motion (static feel kam) — legal
 FAST_CUTS = True        # har image segment 2 shots (wide->punch-in) = har ~3s ek cut
-PARALLAX = True         # 2.5D depth: subject aur background alag speed se pan karte he
-                        # (photo "AI video" jaisa feel deta he). Render ~15s/video slow.
+PARALLAX = False        # BAND. 2.5D parallax try kiya tha par ye KAAM NAHI KARTA:
+                        # flat photo me depth-map nahi hota, to "foreground" layer poori
+                        # image ka zoom he — blend karne pe chehra DO baar dikhta he
+                        # (do naak, do muh). Background blur karke bhi sirf ghost blurry
+                        # hua, gaya nahi. Ken Burns saaf dikhta he. Asli parallax ke liye
+                        # depth model (MiDaS) chahiye = free CPU build me bahut bhaari.
 
 # Crossfade between segments (seconds)
 CROSSFADE = 0.25
