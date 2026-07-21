@@ -1,56 +1,5 @@
 [
  {
-  "id": "fd4ec11068fa",
-  "mode": "facts",
-  "topic": "World cup 2026",
-  "key": "World cup 2026",
-  "data": {
-   "title_english": "Spain Wins World Cup 2026",
-   "hook_english": "Spain Destroys Argentina's Dream",
-   "cta_english": "Was Spain's win deserved?",
-   "segments": [
-    {
-     "voice_english": "Argentina wanted consecutive trophies, but Spain defeated them in the dramatic 2026 final.",
-     "image_query": "Argentina national football team",
-     "image_type": "real",
-     "subtitle_english": "Argentina wanted consecutive trophies, but Spain defeated them in the dramatic 2026 final.",
-     "voice_hindi": "अर्जेंटीना लगातार ट्रॉफियां चाहता था, लेकिन नाटकीय 2026 फाइनल में स्पेन ने उन्हें हरा दिया।"
-    },
-    {
-     "voice_english": "The intense match remained goalless, so both teams fought hard into extra time.",
-     "image_query": "football stadium intense match night",
-     "image_type": "ai",
-     "subtitle_english": "The intense match remained goalless, so both teams fought hard into extra time.",
-     "voice_hindi": "यह कड़ा मुकाबला गोलरहित रहा, इसलिए दोनों टीमों ने अतिरिक्त समय में कड़ा संघर्ष किया।"
-    },
-    {
-     "voice_english": "Ferran Torres scored the winning goal, and Spain secured their second World Cup.",
-     "image_query": "Ferran Torres Spain",
-     "image_type": "real",
-     "subtitle_english": "Ferran Torres scored the winning goal, and Spain secured their 2 World Cup.",
-     "voice_hindi": "फेरान टोरेस ने विजयी गोल किया और स्पेन ने अपना दूसरा विश्व कप सुरक्षित कर लिया।"
-    },
-    {
-     "voice_english": "Argentina lost the epic match, because Paredes got into a fight with Garcia.",
-     "image_query": "Leandro Paredes",
-     "image_type": "real",
-     "subtitle_english": "Argentina lost the epic match, because Paredes got into a fight with Garcia.",
-     "voice_hindi": "अर्जेंटीना यह ऐतिहासिक मैच हार गया, क्योंकि पेरेडेस का गार्सिया से झगड़ा हो गया।"
-    }
-   ],
-   "_provider": "gemini",
-   "title_hindi": "स्पेन ने विश्व कप 2026 जीता",
-   "youtube_title": "Argentina Ka Sapna Toota! 💔 Spain Won World Cup!",
-   "title_options": [
-    "Argentina Ka Sapna Toota! 💔 Spain Won World Cup!",
-    "Paredes Ka Shocking Fight! 😡 Spain vs Argentina",
-    "Spain Ne Argentina Ko Kaise Haraya? 🤯 World Cup Final"
-   ],
-   "description": "Argentina ka consecutive World Cup jeetne ka sapna toot gaya! 💔 Extra time mein Ferran Torres ke insane goal se Spain ne 1-0 se baazi maar li. Match ke baad Paredes aur Garcia ki fight ne drama aur badha diya! 😡 Kya Spain ye trophy deserve karti thi? Comment mein batao! 👇",
-   "hashtags": "#Shorts #Football #Viral #WorldCup2026 #ArgentinaVsSpain #FerranTorres #Paredes #FIFAWorldCup"
-  }
- },
- {
   "id": "5b58f426da51",
   "mode": "pundit",
   "topic": "what pundits and legends are saying about Lamine Yamal",
