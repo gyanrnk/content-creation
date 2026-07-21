@@ -1,56 +1,5 @@
 [
  {
-  "id": "17fc7e89c51d",
-  "mode": "story",
-  "topic": "Cristiano Ronaldo career journey",
-  "key": "Cristiano Ronaldo",
-  "data": {
-   "title_english": "Ronaldo's Rags to Riches",
-   "hook_english": "From Nothing to 5 Ballon d'Ors!",
-   "cta_english": "Is CR7 the greatest of all time? Comment below!",
-   "segments": [
-    {
-     "voice_english": "A poor Portuguese kid had nothing, but he later won five Ballon d'Ors.",
-     "image_query": "poor Portuguese kid playing football on a dusty street sunset",
-     "image_type": "ai",
-     "subtitle_english": "A poor Portuguese kid had nothing, but he later won five Ballon d'Ors.",
-     "voice_hindi": "एक गरीब पुर्तगाली बच्चे के पास कुछ भी नहीं था, लेकिन बाद में उसने पांच बैलन डी'ऑर्स जीते।"
-    },
-    {
-     "voice_english": "Many people doubted his dream, but he still became the Portugal national captain.",
-     "image_query": "depressed young football player sitting on a bench crying in the rain",
-     "image_type": "ai",
-     "subtitle_english": "Many people doubted his dream, but he still became the Portugal national captain.",
-     "voice_hindi": "कई लोगों को उनके सपने पर संदेह था, लेकिन फिर भी वे पुर्तगाल के राष्ट्रीय कप्तान बने।"
-    },
-    {
-     "voice_english": "He dominated Europe with his goals and won four European Golden Shoes.",
-     "image_query": "Cristiano Ronaldo holding European Golden Shoe trophy smiling",
-     "image_type": "real",
-     "subtitle_english": "He dominated Europe with his goals and won four European Golden Shoes.",
-     "voice_hindi": "उन्होंने अपने लक्ष्यों से यूरोप पर दबदबा बनाया और चार यूरोपीय गोल्डन शूज़ जीते।"
-    },
-    {
-     "voice_english": "He won three UEFA Men's Player awards, so that poor kid captains Al-Nassr.",
-     "image_query": "Cristiano Ronaldo Al-Nassr captain celebrating on the field",
-     "image_type": "real",
-     "subtitle_english": "He won three UEFA Men's Player awards, so that poor kid captains Al-Nassr.",
-     "voice_hindi": "उन्होंने तीन यूईएफए पुरुष खिलाड़ी पुरस्कार जीते, जिससे गरीब बच्चा अल-नासर की कप्तानी कर सका।"
-    }
-   ],
-   "_provider": "gemini",
-   "title_hindi": "रोनाल्डो की रैग्स टू रिचेस",
-   "youtube_title": "CR7 ki Zero se Hero Wali Insane Journey 🔥",
-   "title_options": [
-    "CR7 ki Zero se Hero Wali Insane Journey 🔥",
-    "CR7: Ek Gareeb Bachha Kaise Bana King? 🥺",
-    "Ronaldo ke Is Secret ne Sabko Shock Kiya! 🤯"
-   ],
-   "description": "Ek gareeb bacha jiske paas kuch nahi tha, wo football ka King kaise bana? 🤯 CR7 ne saare doubts ko piche chodkar 5 Ballon d'Or aur 4 European Golden Shoes apne naam kiye. Aaj wo Al-Nassr aur Portugal ke captain hain, par ye safar bilkul aasan nahi tha. Kya Ronaldo hi football history ka ultimate GOAT hai? Comment me batao! 👇",
-   "hashtags": "#Shorts #Football #Viral #CR7 #CristianoRonaldo #AlNassr #FootballJourney #GOAT"
-  }
- },
- {
   "id": "fd4ec11068fa",
   "mode": "facts",
   "topic": "World cup 2026",
