@@ -100,5 +100,56 @@
    "description": "El Clasico ki dushmani next level par hai! Real Madrid aur Barca ke ye moments dekh kar aap dang reh jaoge. 😱 Figo par pig head fekne se lekar Ronaldo ka iconic 'Calma' celebration tak sab kuch! Aapka sabse favourite El Clasico moment kaunsa hai? Comment me batao! 👇⚽",
    "hashtags": "#Shorts #Football #viral #RealMadrid #Barca #Messi #CR7 #ElClasico"
   }
+ },
+ {
+  "id": "a529dcb0ab17",
+  "mode": "facts",
+  "topic": "World cup 2026",
+  "key": "World cup 2026",
+  "data": {
+   "title_english": "Spain Win World Cup",
+   "hook_english": "Spain beat Argentina in final",
+   "cta_english": "Was Spain the best team?",
+   "segments": [
+    {
+     "voice_english": "Spain crushed Argentina in the final, but the aftermath turned into a total disgrace.",
+     "image_query": "Spain national football team celebrating 2026 World Cup",
+     "image_type": "real",
+     "subtitle_english": "Spain crushed Argentina in the final, but the aftermath turned into a total disgrace.",
+     "voice_hindi": "फाइनल में स्पेन ने अर्जेंटीना को हरा दिया, लेकिन उसके बाद परिणाम पूरी तरह से अपमानजनक हो गया।"
+    },
+    {
+     "voice_english": "Ferran Torres scored the winning goal, and Spain secured their second World Cup title.",
+     "image_query": "Ferran Torres celebrating goal 2026 World Cup final",
+     "image_type": "real",
+     "subtitle_english": "Ferran Torres scored the winning goal, and Spain secured their 2 World Cup title.",
+     "voice_hindi": "फेरान टोरेस ने विजयी गोल किया और स्पेन ने अपना दूसरा विश्व कप खिताब हासिल किया।"
+    },
+    {
+     "voice_english": "Argentina faced massive outrage because their conduct after the final match sparked global anger.",
+     "image_query": "Argentina national football team disappointed on pitch",
+     "image_type": "real",
+     "subtitle_english": "Argentina faced massive outrage because their conduct after the final match sparked global anger.",
+     "voice_hindi": "अर्जेंटीना को बड़े पैमाने पर आक्रोश का सामना करना पड़ा क्योंकि फाइनल मैच के बाद उनके आचरण से वैश्विक गुस्सा भड़क गया।"
+    },
+    {
+     "voice_english": "FIFA earned nine billion dollars, so this final cemented Spain as the ultimate champion.",
+     "image_query": "FIFA World Cup 2026 trophy celebration night",
+     "image_type": "ai",
+     "subtitle_english": "FIFA earned nine billion dollars, so this final cemented Spain as the ultimate champion.",
+     "voice_hindi": "फीफा ने नौ अरब डॉलर कमाए, इसलिए इस फाइनल ने स्पेन को अंतिम चैंपियन के रूप में स्थापित किया।"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "स्पेन ने विश्व कप जीता",
+   "youtube_title": "Argentina ka World Cup End: Ye Disgrace Kyun Hua? 😡💔",
+   "title_options": [
+    "Argentina ka World Cup End: Ye Disgrace Kyun Hua? 😡💔",
+    "Spain vs Argentina: Final ki Insane Sachai! 🤯🏆",
+    "World Cup 2026: Argentina ki Harkat se Sab Shocked! 😱⚽"
+   ],
+   "description": "Spain ne World Cup toh jeet liya, par final ke baad jo hua usne poori duniya ko hila diya! 🇪🇸 Ferran Torres ka goal historical tha, lekin Argentina ki classless conduct ne sabka mood kharab kar diya. 🇦🇷 Kya aapko lagta hai FIFA ko unke against action lena chahiye? Comment mein batao! 👇🔥",
+   "hashtags": "#WorldCup2026 #Spain #Argentina #Football #Shorts #Viral #FIFA #FootballNews"
+  }
  }
 ]
