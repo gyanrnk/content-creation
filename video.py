@@ -75,16 +75,23 @@ def _wrap_px(draw, text, font, max_width) -> list[str]:
     return lines
 
 
-def _fit_text(draw, text, max_width, start_size, min_size=30):
+def _fit_text(draw, text, max_width, start_size, min_size=30, max_lines=None):
     """
     Font size dhoondo jisme saari wrapped lines max_width ke andar fit ho jaayein.
+    max_lines diya ho to line-COUNT bhi limit hoti hai.
     Returns (lines, font, size).
+
+    BUG jo fix hua: pehle sirf WIDTH check hoti thi, line ginti nahi. Lamba hook
+    (16 words) bade font pe 5-6 line ban jaata tha aur AADHI SCREEN kha jaata tha —
+    upar yellow hook, neeche caption, beech me photo hi nahi dikhti thi.
     """
     size = start_size
     while size >= min_size:
         font = _font(size)
         lines = _wrap_px(draw, text, font, max_width)
-        if all(_line_w(draw, ln, font) <= max_width for ln in lines):
+        fits_w = all(_line_w(draw, ln, font) <= max_width for ln in lines)
+        fits_n = max_lines is None or len(lines) <= max_lines
+        if fits_w and fits_n:
             return lines, font, size
         size -= 4
     font = _font(min_size)
@@ -136,7 +143,10 @@ def _make_banner_png(text: str, name: str, top: bool = True) -> str:
     draw = ImageDraw.Draw(img)
 
     max_w = W - 2 * config.SUBTITLE_SIDE_MARGIN
-    lines, font, size = _fit_text(draw, _strip_emoji(text).upper(), max_w, 92, min_size=48)
+    # max 3 line — hook ko screen ka upper hissa hi lena chahiye, aadhi screen nahi.
+    # Size W ke hisaab se (hardcoded px nahi) taaki kisi bhi resolution pe sahi dikhe.
+    lines, font, size = _fit_text(draw, _strip_emoji(text).upper(), max_w,
+                                  int(W * 0.076), min_size=int(W * 0.037), max_lines=3)
 
     line_h = size + 22
     y = int(H * 0.10) if top else int(H * 0.40)
@@ -440,7 +450,7 @@ def _caption_clips(text: str, duration: float, idx: int, start_at: float = 0.0):
 
     # full sentence ke liye font + wrapping (layout stable rahe)
     lines, font, size = _fit_text(draw, " ".join(words), max_w,
-                                  config.SUBTITLE_FONT_SIZE)
+                                  config.SUBTITLE_FONT_SIZE, max_lines=3)
     # words ko lines me wrap karo (same font)
     wrapped, cur = [], []
     for w in words:
@@ -670,9 +680,13 @@ def build_short(segments: list[dict], media: list, audio_paths: list[str],
                           .set_position(("center", "center")))
 
         if i == 0 and script_data.get("hook_english"):
+            # Hook PUNCH he — sirf shuru me flash hona chahiye, phir hat jaana chahiye.
+            # Pehle poore segment (5-6s) tak rehta tha, to caption ke saath dono ek
+            # saath screen pe rehte the aur photo dikhti hi nahi thi.
+            hook_dur = min(2.6, dur)
             hook_png = _make_banner_png(script_data["hook_english"], "hook", top=True)
-            layers.append(ImageClip(hook_png).set_duration(dur)
-                          .set_position(("center", "center")))
+            layers.append(ImageClip(hook_png).set_duration(hook_dur)
+                          .crossfadeout(0.4).set_position(("center", "center")))
 
         clip = CompositeVideoClip(layers, size=(W, H)).set_duration(dur).set_audio(audio)
         if i > 0 and config.CROSSFADE > 0:
