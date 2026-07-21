@@ -1,56 +1,5 @@
 [
  {
-  "id": "597ad7fd3c08",
-  "mode": "story",
-  "topic": "Jude Bellingham career journey",
-  "key": "Jude Bellingham",
-  "data": {
-   "title_english": "Jude Bellingham's Rise",
-   "hook_english": "His Dream Became Real",
-   "cta_english": "Is he the best midfielder? Comment below",
-   "segments": [
-    {
-     "voice_english": "A young English boy dreamed of greatness, but nobody expected his rapid rise.",
-     "image_query": "poor young boy playing football on a dusty street at sunset",
-     "image_type": "ai",
-     "subtitle_english": "A young English boy dreamed of greatness, but nobody expected his rapid rise.",
-     "voice_hindi": "एक युवा अंग्रेज लड़के ने महानता का सपना देखा, लेकिन किसी को भी उसके इतनी तेजी से आगे बढ़ने की उम्मीद नहीं थी।"
-    },
-    {
-     "voice_english": "He had to prove his athleticism in midfield because critics doubted his age.",
-     "image_query": "young football player sitting alone on bench under heavy rain",
-     "image_type": "ai",
-     "subtitle_english": "He had to prove his athleticism in midfield because critics doubted his age.",
-     "voice_hindi": "उन्हें मिडफ़ील्ड में अपनी एथलेटिक प्रतिभा साबित करनी पड़ी क्योंकि आलोचकों को उनकी उम्र पर संदेह था।"
-    },
-    {
-     "voice_english": "Real Madrid signed the English midfielder, and his ball winning shocked everyone.",
-     "image_query": "Jude Bellingham Real Madrid",
-     "image_type": "real",
-     "subtitle_english": "Real Madrid signed the English midfielder, and his ball winning shocked everyone.",
-     "voice_hindi": "रियल मैड्रिड ने इंग्लिश मिडफील्डर को साइन किया और उसकी बॉल जीत ने सभी को चौंका दिया।"
-    },
-    {
-     "voice_english": "Now he plays for England as a superstar, so that childhood dream is real.",
-     "image_query": "Jude Bellingham England national football team",
-     "image_type": "real",
-     "subtitle_english": "Now he plays for England as a superstar, so that childhood dream is real.",
-     "voice_hindi": "अब वह एक सुपरस्टार के रूप में इंग्लैंड के लिए खेलते हैं, इसलिए बचपन का वह सपना सच हो गया है।"
-    }
-   ],
-   "_provider": "gemini",
-   "title_hindi": "जूड बेलिंगहैम का उदय",
-   "youtube_title": "Bellingham ka Secret: Boy to Madrid King 👑",
-   "title_options": [
-    "Bellingham ka Secret: Boy to Madrid King 👑",
-    "Bellingham ne Sabko Shock Kaise Kiya? 🤯",
-    "Bellingham: Real Madrid ka Sabse Bada Sach! 🤫"
-   ],
-   "description": "Ek chota ladka jise sabne doubt kiya, aaj Real Madrid aur England ka sabse bada hero ban gaya hai! 🏴󠁧󠁢󠁥󠁮󠁧󠁿✨ Jude Bellingham ne apni insane athleticism aur ball-winning se pure football world ko heran kar diya. Kya Bellingham is saal Ballon d'Or jeet payega? Comments me batao! 👇⚽",
-   "hashtags": "#Shorts #Football #Reels #viral #Bellingham #RealMadrid #England #LaLiga"
-  }
- },
- {
   "id": "e432b50ac23b",
   "mode": "story",
   "topic": "Kylian Mbappe career journey",
