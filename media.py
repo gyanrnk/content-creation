@@ -625,10 +625,17 @@ def fetch_media(segments: list[dict], user_images: list[str] = None,
                    or _wikimedia(f"{query} footballer") or _wikimedia(query)
                    or _pexels(query) or _pollinations(ai_prompt))
         else:
-            if config.PREFER_REAL_IMAGES:
-                img = _openverse(random.choice(_BROLL)) or _openverse(random.choice(_BROLL))
+            # BUG jo fix hua: yahan pehle _openverse(random.choice(_BROLL)) tha —
+            # segment ka apna image_query POORI TARAH ignore karke ek RANDOM b-roll
+            # keyword se photo laata tha. Isliye atmospheric segment ka visual line se
+            # kabhi match kar hi nahi sakta tha. Openverse bina filter ke kuch bhi de
+            # deta tha: american football, gym dodgeball, aur channel ke liye bilkul
+            # galat tasveerein. Ab: pehle AI image (line ke apne prompt se, jo kam se
+            # kam SOCCER banata he), phir line ke query se hi Openverse/Wikimedia.
+            img = _pollinations(ai_prompt)
             if img is None:
-                img = _pollinations(ai_prompt) or _wikimedia(query)
+                img = (_openverse(f"{query} soccer football")
+                       or _wikimedia(f"{query} football") or _wikimedia(query))
 
         if img is None:
             img = Image.new("RGB", (config.WIDTH, config.HEIGHT), (15, 30, 60))
