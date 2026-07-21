@@ -1,56 +1,5 @@
 [
  {
-  "id": "e432b50ac23b",
-  "mode": "story",
-  "topic": "Kylian Mbappe career journey",
-  "key": "Kylian Mbappe",
-  "data": {
-   "title_english": "Mbappe's Dream Journey",
-   "hook_english": "From nothing to Real Madrid",
-   "cta_english": "Is Mbappe the best? Comment now!",
-   "segments": [
-    {
-     "voice_english": "A poor kid wanted to rule world football, so he ran faster than everyone.",
-     "image_query": "poor kid playing football on a dusty street at sunset",
-     "image_type": "ai",
-     "subtitle_english": "A poor kid wanted to rule world football, so he ran faster than everyone.",
-     "voice_hindi": "एक गरीब बच्चा विश्व फ़ुटबॉल पर राज करना चाहता था, इसलिए वह सभी से तेज़ दौड़ा।"
-    },
-    {
-     "voice_english": "Many doubters said he was too small, but his incredible pace shocked them.",
-     "image_query": "sad young boy sitting on a cold bench looking at football pitch",
-     "image_type": "ai",
-     "subtitle_english": "Many doubters said he was too small, but his incredible pace shocked them.",
-     "voice_hindi": "कई संदेह करने वालों ने कहा कि वह बहुत छोटा था, लेकिन उसकी अविश्वसनीय गति ने उन्हें चौंका दिया।"
-    },
-    {
-     "voice_english": "He scored many goals for France, and he soon became their official captain.",
-     "image_query": "Kylian Mbappe celebrating a goal in France national football team kit",
-     "image_type": "real",
-     "subtitle_english": "He scored many goals for France, and he soon became their official captain.",
-     "voice_hindi": "उन्होंने फ्रांस के लिए कई गोल किये और वह जल्द ही उनके आधिकारिक कप्तान बन गये।"
-    },
-    {
-     "voice_english": "Now he plays for Real Madrid, because that poor kid never stopped running.",
-     "image_query": "Kylian Mbappe smiling in Real Madrid football kit",
-     "image_type": "real",
-     "subtitle_english": "Now he plays for Real Madrid, because that poor kid never stopped running.",
-     "voice_hindi": "अब वह रियल मैड्रिड के लिए खेलता है, क्योंकि उस बेचारे बच्चे ने कभी दौड़ना नहीं छोड़ा।"
-    }
-   ],
-   "_provider": "gemini",
-   "title_hindi": "एमबीप्पे की सपनों की यात्रा",
-   "youtube_title": "Mbappe ko sabne bola 'Too Small', fir jo hua... 🤯",
-   "title_options": [
-    "Mbappe ko sabne bola 'Too Small', fir jo hua... 🤯",
-    "Mbappe Speed Secret: Gareeb bacha kaise bana King? 👑",
-    "Mbappe: Real Madrid tak ka sabse Emotional Safar! 😢"
-   ],
-   "description": "Ek gareeb bacha jise sabne bola ki woh bohot chota hai, aaj wahi poori duniya par raaj kar raha hai! 🤯 Kylian Mbappe ne apni insane speed se poore football world ko shock kar diya aur ab wo Real Madrid me khel raha hai. Kya Mbappe is saal Ballon d'Or jeetega? Comments me batao! 👇",
-   "hashtags": "#Shorts #Football #Reels #viral #Mbappe #RealMadrid #France #LaLiga"
-  }
- },
- {
   "id": "a529dcb0ab17",
   "mode": "facts",
   "topic": "World cup 2026",
