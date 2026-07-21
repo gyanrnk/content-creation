@@ -15,7 +15,7 @@ import os
 import re
 
 # ── FIX: Pillow 10+ ne ANTIALIAS hata diya, moviepy 1.0.3 use karta hai ──────────
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 if not hasattr(Image, "ANTIALIAS"):
     Image.ANTIALIAS = Image.LANCZOS
 
@@ -240,6 +240,80 @@ def _ken_burns(img_path: str, duration: float, motion: str = "in", zoom: float =
     return VideoClip(make_frame, duration=duration)
 
 
+def _parallax(img_path: str, duration: float, motion: str = "in"):
+    """2.5D PARALLAX — image ko 2 layer me todke ALAG speed se hilao = depth ka ehsaas
+    (flat zoom se kaafi zyada 'alive' lagta hai).
+
+    Layer 1 (background) : dheere pan + BLUR
+    Layer 2 (foreground) : thoda bada zoom + TEZ pan (center me subject hota hai)
+    Beech me soft elliptical mask taaki jod dikhe nahi.
+
+    Background BLUR zaroori hai: flat photo me asli depth-map nahi hota, to foreground
+    layer poori image ka zoom hoti hai — sharp background ke sath blend karo to har edge
+    DO baar dikhta hai (bhoot jaisa double image). Background blur karne se wo double
+    image portrait-mode bokeh ki tarah padhta hai, aur subject aur pop karta hai.
+
+    FAST: dono layers ek baar resize hoti hain, per-frame sirf numpy CROP + blend
+    (koi per-frame resize nahi) — _ken_burns wali hi trick.
+    """
+    z_bg = config.KEN_BURNS_ZOOM
+    z_fg = z_bg * 1.18                      # foreground "paas" hai -> bada
+    PARALLAX_BLUR = 14                      # bg blur radius (ghost -> bokeh)
+    base = Image.open(img_path).convert("RGB")
+    bg_img = base.resize((int(W * z_bg), int(H * z_bg)), Image.LANCZOS)
+    bg_img = bg_img.filter(ImageFilter.GaussianBlur(PARALLAX_BLUR))   # ek hi baar, setup pe
+    bg = np.asarray(bg_img)
+    fg = np.asarray(base.resize((int(W * z_fg), int(H * z_fg)), Image.LANCZOS))
+    ex_b, ey_b = bg.shape[1] - W, bg.shape[0] - H
+    ex_f, ey_f = fg.shape[1] - W, fg.shape[0] - H
+
+    # soft elliptical mask — center (subject) foreground, kinare background
+    yy, xx = np.mgrid[0:H, 0:W]
+    d = np.sqrt(((xx - W / 2) / (W * 0.42)) ** 2 + ((yy - H / 2) / (H * 0.40)) ** 2)
+    m = np.clip(1.35 - d, 0.0, 1.0)         # 1 = foreground, 0 = background
+    m = (m * m * (3 - 2 * m))[..., None]                      # smoothstep
+    # float32 blend har frame pe mehnga tha (61ms) -> uint16 integer math (~2x fast).
+    # Sath me: pure-bg aur pure-fg region me blend karne ki zaroorat hi nahi (sirf copy),
+    # isliye sirf SOFT BAND ke rows pe blend karte hain.
+    # Mask ke bahar sab pura background hai -> wahan blend karne ka koi matlab nahi.
+    # Sirf mask ke bounding box pe blend karte hain, baaki background ka seedha copy.
+    live = m[:, :, 0] > 0.004
+    rows, cols = np.where(live.any(1))[0], np.where(live.any(0))[0]
+    if rows.size and cols.size:
+        r0, r1 = int(rows[0]), int(rows[-1]) + 1
+        c0, c1 = int(cols[0]), int(cols[-1]) + 1
+    else:
+        r0 = r1 = c0 = c1 = 0
+    m16 = (m[r0:r1, c0:c1] * 256).astype(np.uint16)     # sirf box ka mask
+    inv16 = 256 - m16
+
+    horiz = motion in ("left", "right")
+    rev = motion in ("right", "down", "out")
+
+    def make_frame(t):
+        f = max(0.0, min(1.0, t / duration))
+        if rev:
+            f = 1.0 - f
+        # foreground 1.7x tez chalta hai -> yahi parallax hai
+        fb, ff = f, min(1.0, f * 1.7)
+        if horiz:
+            xb, yb = int(ex_b * fb), ey_b // 2
+            xf, yf = int(ex_f * ff), ey_f // 2
+        else:
+            xb, yb = ex_b // 2, int(ey_b * fb)
+            xf, yf = ex_f // 2, int(ey_f * ff)
+        b = bg[yb:yb + H, xb:xb + W]
+        g = fg[yf:yf + H, xf:xf + W]
+        out = b.copy()                          # background base (fast memcpy)
+        if r1 > r0:
+            bb = b[r0:r1, c0:c1].astype(np.uint16)
+            gg = g[r0:r1, c0:c1].astype(np.uint16)
+            out[r0:r1, c0:c1] = ((bb * inv16 + gg * m16) >> 8).astype(np.uint8)
+        return out
+
+    return VideoClip(make_frame, duration=duration)
+
+
 def _video_bg(path: str, duration: float):
     """Pexels video clip ko 9:16 cover + loop/trim karke segment bg banata hai."""
     clip = VideoFileClip(path).without_audio()
@@ -265,7 +339,19 @@ def _bg_clip(media: dict, duration: float, idx: int):
             print(f"[video]   video clip failed ({e}) -> color bg")
             return ColorClip((W, H), color=(15, 30, 60)).set_duration(duration)
     motion = _MOTIONS[idx % len(_MOTIONS)]
-    return _ken_burns(media["path"], duration, motion)
+    return _still_bg(media["path"], duration, motion)
+
+
+def _still_bg(path: str, duration: float, motion: str, zoom: float = None):
+    """Image ka motion background: parallax (2.5D depth) agar ON ho, warna Ken Burns.
+    Parallax ~53ms/frame leta hai (Ken Burns lagbhag muft hai), isliye toggle rakha —
+    build slow lage to config me PARALLAX = False."""
+    if getattr(config, "PARALLAX", True) and zoom is None:
+        try:
+            return _parallax(path, duration, motion)
+        except Exception as e:
+            print(f"[video]   parallax fail ({e}) -> ken burns")
+    return _ken_burns(path, duration, motion, zoom=zoom)
 
 
 def _two_shot_bg(media: dict, duration: float, idx: int):
@@ -279,7 +365,9 @@ def _two_shot_bg(media: dict, duration: float, idx: int):
         path = media["path"]
         half = duration / 2.0
         z = config.KEN_BURNS_ZOOM
-        shot1 = _ken_burns(path, half, _MOTIONS[idx % len(_MOTIONS)], zoom=z)
+        # Wide shot pe parallax (depth wahi sabse zyada dikhta hai), punch-in shot
+        # sasta Ken Burns — is se depth bhi milti hai aur render cost aadhi rehti hai.
+        shot1 = _still_bg(path, half, _MOTIONS[idx % len(_MOTIONS)])
         shot2 = _ken_burns(path, half, _MOTIONS[(idx + 3) % len(_MOTIONS)],
                            zoom=z * 1.30)                     # punch-in cut
         return concatenate_videoclips([shot1, shot2],
