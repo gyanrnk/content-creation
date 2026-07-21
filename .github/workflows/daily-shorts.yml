@@ -105,10 +105,25 @@ jobs:
         run: |
           git config user.name "shorts-bot"
           git config user.email "bot@users.noreply.github.com"
-          git pull --rebase || true
+          # BUG FIX: pehle 'git pull --rebase' SABSE PEHLE chalta tha, jab build ne
+          # data files already badal di hoti thi -> "cannot pull with rebase: You have
+          # unstaged changes" -> '|| true' ne error nigal liya -> phir push bhi fail
+          # ('|| echo' ne wo bhi nigal liya). Natija: queue se pop kabhi SAVE hi nahi
+          # hua. Queue kabhi ghatti nahi thi aur wahi script dobara build ho sakti thi.
+          # Ab: pehle STAGE karo, phir commit, phir --autostash ke saath pull + retry.
           git add asset_history.json data/build_log.jsonl data/script_queue.json data/pending_scripts.json || true
-          git commit -m "chore: update dedup history + build log [skip ci]" || echo "nothing to commit"
-          git push || echo "push skipped"
+          if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
+          git commit -m "chore: update dedup history + build log [skip ci]"
+          for i in 1 2 3 4 5; do
+            if git pull --rebase --autostash origin main && git push origin main; then
+              echo "persisted (attempt $i)"; exit 0
+            fi
+            echo "persist attempt $i failed (review app ne beech me commit kiya hoga), retry..."
+            sleep 5
+          done
+          # Chup-chaap fail mat hone do — yahi bug 2 din chhupa raha tha.
+          echo "::error::QUEUE PERSIST FAILED — pop save nahi hua, script dobara build hogi"
+          exit 1
 
       # NOTE: email ab auto.py se HAR short ke baad turant jaata hai (per-video),
       # isliye yahan batch-end email nahi. Artifact download link per-video mail me

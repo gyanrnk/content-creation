@@ -106,6 +106,10 @@ def _publish_at_iso(offset: int = 0):
     # (5 PM build ko 1:30 PM mil gaya) -> schedule cancel hoke turant public ho jaata.
     # Ab: sirf FUTURE evening slots me se chuno, offset se un्ही me spread.
     evening = [(19, 0), (20, 0), (21, 0), (22, 0)]        # India Shorts peak
+    # Build KHUD peak me ho raha he (7 PM ke baad) -> schedule karne ka matlab nahi,
+    # turant public karo. Warna shaam ke dono late builds 10 PM pe dher ho jaate the.
+    if now.hour >= evening[0][0]:
+        return None, None
     future = []
     for h, m in evening:
         t = now.replace(hour=h, minute=m, second=0, microsecond=0)
@@ -113,7 +117,12 @@ def _publish_at_iso(offset: int = 0):
             future.append(t)
     if not future:                       # saare slot nikal gaye (late build) -> turant
         return None, None
-    target = future[offset % len(future)]
+    # BUG FIX 2: har cron run n=1 video banata he, to offset HAMESHA 0 tha -> har build
+    # ko future[0] milta tha -> din ke saare videos EK HI 7 PM slot pe dher ho jaate the
+    # (aaj dono 13:30Z pe schedule hue). Ab slot BUILD KE GHANTE se chunte he — stateless,
+    # isliye queue-persist bug se bhi safe. 11-12 IST->7PM, 13-14->8PM, 15-16->9PM, 17+->10PM.
+    idx = (now.hour - 11) // 2 + offset
+    target = future[min(max(idx, 0), len(future) - 1)]
     iso = target.astimezone(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     disp = target.strftime("%I:%M %p IST").lstrip("0")
     return iso, disp
