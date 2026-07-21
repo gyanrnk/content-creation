@@ -1,56 +1,5 @@
 [
  {
-  "id": "5dbd86414c12",
-  "mode": "ranking",
-  "topic": "Top 5 most iconic football rivalries",
-  "key": "most iconic football rivalries",
-  "data": {
-   "title_english": "El Clasico's Wildest Clashes Ranked",
-   "hook_english": "El Clasico's Most Toxic Moments",
-   "cta_english": "Messi or Ronaldo? Comment below!",
-   "segments": [
-    {
-     "voice_english": "Figo joined Madrid, but fans threw a pig head at him in 2002.",
-     "image_query": "Luis Figo Real Madrid 2002",
-     "image_type": "real",
-     "subtitle_english": "Figo joined Madrid, but fans threw a pig head at him in 2002.",
-     "voice_hindi": "फ़िगो मैड्रिड में शामिल हो गए, लेकिन 2002 में प्रशंसकों ने उन पर सुअर का सिर फेंक दिया।"
-    },
-    {
-     "voice_english": "Mourinho got angry in 2011, so he poked Tito Vilanova directly in the eye.",
-     "image_query": "Jose Mourinho Tito Vilanova 2011",
-     "image_type": "real",
-     "subtitle_english": "Mourinho got angry in 2011, so he poked Tito Vilanova directly in the eye.",
-     "voice_hindi": "2011 में मोरिन्हो को गुस्सा आया तो उन्होंने सीधे टीटो विलानोवा की आंख में प्रहार कर दिया।"
-    },
-    {
-     "voice_english": "Messi scored in minute 92, so he held his shirt up to Madrid fans.",
-     "image_query": "Lionel Messi shirt celebration Bernabeu",
-     "image_type": "real",
-     "subtitle_english": "Messi scored in minute 92, so he held his shirt up to Madrid fans.",
-     "voice_hindi": "मेसी ने 92वें मिनट में गोल किया, इसलिए उन्होंने मैड्रिड के प्रशंसकों के सामने अपनी शर्ट ऊपर कर दी।"
-    },
-    {
-     "voice_english": "Ronaldo silenced Camp Nou when he gestured calma to eighty thousand angry fans.",
-     "image_query": "Cristiano Ronaldo calma celebration Camp Nou",
-     "image_type": "real",
-     "subtitle_english": "Ronaldo silenced Camp Nou when he gestured calma to 80000 angry fans.",
-     "voice_hindi": "रोनाल्डो ने कैंप नोउ को तब चुप करा दिया जब उन्होंने अपने अस्सी हजार नाराज प्रशंसकों को शांत भाव से इशारा किया।"
-    }
-   ],
-   "_provider": "gemini",
-   "title_hindi": "एल क्लासिको की सबसे बेतहाशा झड़पों की रैंकिंग",
-   "youtube_title": "Real Madrid vs Barca: Top 5 Insane Moments 🤯⚽",
-   "title_options": [
-    "Real Madrid vs Barca: Top 5 Insane Moments 🤯⚽",
-    "Ronaldo aur Messi ke 5 Sabse Shocking Moments 💀🔥",
-    "El Clasico: CR7 aur Messi ke 5 Unbelievable Moments 😱"
-   ],
-   "description": "El Clasico ki dushmani next level par hai! Real Madrid aur Barca ke ye moments dekh kar aap dang reh jaoge. 😱 Figo par pig head fekne se lekar Ronaldo ka iconic 'Calma' celebration tak sab kuch! Aapka sabse favourite El Clasico moment kaunsa hai? Comment me batao! 👇⚽",
-   "hashtags": "#Shorts #Football #viral #RealMadrid #Barca #Messi #CR7 #ElClasico"
-  }
- },
- {
   "id": "597ad7fd3c08",
   "mode": "story",
   "topic": "Jude Bellingham career journey",
