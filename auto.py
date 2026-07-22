@@ -239,9 +239,18 @@ def autopilot(n: int = 3, query: str = None) -> dict:
             results.append({"topic": topic, "mode": mode, "ok": True,
                             "dir": out_dir, "title": title, "video": vpath})
 
-            # --- ban-ne ke baad UPLOAD — PEAK time pe scheduled publish ("offline push") ---
+            # --- ban-ne ke baad UPLOAD — TURANT public (scheduling BAND) ---
+            # 16 July ko maine scheduled publish daala tha (private upload -> 7 PM pe
+            # public). Soch thi ki peak time pe jaayegi to zyada views. ULTA HUA:
+            #   14-16 Jul (bina scheduling): 1471 / 2143 / 1600 total views/din
+            #   17 Jul se (scheduling ke saath): 798 / 792 / 249 / 113 / 119
+            # Lagta he Shorts feed video ko UPLOAD ke waqt se test karta he, publish ke
+            # waqt se nahi — to 7 PM tak wo algorithm ke liye purani ho chuki hoti thi.
+            # Ab peak timing CRON se aati he (workflow me crons peak hours me hain) aur
+            # video bante hi turant public jaati he. Wapas laana ho to:
+            #   pub_at, pub_disp = _publish_at_iso(i - 1) if do_upload else (None, None)
             yt_url = ""
-            pub_at, pub_disp = (_publish_at_iso(i - 1) if do_upload else (None, None))
+            pub_at, pub_disp = (None, None)
             if do_upload:
                 try:
                     import upload_youtube

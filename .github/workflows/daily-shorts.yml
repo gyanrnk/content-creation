@@ -9,12 +9,16 @@ on:
     # baad push hoti hain, toh peak pe daalna = zyada initial velocity = zyada reach.
     # NOTE: GitHub cron BEST-EFFORT (10-45 min late; :00 top-of-hour congested) -> :10 past.
     # Build ~10 min lagta hai, toh upload approx: ~6:00, 7:00, 8:00, 9:00, 10:00, 11:00 PM IST.
-    - cron: "5 6 * * *"      # ~11:35 AM IST
-    - cron: "5 8 * * *"      # ~1:35 PM IST
-    - cron: "5 10 * * *"     # ~3:35 PM IST
-    - cron: "5 12 * * *"     # ~5:35 PM IST
-    - cron: "5 14 * * *"     # ~7:35 PM IST (evening peak)
-    - cron: "5 16 * * *"     # ~9:35 PM IST (evening peak)
+    # Video ab TURANT public jaati he (scheduled publish hata diya — dekho auto.py).
+    # Isliye peak timing ab IN CRONS se aati he: build peak se thoda pehle shuru ho,
+    # ~8 min me ban ke seedha peak me live ho jaaye. Cron 10-45 min late ho sakta he,
+    # isliye har slot target se ~30-40 min pehle rakha he.
+    - cron: "0 6 * * *"      # live ~11:40 AM-12:15 PM IST (midday bump)
+    - cron: "0 12 * * *"     # live ~5:40-6:15 PM IST
+    - cron: "0 13 * * *"     # live ~6:40-7:15 PM IST (peak shuru)
+    - cron: "0 14 * * *"     # live ~7:40-8:15 PM IST (peak)
+    - cron: "0 15 * * *"     # live ~8:40-9:15 PM IST (peak)
+    - cron: "0 16 * * *"     # live ~9:40-10:15 PM IST (peak khatam)
   workflow_dispatch:
     inputs:
       count:
