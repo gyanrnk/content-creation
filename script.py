@@ -53,9 +53,24 @@ MODE_GUIDE = {
         "player or team name in image_query."
     ),
     "pundit": (
-        "WHY EVERYONE IS TALKING ABOUT ONE PLAYER — framed as curiosity, not a quote "
-        "dump. Open with WHY he is suddenly the topic, then back it with WHO said "
-        "what. The whole point is NAMES: each "
+        "A PUNDIT ARGUMENT the viewer is dropped into — NOT a list of separate opinions.\n"
+        "*** SEGMENT 1 MUST SET THE SCENE: where this argument happened and who was in "
+        "it — the show/panel/press conference, the match it followed, and the names. "
+        "Like 'Fox TV ke panel pe Henry aur Zlatan ne Ronaldo ko khari-khoti suna di'. "
+        "Without a scene the viewer has no idea what they are watching. ***\n"
+        "*** ONE SUBJECT PLAYER FOR THE WHOLE VIDEO. Every take must be ABOUT HIM. If a "
+        "line ends up being about a different player, a different match or a different "
+        "argument, it is WRONG — drop it. A script that drifts (Mbappe -> Messi -> Spain "
+        "-> a pundit insulting another pundit) leaves the viewer with nothing. ***\n"
+        "*** THE PEOPLE MUST BE REACTING TO EACH OTHER, not talking in parallel. One "
+        "attacks, the next answers him, the third settles it. That back-and-forth IS the "
+        "story — it is why the viewer stays. ***\n"
+        "*** STAY INSIDE THE ONE ARGUMENT. Transfer news, award wins, boot deals and "
+        "magazine covers are NOT part of it — if a fact above is not somebody REACTING to "
+        "this player, do not use it, even to fill a segment. Better to circle deeper into "
+        "the same row (who else weighed in, what he answered) than to pad with unrelated "
+        "news, which is exactly what makes the script feel like it goes nowhere. ***\n"
+        "The whole point is NAMES: each "
         "line must be '<Named person> ne <player> ko/ka <specific take>'. "
         "*** EVERY segment MUST name the person giving the take (Thierry Henry, Zlatan "
         "Ibrahimovic, Wayne Rooney, Gary Neville, Ronaldo Nazario, a coach, a team-mate). "
@@ -222,6 +237,14 @@ def _build_messages(topic: str, mode: str, num_segments: int, context: str = "")
         "viewer feels the story moving forward. Use links like 'That was nothing —', "
         "'Two years later,', 'The same man then', 'And it got worse:', 'Which is why', "
         "'But his rival answered:'. Vary them; never reuse the same link twice. ***\n"
+        "*** THE LINK MUST BE REAL, NOT JUST A WORD. Writing 'which is why' or 'and it "
+        "got worse because' between two facts that are NOT actually related is WORSE than "
+        "no link at all — the viewer feels the sentence promise a connection and then get "
+        "nothing. Before you keep a connector, check it out loud: does line B genuinely "
+        "follow from line A? If not, either reorder so it does, or replace line B. "
+        "Also NEVER state an effect before its cause ('backlash hit him, so his team-mate "
+        "defended him' — then only explaining the backlash in the NEXT line). Cause first, "
+        "always. ***\n"
         "*** BANNED — the disconnected-list script. WRONG (5 separate incidents, each "
         "self-contained, no thread): 'Figo joined Madrid, fans threw a pig head in 2002.' "
         "/ 'Mourinho got angry in 2011, so he poked Vilanova in the eye.' / 'Messi scored "
@@ -952,7 +975,7 @@ def generate_script(topic: str = None, mode: str = None,
                     and mode in {"facts", "preview", "player", "pundit", "controversy"}:
                 try:
                     from trends import current_context
-                    ctx = current_context(topic) or ""
+                    ctx = current_context(topic, mode=mode) or ""
                     if ctx:
                         print(f"[script] news-grounding ON ({ctx.count(chr(10)) + 1} headlines)")
                 except Exception as e:

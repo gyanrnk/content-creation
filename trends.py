@@ -62,12 +62,36 @@ def wiki_facts(name: str) -> str:
     return ""
 
 
-def current_context(topic: str = None, n: int = 8) -> str:
+def current_context(topic: str = None, n: int = 8, mode: str = "") -> str:
     """Aaj ki REAL football headlines — script LLM ko grounding dene ke liye.
 
     Ye 'ground truth' hai: eliminated teams, latest results etc. LLM inke against
     kuch nahi bolega (stale prediction se bachne ke liye).
+
+    mode='pundit' pe alag search chalti he — aur ye zaroori he. Sirf player ka naam
+    search karne pe aam khabrein aati thi ("Mbappe EA Sports FC 27 cover star"), jinme
+    koi behes hoti hi nahi. Model ke paas jodne ko kuch nahi hota tha, to wo 'which is
+    why' jaise NAKLI connector chipka deta tha. Reaction-wale shabd daalne pe asli panel
+    behes milti he — jaise "Henry and Ibrahimovic reject Donovan's France 'arrogance'
+    claim" — jisme scene, naam aur takraar teeno hote he.
     """
+    if mode == "pundit" and topic:
+        who = topic.replace("what pundits and legends are saying about", "").strip()
+        heads = []
+        # SIRF reaction-wali queries. Plain naam wali search yahan JAAN-BOOJH KE nahi he:
+        # usse "Mbappe EA Sports FC 27 cover star" jaisi aam khabrein aa jaati thi aur
+        # script beech me unhi pe bhatak jaati thi. Kam headlines behtar he, bhatakne se.
+        for q in (f"{who} pundit reaction said slammed praised",
+                  f"{who} Henry Ibrahimovic Neville Rooney criticised",
+                  f"{who} pundits react debate row"):
+            for h in get_trending(q, n=n):
+                if h not in heads:
+                    heads.append(h)
+            if len(heads) >= n:
+                break
+        if heads:
+            return "\n".join(f"- {h}" for h in heads[:n])
+
     heads = get_trending(topic or "FIFA World Cup 2026 result", n=n)
     if not heads:
         # topic-specific na mile to general WC news try karo
