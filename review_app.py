@@ -122,6 +122,13 @@ st.markdown("""
   .fg-pill .n {font-size:1.7rem; font-weight:700; line-height:1; color:#f9fafb;}
   .fg-pill .l {font-size:.74rem; color:#9ca3af; text-transform:uppercase;
                letter-spacing:.6px; margin-top:4px;}
+  /* stock pill rang badalti he taaki khali hone se PEHLE dikh jaaye */
+  .fg-pill.ok   {border-color:#14532d; background:#0c1a12;}
+  .fg-pill.ok   .n {color:#4ade80;}
+  .fg-pill.warn {border-color:#78350f; background:#1a1206;}
+  .fg-pill.warn .n {color:#fbbf24;}
+  .fg-pill.bad  {border-color:#7f1d1d; background:#1a0c0c;}
+  .fg-pill.bad  .n {color:#f87171;}
   /* script card */
   .fg-card {background:#0b1220; border:1px solid #1f2937; border-left:4px solid var(--ac);
             border-radius:14px; padding:14px 16px; margin:6px 0 10px;}
@@ -157,15 +164,27 @@ st.markdown(
     f'<p>{"☁️ GitHub se juda" if USE_GH else "💻 Local mode"} · approve karte hi '
     f'cron us script se video bana dega</p></div>', unsafe_allow_html=True)
 
+# BUG jo fix hua: "Din ka stock" bhi len(queue) hi dikha raha tha — yaani "Approved
+# queue" ki nakal. 7 script dikhte the aur lagta tha 7 DIN ka stock he, jabki 6 video
+# roz jaate he to wo sirf ~1 din ka he. Ab asli din nikaalte he.
+UPLOADS_PER_DAY = 6
+days = len(queue) / UPLOADS_PER_DAY
+d_cls = "bad" if days < 1 else ("warn" if days < 2 else "ok")
+d_txt = f"{days:.1f}"
 st.markdown(
     f'<div class="fg-stats">'
     f'<div class="fg-pill"><div class="n">{len(pending)}</div>'
     f'<div class="l">📝 Review baaki</div></div>'
     f'<div class="fg-pill"><div class="n">{len(queue)}</div>'
     f'<div class="l">✅ Approved queue</div></div>'
-    f'<div class="fg-pill"><div class="n">{len(queue)}</div>'
+    f'<div class="fg-pill {d_cls}"><div class="n">{d_txt}</div>'
     f'<div class="l">🎬 Din ka stock</div></div>'
     f'</div>', unsafe_allow_html=True)
+
+if days < 1:
+    st.warning(f"⚠️ Stock kam hai — {len(queue)} script bache hain, roz {UPLOADS_PER_DAY} "
+               f"video jaate hain. Aaj hi khatam ho jayega. Claude se bolo: "
+               f"*'naye script banao'*")
 
 if st.button("🔄 Refresh", use_container_width=True):
     st.rerun()
