@@ -320,11 +320,56 @@ def autopilot(n: int = 3, query: str = None) -> dict:
     return summary
 
 
+DAILY_TARGET = 6                      # roz kitne shorts (YouTube quota: 6 x 1600 = 9600)
+CRON_HOURS_UTC = (6, 12, 13, 14, 15, 16)   # workflow ke cron slots
+MAX_CATCHUP = 3                       # ek run me itne se zyada nahi (quota + runtime)
+
+
+def _built_today() -> int:
+    """Aaj ab tak kitne shorts ban chuke (build_log se)."""
+    path = os.path.join("data", "build_log.jsonl")
+    today = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
+    try:
+        with open(path, encoding="utf-8") as f:
+            return sum(1 for ln in f if ln.strip() and
+                       json.loads(ln).get("ts", "").startswith(today))
+    except Exception:
+        return 0
+
+
+def _catchup_count(asked: int) -> int:
+    """Cron miss ho jaaye to agla run bhar deta he.
+
+    Kyun: 22 July ko maine cron ka time badla, GitHub ne purana schedule band karke
+    naya register karne me ghante laga diye, aur beech ke 4 runs CHUP-CHAAP gir gaye —
+    din bhar me sirf 1 video gayi jabki queue me 7 script padi thi. Ek run miss hona
+    ab poora din barbaad nahi karega: har run dekhta he ki ab tak kitne slot nikal
+    chuke aur kitne bane, aur kami poori kar deta he.
+    """
+    if asked != 1:                    # manual run (count diya hua) -> chhedo mat
+        return asked
+    now = datetime.datetime.now(datetime.timezone.utc)
+    elapsed = sum(1 for h in CRON_HOURS_UTC if now.hour >= h)
+    done = _built_today()
+    left = DAILY_TARGET - done
+    if left <= 0:                     # din ka target pura -> quota bachao, skip
+        print(f"[auto] aaj ke {done} shorts ho chuke (target {DAILY_TARGET}) -> skip")
+        return 0
+    want = min(max(1, min(elapsed, DAILY_TARGET) - done), MAX_CATCHUP, left)
+    if want > 1:
+        print(f"[auto] catch-up: {elapsed} slot nikal chuke, {done} bane -> "
+              f"is run me {want} banayenge")
+    return want
+
+
 if __name__ == "__main__":
     try:
         n = int(sys.argv[1]) if len(sys.argv) > 1 else 3
     except ValueError:
         n = 3
+    n = _catchup_count(n)
+    if n <= 0:
+        sys.exit(0)                   # target pura — quota bacha ke shant nikal jao
     q = sys.argv[2] if len(sys.argv) > 2 else None
     try:
         autopilot(n, q)
