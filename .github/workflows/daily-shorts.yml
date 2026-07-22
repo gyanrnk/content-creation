@@ -80,8 +80,15 @@ jobs:
           if [ -n "$YT_TOKEN" ]; then printf '%s' "$YT_TOKEN" > token.json; fi
           if [ -n "$YT_CLIENT_SECRET" ]; then printf '%s' "$YT_CLIENT_SECRET" > client_secret.json; fi
 
-      - name: Config for CI (CLIP off = fast/light)
-        run: sed -i 's/^REAL_PHOTO_CLIP = True/REAL_PHOTO_CLIP = False/' config.py
+      # CLIP ab ON he (config default True). Pehle yahan sed se OFF kar dete the,
+      # isliye har cloud build pehli mili candidate photo utha leta tha aur visual
+      # line se match nahi karta tha. Model 579MB ka he -> cache karo warna har run
+      # me dobara download hoga.
+      - name: Cache CLIP model
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: hf-clip-vit-b32-v1
 
       - name: Build + upload shorts (upload auto.py ke andar hota hai — har video ban-te hi upload + email with live link)
         env:

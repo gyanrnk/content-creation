@@ -12,3 +12,11 @@ python-dotenv==1.2.2
 google-api-python-client==2.192.0
 google-auth-oauthlib==1.4.0
 google-auth-httplib2>=0.2.0
+
+# CLIP rerank — sentence se sabse relevant asli photo chunta he. Iske bina cloud
+# builds pehli mili candidate utha lete the (isliye "Camp Nou return" pe car-park
+# wali photo aa jaati thi). CPU-only torch (~200MB) — GPU wheel 2.5GB ka hota he.
+# Install fail ho jaaye to realphoto.py graceful fallback karta he, build nahi tootta.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.5.1+cpu
+sentence-transformers==3.3.1
