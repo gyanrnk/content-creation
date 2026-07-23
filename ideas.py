@@ -210,13 +210,20 @@ def topic_for_mode(mode: str, i: int = 0, query: str = None, used: set = None):
         yt_hot = []
 
     def _pick_star(extra_used=None):
-        """Views-first pick: YouTube-hot -> news-trending -> mega-names -> baaki. Dedup."""
+        """Views-first pick: YouTube-hot -> news-trending -> mega-names. Dedup.
+
+        CHANNEL DATA (23 Jul tak): top-10 videos me 5 Ronaldo/Messi ke, plus Yamal 831,
+        Bellingham 882. Bottom: Salah 1, Zidane 0, chhote-naam debates 0-7. Isliye
+        poore PLAYERS pool wala fallback JAAN-BOOJH KE hataya — dedup ke baad wahi
+        Salah/Zidane-type pick aate the. Ab bada naam REPEAT hota he (angle roz alag
+        hota he, isliye repeat theek he); chhota naam kabhi nahi aata.
+        """
         u = used | (extra_used or set())
-        for tier in (yt_hot, trend_players, TOP_TIER, PLAYERS):
+        for tier in (yt_hot, trend_players, TOP_TIER):
             fresh = [p for p in tier if p not in u]
             if fresh:
                 return random.choice(fresh)
-        return random.choice(PLAYERS)
+        return random.choice(TOP_TIER)        # sab "used"? -> bada naam hi repeat karo
 
     if mode == "facts":                       # timely/news (SEO + trending)
         ideas = [x for x in get_ideas(6, query) if x not in used] or \
