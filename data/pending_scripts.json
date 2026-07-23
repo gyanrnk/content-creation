@@ -59,65 +59,6 @@
   "created": "2026-07-23T07:58:10Z"
  },
  {
-  "id": "f54210e83111",
-  "mode": "facts",
-  "topic": "World cup 2026 closing ceremony",
-  "key": "World cup 2026 closing ceremony",
-  "data": {
-   "title_english": "World Cup 2026 Ceremony Shock",
-   "hook_english": "World Cup 2026 Made History",
-   "cta_english": "Who was the best performer at the final?",
-   "segments": [
-    {
-     "voice_english": "The world expected a simple football final, but organizers built the biggest global entertainment show ever.",
-     "image_query": "dramatic football stadium fireworks night concert lights",
-     "image_type": "ai",
-     "subtitle_english": "The world expected a simple football final, but organizers built the biggest global entertainment show ever.",
-     "voice_hindi": "दुनिया को एक साधारण फ़ुटबॉल फ़ाइनल की उम्मीद थी, लेकिन आयोजकों ने अब तक का सबसे बड़ा वैश्विक मनोरंजन शो बनाया।"
-    },
-    {
-     "voice_english": "To make history, they booked music giants like Shakira, Madonna, Justin Bieber, and BTS for halftime.",
-     "image_query": "Shakira",
-     "image_type": "real",
-     "subtitle_english": "To make history, they booked music giants like Shakira, Madonna, Justin Bieber, and BTS for halftime.",
-     "voice_hindi": "इतिहास बनाने के लिए, उन्होंने शकीरा, मैडोना, जस्टिन बीबर और बीटीएस जैसे संगीत दिग्गजों को हाफटाइम के लिए बुक किया।"
-    },
-    {
-     "voice_english": "But the wild turn came when Hollywood star Tom Cruise joined streamer IShowSpeed on stage.",
-     "image_query": "Tom Cruise",
-     "image_type": "real",
-     "subtitle_english": "But the wild turn came when Hollywood star Tom Cruise joined streamer IShowSpeed on stage.",
-     "voice_hindi": "लेकिन अजीब मोड़ तब आया जब हॉलीवुड स्टार टॉम क्रूज़ मंच पर स्ट्रीमर IShowSpeed ​​के साथ शामिल हुए।"
-    },
-    {
-     "voice_english": "That wild performance turned the pitch into fashion's biggest global runway because millions watched live.",
-     "image_query": "high fashion runway stage bright lights crowd",
-     "image_type": "ai",
-     "subtitle_english": "That wild performance turned the pitch into fashion's biggest global runway because millions watched live.",
-     "voice_hindi": "उस बेतहाशा प्रदर्शन ने पिच को फैशन के सबसे बड़े वैश्विक रनवे में बदल दिया क्योंकि लाखों लोगों ने इसे लाइव देखा।"
-    },
-    {
-     "voice_english": "Which is why this spectacle proved that a World Cup final is now pure global entertainment.",
-     "image_query": "FIFA World Cup trophy celebration fireworks",
-     "image_type": "ai",
-     "subtitle_english": "Which is why this spectacle proved that a World Cup final is now pure global entertainment.",
-     "voice_hindi": "यही कारण है कि इस तमाशे ने साबित कर दिया कि विश्व कप फाइनल अब शुद्ध वैश्विक मनोरंजन है।"
-    }
-   ],
-   "_provider": "gemini",
-   "title_hindi": "विश्व कप 2026 समारोह झटका",
-   "youtube_title": "Tom Cruise ne 2026 World Cup me Speed ke Sath Stunt Kiya! 🤯",
-   "title_options": [
-    "Tom Cruise ne 2026 World Cup me Speed ke Sath Stunt Kiya! 🤯",
-    "BTS aur Shakira ne 2026 World Cup me History Rach Di! 🔥",
-    "4 Superstars ne 2026 World Cup me Banaya Sabse Bada Show! 😱"
-   ],
-   "description": "World Cup 2026 ki Closing Ceremony ne poori duniya ko hilla kar rakh diya! 💥 Shakira, BTS, Madonna aur Justin Bieber ke sath Tom Cruise aur IShowSpeed ne historic performance di. Aapko sabse best kiska entry laga? Comments me batao! 👇",
-   "hashtags": "#Shorts #Football #WorldCup2026 #TomCruise #BTS #IShowSpeed #Shakira #Viral"
-  },
-  "created": "2026-07-23T07:58:10Z"
- },
- {
   "id": "d1f8c3b3e89a",
   "mode": "pundit",
   "topic": "‘Gaslit’ – Eni Aluko staunchly defends stance amid Laura Woods and Ian Wright row",
