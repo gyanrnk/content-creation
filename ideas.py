@@ -248,9 +248,26 @@ def topic_for_mode(mode: str, i: int = 0, query: str = None, used: set = None):
         a = _pick(CONTROVERSY_ANGLES, used)
         return a, a
     if mode == "pundit":
-        # EK player pe pundits ki raay chahiye -> topic ek PLAYER hona chahiye.
-        # (Pehle koi rule nahi tha -> generic news topic aa jaata tha, aur script
-        #  "pundits say..." jaisa vague ya Trump/halftime jaisi random news ban jaati.)
+        # FIGHT-FIRST: pehle ASLI jhagda dhoondo, phir usi pe video. Pehle player
+        # chunte the aur uspe behes dhoondte the — jo aksar HOTI HI NAHI thi (test:
+        # Yamal/Mbappe/Haaland teeno pe 0-1 reaction headline). Model phir alag-alag
+        # kahaniyan silai karta tha — ek baar SNOOKER pundits tak Yamal video me
+        # ghus gaye. Ab: headline hi topic he; na mile to player-anchored fallback
+        # (jo script.py ke relevance-gate se guzarna hoga, warna skip).
+        _NOT_FOOTBALL = ("wimbledon", "tennis", "snooker", "cricket", "darts",
+                         "rugby", "golf", "boxing", "f1", "nba", "nfl")
+        try:
+            from trends import get_trending
+            for q in ("football pundits clash row slammed argument",
+                      "football pundit slammed defended live tv row"):
+                for h in get_trending(q, n=6):
+                    hl = h.lower()
+                    caps = [w for w in h.split() if w[:1].isupper() and len(w) > 3]
+                    if len(caps) >= 2 and not any(x in hl for x in _NOT_FOOTBALL) \
+                            and h not in used:
+                        return h, h            # headline HI topic he — poori story usi me
+        except Exception:
+            pass
         s = _pick_star()
         return f"what pundits and legends are saying about {s}", s
     if mode == "quiz":

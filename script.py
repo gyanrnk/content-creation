@@ -995,6 +995,14 @@ def generate_script(topic: str = None, mode: str = None,
                         print(f"[script] news-grounding ON ({ctx.count(chr(10)) + 1} headlines)")
                 except Exception as e:
                     print(f"[script] news-grounding skip: {e}")
+            if mode == "pundit" and not ctx:
+                # Bina asli reaction-headlines ke pundit script SILAI ban jaati he —
+                # model ne ek baar Paredes-Gavi jhagda + SNOOKER pundits (Shaun Murphy,
+                # Stephen Hendry) ek Yamal video me jod diye the. Aur bina source ke
+                # kisi ke muh me shabd daalna defamation risk he. Skip > kachra.
+                raise RuntimeError(
+                    f"pundit: '{topic}' pe aaj koi asli behes nahi mili — skip "
+                    "(make_scripts agla candidate try karega)")
             if mode in {"quiz", "story", "debate", "player", "wonderkid", "controversy"}:
                 w = _wiki_context_for(topic, mode)
                 if w:

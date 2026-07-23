@@ -75,22 +75,47 @@ def current_context(topic: str = None, n: int = 8, mode: str = "") -> str:
     behes milti he — jaise "Henry and Ibrahimovic reject Donovan's France 'arrogance'
     claim" — jisme scene, naam aur takraar teeno hote he.
     """
+    if mode == "pundit" and topic and "what pundits" not in topic:
+        # FIGHT-FIRST topic: topic khud ek headline he ("Eni Aluko defends stance amid
+        # Laura Woods and Ian Wright row"). Wahi pehla fact he; uske log-naamon se aur
+        # coverage kheencho taaki model ke paas 2-3 asli facts hon.
+        names = [w.strip(",.'‘’“”") for w in topic.split()
+                 if w[:1].isupper() and len(w) > 3][:4]
+        heads = [topic]
+        try:
+            for h in get_trending(" ".join(names[:2]) + " football", n=n):
+                if h != topic and any(nm.lower() in h.lower() for nm in names):
+                    heads.append(h)
+        except Exception:
+            pass
+        return "\n".join(f"- {h}" for h in heads[:n])
+
     if mode == "pundit" and topic:
         who = topic.replace("what pundits and legends are saying about", "").strip()
         heads = []
         # SIRF reaction-wali queries. Plain naam wali search yahan JAAN-BOOJH KE nahi he:
         # usse "Mbappe EA Sports FC 27 cover star" jaisi aam khabrein aa jaati thi aur
         # script beech me unhi pe bhatak jaati thi. Kam headlines behtar he, bhatakne se.
-        for q in (f"{who} pundit reaction said slammed praised",
-                  f"{who} Henry Ibrahimovic Neville Rooney criticised",
-                  f"{who} pundits react debate row"):
+        # "football" har query me zaroori he — 'pundit' akela SNOOKER pundits ki khabrein
+        # bhi le aata tha (Shaun Murphy/Stephen Hendry ek Yamal script me ghus gaye the).
+        for q in (f"{who} football pundit reaction said slammed praised",
+                  f"{who} football Henry Ibrahimovic Neville Rooney criticised",
+                  f"{who} football pundits react debate row"):
             for h in get_trending(q, n=n):
                 if h not in heads:
                     heads.append(h)
             if len(heads) >= n:
                 break
-        if heads:
-            return "\n".join(f"- {h}" for h in heads[:n])
+        # RELEVANCE GATE: headline me player ka naam hona hi chahiye. Bina iske Google
+        # ki 'pundit' ki koi bhi khabar (Paredes-Gavi jhagda, snooker drama) ghus jaati
+        # thi aur model unhe silai karke bina-connection wali script bana deta tha.
+        last = who.split()[-1].lower() if who else ""
+        relevant = [h for h in heads if last and last in h.lower()]
+        if len(relevant) >= 2:
+            return "\n".join(f"- {h}" for h in relevant[:n])
+        print(f"[trends] pundit: '{who}' pe sirf {len(relevant)} asli reaction "
+              f"headline mili (kam se kam 2 chahiye) -> koi grounding nahi")
+        return ""
 
     heads = get_trending(topic or "FIFA World Cup 2026 result", n=n)
     if not heads:
