@@ -1,1 +1,179 @@
-[]
+[
+ {
+  "id": "173e2ee5bd2d",
+  "mode": "story",
+  "topic": "Kylian Mbappe career journey",
+  "key": "Kylian Mbappe",
+  "data": {
+   "title_english": "Mbappe Goal Machine",
+   "hook_english": "400 Goals Already?",
+   "cta_english": "Is Mbappe the best forward alive?",
+   "segments": [
+    {
+     "voice_english": "One forward scored 22 World Cup goals, but many fans still doubt his total legacy.",
+     "image_query": "glowing gold football trophy night stadium dramatic lighting",
+     "image_type": "ai",
+     "subtitle_english": "One forward scored 22 World Cup goals, but many fans still doubt his total legacy.",
+     "voice_hindi": "एक फारवर्ड ने 22 विश्व कप गोल किए, लेकिन कई प्रशंसक अभी भी उसकी कुल विरासत पर संदेह करते हैं।"
+    },
+    {
+     "voice_english": "That superstar is Kylian Mbappe, and he became France's top goalscorer with 66 goals.",
+     "image_query": "Kylian Mbappe",
+     "image_type": "real",
+     "subtitle_english": "That superstar is Kylian Mbappe, and he became France's top goalscorer with 66 goals.",
+     "voice_hindi": "वह सुपरस्टार किलियन एम्बाप्पे हैं और वह 66 गोल के साथ फ्रांस के शीर्ष गोलस्कोरर बन गए।"
+    },
+    {
+     "voice_english": "But his club dominance was even bigger, because he scored 256 goals for PSG.",
+     "image_query": "Kylian Mbappe",
+     "image_type": "real",
+     "subtitle_english": "But his club dominance was even bigger, because he scored 256 goals for PSG.",
+     "voice_hindi": "लेकिन उनका क्लब प्रभुत्व और भी बड़ा था, क्योंकि उन्होंने पीएसजी के लिए 256 गोल किये थे।"
+    },
+    {
+     "voice_english": "After breaking Paris records, he joined Real Madrid while crossing over 400 career goals.",
+     "image_query": "Kylian Mbappe Real Madrid",
+     "image_type": "real",
+     "subtitle_english": "After breaking Paris records, he joined Real Madrid while crossing over 400 career goals.",
+     "voice_hindi": "पेरिस रिकॉर्ड तोड़ने के बाद, वह 400 से अधिक करियर लक्ष्यों को पार करते हुए रियल मैड्रिड में शामिल हो गए।"
+    },
+    {
+     "voice_english": "He holds 22 World Cup goals today, so is Mbappe the ultimate goalscoring machine?",
+     "image_query": "Kylian Mbappe",
+     "image_type": "real",
+     "subtitle_english": "He holds 22 World Cup goals today, so is Mbappe the ultimate goalscoring machine?",
+     "voice_hindi": "उनके नाम आज विश्व कप में 22 गोल हैं, तो क्या एमबीप्पे सर्वश्रेष्ठ गोल स्कोरिंग मशीन हैं?"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "एमबीप्पे गोल मशीन",
+   "youtube_title": "Mbappe ne 256 Goals thok ke PSG Chhoda! 🤯",
+   "title_options": [
+    "Mbappe ne 256 Goals thok ke PSG Chhoda! 🤯",
+    "Mbappe ke 22 World Cup Goals ka Insane Record! 😱",
+    "Mbappe ne 400+ Goals thoke, Real Madrid me Aag Lagadi! 🔥"
+   ],
+   "description": "World Cup me 22 goals aur France ke liye 66 goals thokne ke baad bhi log Mbappe par doubt karte hain! 😳 PSG me 256 goals maar kar all-time top scorer bane aur ab Real Madrid me history likh rahe hain. Kya Mbappe Messi aur Ronaldo ke records tod payega? Comment me apni rai batao! 👇",
+   "hashtags": "#Shorts #Football #Viral #Mbappe #RealMadrid #PSG #WorldCup #Reels"
+  },
+  "created": "2026-07-23T07:58:10Z"
+ },
+ {
+  "id": "f54210e83111",
+  "mode": "facts",
+  "topic": "World cup 2026 closing ceremony",
+  "key": "World cup 2026 closing ceremony",
+  "data": {
+   "title_english": "World Cup 2026 Ceremony Shock",
+   "hook_english": "World Cup 2026 Made History",
+   "cta_english": "Who was the best performer at the final?",
+   "segments": [
+    {
+     "voice_english": "The world expected a simple football final, but organizers built the biggest global entertainment show ever.",
+     "image_query": "dramatic football stadium fireworks night concert lights",
+     "image_type": "ai",
+     "subtitle_english": "The world expected a simple football final, but organizers built the biggest global entertainment show ever.",
+     "voice_hindi": "दुनिया को एक साधारण फ़ुटबॉल फ़ाइनल की उम्मीद थी, लेकिन आयोजकों ने अब तक का सबसे बड़ा वैश्विक मनोरंजन शो बनाया।"
+    },
+    {
+     "voice_english": "To make history, they booked music giants like Shakira, Madonna, Justin Bieber, and BTS for halftime.",
+     "image_query": "Shakira",
+     "image_type": "real",
+     "subtitle_english": "To make history, they booked music giants like Shakira, Madonna, Justin Bieber, and BTS for halftime.",
+     "voice_hindi": "इतिहास बनाने के लिए, उन्होंने शकीरा, मैडोना, जस्टिन बीबर और बीटीएस जैसे संगीत दिग्गजों को हाफटाइम के लिए बुक किया।"
+    },
+    {
+     "voice_english": "But the wild turn came when Hollywood star Tom Cruise joined streamer IShowSpeed on stage.",
+     "image_query": "Tom Cruise",
+     "image_type": "real",
+     "subtitle_english": "But the wild turn came when Hollywood star Tom Cruise joined streamer IShowSpeed on stage.",
+     "voice_hindi": "लेकिन अजीब मोड़ तब आया जब हॉलीवुड स्टार टॉम क्रूज़ मंच पर स्ट्रीमर IShowSpeed ​​के साथ शामिल हुए।"
+    },
+    {
+     "voice_english": "That wild performance turned the pitch into fashion's biggest global runway because millions watched live.",
+     "image_query": "high fashion runway stage bright lights crowd",
+     "image_type": "ai",
+     "subtitle_english": "That wild performance turned the pitch into fashion's biggest global runway because millions watched live.",
+     "voice_hindi": "उस बेतहाशा प्रदर्शन ने पिच को फैशन के सबसे बड़े वैश्विक रनवे में बदल दिया क्योंकि लाखों लोगों ने इसे लाइव देखा।"
+    },
+    {
+     "voice_english": "Which is why this spectacle proved that a World Cup final is now pure global entertainment.",
+     "image_query": "FIFA World Cup trophy celebration fireworks",
+     "image_type": "ai",
+     "subtitle_english": "Which is why this spectacle proved that a World Cup final is now pure global entertainment.",
+     "voice_hindi": "यही कारण है कि इस तमाशे ने साबित कर दिया कि विश्व कप फाइनल अब शुद्ध वैश्विक मनोरंजन है।"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "विश्व कप 2026 समारोह झटका",
+   "youtube_title": "Tom Cruise ne 2026 World Cup me Speed ke Sath Stunt Kiya! 🤯",
+   "title_options": [
+    "Tom Cruise ne 2026 World Cup me Speed ke Sath Stunt Kiya! 🤯",
+    "BTS aur Shakira ne 2026 World Cup me History Rach Di! 🔥",
+    "4 Superstars ne 2026 World Cup me Banaya Sabse Bada Show! 😱"
+   ],
+   "description": "World Cup 2026 ki Closing Ceremony ne poori duniya ko hilla kar rakh diya! 💥 Shakira, BTS, Madonna aur Justin Bieber ke sath Tom Cruise aur IShowSpeed ne historic performance di. Aapko sabse best kiska entry laga? Comments me batao! 👇",
+   "hashtags": "#Shorts #Football #WorldCup2026 #TomCruise #BTS #IShowSpeed #Shakira #Viral"
+  },
+  "created": "2026-07-23T07:58:10Z"
+ },
+ {
+  "id": "d1f8c3b3e89a",
+  "mode": "pundit",
+  "topic": "‘Gaslit’ – Eni Aluko staunchly defends stance amid Laura Woods and Ian Wright row",
+  "key": "‘Gaslit’ – Eni Aluko staunchly defends stance amid Laura Woods and Ian Wright row",
+  "data": {
+   "title_english": "Eni Aluko defend stance in Ian Wright feud",
+   "hook_english": "Eni Aluko Explosive Pundit Row",
+   "cta_english": "Whose side are you on? Comment below!",
+   "segments": [
+    {
+     "voice_english": "Explosive drama rocked football broadcasting after Eni Aluko publicly accused Arsenal legend Ian Wright of disrespect.",
+     "image_query": "Eni Aluko",
+     "image_type": "real",
+     "subtitle_english": "Explosive drama rocked football broadcasting after Eni Aluko publicly accused Arsenal legend Ian Wright of disrespect.",
+     "voice_hindi": "एनी अलुको द्वारा सार्वजनिक रूप से आर्सेनल के दिग्गज इयान राइट पर अनादर का आरोप लगाने के बाद विस्फोटक नाटक ने फुटबॉल प्रसारण को हिलाकर रख दिया।"
+    },
+    {
+     "voice_english": "That row exploded further when Aluko claimed Wright should have sacrificed his punditry job for her.",
+     "image_query": "Ian Wright",
+     "image_type": "real",
+     "subtitle_english": "That row exploded further when Aluko claimed Wright should have sacrificed his punditry job for her.",
+     "voice_hindi": "यह विवाद तब और बढ़ गया जब अलुको ने दावा किया कि राइट को उसके लिए अपनी पंडिताई की नौकरी का त्याग कर देना चाहिए था।"
+    },
+    {
+     "voice_english": "But broadcaster Laura Woods immediately hit back, which turned this punditry debate into a personal feud.",
+     "image_query": "Laura Woods",
+     "image_type": "real",
+     "subtitle_english": "But broadcaster Laura Woods immediately hit back, which turned this punditry debate into a personal feud.",
+     "voice_hindi": "लेकिन ब्रॉडकास्टर लौरा वुड्स ने तुरंत पलटवार किया, जिसने इस पंडिताई बहस को व्यक्तिगत झगड़े में बदल दिया।"
+    },
+    {
+     "voice_english": "Facing huge public backlash, Aluko released a fresh statement claiming she was firmly being gaslit.",
+     "image_query": "Eni Aluko",
+     "image_type": "real",
+     "subtitle_english": "Facing huge public backlash, Aluko released a fresh statement claiming she was firmly being gaslit.",
+     "voice_hindi": "भारी सार्वजनिक प्रतिक्रिया का सामना करते हुए, अलुको ने एक ताजा बयान जारी कर दावा किया कि वह दृढ़ता से गैस से जल रही थी।"
+    },
+    {
+     "voice_english": "As this bitter debate over male pundits continues, whose side are you on right now?",
+     "image_query": "Ian Wright",
+     "image_type": "real",
+     "subtitle_english": "As this bitter debate over male pundits continues, whose side are you on right now?",
+     "voice_hindi": "चूँकि पुरुष पंडितों पर यह कड़वी बहस जारी है, इस समय आप किसके पक्ष में हैं?"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "इयान राइट विवाद में एनी अलुको ने अपने रुख का बचाव किया",
+   "youtube_title": "Ian Wright Par Eni Aluko Ka 1 Shocking Aarop! 🤯",
+   "title_options": [
+    "Ian Wright Par Eni Aluko Ka 1 Shocking Aarop! 🤯",
+    "Laura Woods Ne Eni Aluko Ko Diya 1 Munhtod Jawab! 🔥",
+    "Ian Wright Se 1 Job Sacrifice Karne Ko Kaha? 😱"
+   ],
+   "description": "Football punditry me Eni Aluko, Ian Wright aur Laura Woods ke beech ek bada controversy ho gaya hai! 😱 Aluko ne Ian Wright par disrespect ka aarop lagaya aur kaha ki unhe apni job sacrifice karni chahiye thi. Is pure lafeze par aapka kya kehna hai? Comments me batao! ⚽👇",
+   "hashtags": "#Shorts #Football #IanWright #EniAluko #LauraWoods #Arsenal #FootballNews #Viral"
+  },
+  "created": "2026-07-23T07:58:10Z"
+ }
+]
