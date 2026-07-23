@@ -76,26 +76,38 @@ def current_context(topic: str = None, n: int = 8, mode: str = "") -> str:
     claim" — jisme scene, naam aur takraar teeno hote he.
     """
     if mode == "crossover" and topic:
-        if "how stars from other sports" in topic:
-            # player-anchored fallback — relevance gate (pundit jaisa hi)
-            who = topic.replace("how stars from other sports praise", "").strip()
-            last = who.split()[-1].lower() if who else ""
-            heads = []
-            for q in (f"{who} praised by NBA cricket tennis star",
-                      f"{who} LeBron Kohli Djokovic Hamilton athlete praise"):
-                for h in get_trending(q, n=n):
-                    if h not in heads and last and last in h.lower():
-                        heads.append(h)
-            if len(heads) >= 2:
-                return "\n".join(f"- {h}" for h in heads[:n])
-            print(f"[trends] crossover: '{who}' pe {len(heads)} asli praise headline "
-                  f"(2 chahiye) -> koi grounding nahi")
-            return ""
-        # headline-as-topic -> neeche pundit wale shared path me girta he
-        pass
+        # Hamesha FOOTBALLER-anchored: uske saare cross-sport admirers ki coverage
+        # jama karo ("Ronaldo ko kaun-kaun ne praise kiya"). Relevance gate: har
+        # headline me player ka naam hona chahiye, kam se kam 2 mile tabhi script
+        # banegi (1 admirer se "kaun-kaun" wala video ban hi nahi sakta).
+        who = topic.replace("how stars from other sports praise", "").strip()
+        last = who.split()[-1].lower() if who else ""
+        # Headline me player ke naam ke saath DUSRE sport ka nishaan bhi chahiye —
+        # warna "Harry Kane hailed Ronaldo" jaisi football-internal praise ghus
+        # jaati thi (Kane footballer he, mehmaan nahi).
+        _X = ("nba", "basketball", "cricket", "tennis", "f1", "formula", "ufc",
+              "boxing", "nfl", "olympic", "golf", "sprinter", "swimmer",
+              "lebron", "kohli", "djokovic", "nadal", "federer", "hamilton",
+              "verstappen", "curry", "brady", "bolt", "mcgregor", "jordan",
+              "phelps", "tendulkar", "dhoni")
+        heads = []
+        for q in (f"{who} praised by NBA cricket tennis star",
+                  f"{who} LeBron Kohli Djokovic Hamilton athlete praise",
+                  f"{who} praise from other sports legends"):
+            for h in get_trending(q, n=n):
+                hl = h.lower()
+                if h not in heads and last and last in hl \
+                        and any(x in hl for x in _X):
+                    heads.append(h)
+            if len(heads) >= n:
+                break
+        if len(heads) >= 2:
+            return "\n".join(f"- {h}" for h in heads[:n])
+        print(f"[trends] crossover: '{who}' pe {len(heads)} asli praise headline "
+              f"(2 chahiye) -> koi grounding nahi")
+        return ""
 
-    if (mode == "pundit" and topic and "what pundits" not in topic) \
-            or (mode == "crossover" and topic):
+    if mode == "pundit" and topic and "what pundits" not in topic:
         # FIGHT-FIRST topic: topic khud ek headline he ("Eni Aluko defends stance amid
         # Laura Woods and Ian Wright row"). Wahi pehla fact he; uske log-naamon se aur
         # coverage kheencho taaki model ke paas 2-3 asli facts hon.

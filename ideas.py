@@ -280,6 +280,11 @@ def topic_for_mode(mode: str, i: int = 0, query: str = None, used: set = None):
                    "ufc", "boxing", "nfl", "olympic", "golf", "sprinter",
                    "lebron", "kohli", "djokovic", "nadal", "hamilton",
                    "verstappen", "curry", "bolt", "mcgregor", "jordan")
+        # FOOTBALLER hi hero he, bolne wale mehmaan (user: "final lead football ka
+        # hi player hona chahiye — Ronaldo ko aur kaun-kaun ne praise kiya, agle
+        # short me Messi ko"). Isliye headline TOPIC nahi banti — headline me se
+        # TOP_TIER footballer ka naam nikaalte he aur usi pe anchor karte he;
+        # grounding phir USKE saare admirers ki coverage jama karti he.
         try:
             from trends import get_trending
             for q in ("NBA cricket tennis star praises Messi Ronaldo Yamal football",
@@ -287,9 +292,12 @@ def topic_for_mode(mode: str, i: int = 0, query: str = None, used: set = None):
                       "athlete reacts football star praise tweet"):
                 for h in get_trending(q, n=6):
                     hl = h.lower()
-                    has_foot = any(p.split()[-1].lower() in hl for p in TOP_TIER)
-                    if has_foot and any(x in hl for x in _X_HINT) and h not in used:
-                        return h, h
+                    if not any(x in hl for x in _X_HINT):
+                        continue
+                    star = next((p for p in TOP_TIER
+                                 if p.split()[-1].lower() in hl), None)
+                    if star and star not in used:
+                        return f"how stars from other sports praise {star}", star
         except Exception:
             pass
         s = _pick_star()
