@@ -30,3 +30,4 @@ shortTEMP_*
 #   asset_history.json  (cross-video dedup — Actions isse commit-back karta hai)
 #   *.py, requirements.txt, .github/, n8n_workflow.json
 videos/
+analytics_token.json
