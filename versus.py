@@ -20,6 +20,33 @@ from PIL import Image, ImageDraw, ImageFilter
 import config
 from video import _font
 
+# VOICE — user ne 4 style demos sunke ANCHOR chuna (23 Jul): crisp, saaf,
+# professional. Normal shorts ka +50% yahan NAHI lagta — versus ki apni delivery he.
+# Phrasing bhi anchor-style honi chahiye: "Round ek, Champions League. Ronaldo
+# paanch khitaab ke saath aage, Messi chaar par — point Ronaldo ko." (na "yaar",
+# na "...", na exclamations ki jhadi)
+ANCHOR_RATE = "+30%"
+ANCHOR_PITCH = "+1Hz"
+
+
+def versus_voice(text: str, out_path: str) -> bool:
+    """Versus ke liye anchor-delivery TTS (Madhur, +30%, +1Hz)."""
+    import asyncio
+    import edge_tts
+
+    async def _go():
+        c = edge_tts.Communicate(text, "hi-IN-MadhurNeural",
+                                 rate=ANCHOR_RATE, pitch=ANCHOR_PITCH)
+        await c.save(out_path)
+
+    try:
+        asyncio.run(_go())
+        return True
+    except Exception as e:
+        print(f"[versus] voice fail ({e})")
+        return False
+
+
 INK = (18, 22, 30)
 BG_TOP = (16, 24, 44)
 BG_BOT = (40, 14, 60)
