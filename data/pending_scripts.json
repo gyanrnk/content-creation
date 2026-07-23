@@ -1,1 +1,356 @@
-[]
+[
+ {
+  "id": "9f72b14bc890",
+  "mode": "story",
+  "topic": "Kylian Mbappe career journey",
+  "key": "Kylian Mbappe",
+  "data": {
+   "title_english": "Kylian Mbappe Unstoppable Career",
+   "hook_english": "22 World Cup Goals",
+   "cta_english": "Is Mbappe the best player in the world? Comment below!",
+   "segments": [
+    {
+     "voice_english": "One young forward scored twenty two FIFA World Cup goals, but his ambition demanded more.",
+     "image_query": "dramatic football stadium lights night action",
+     "image_type": "ai",
+     "subtitle_english": "One young forward scored twenty two FIFA World Cup goals, but his ambition demanded more.",
+     "voice_hindi": "एक युवा फॉरवर्ड ने फीफा विश्व कप में बाईस गोल दागे, लेकिन उसकी महत्वाकांक्षा और अधिक की मांग कर रही थी।"
+    },
+    {
+     "voice_english": "Because he chased that ambition, Kylian Mbappe scored two hundred fifty six goals for Paris Saint-Germain.",
+     "image_query": "Kylian Mbappe",
+     "image_type": "real",
+     "subtitle_english": "Because he chased that ambition, Kylian Mbappe scored 256 goals for Paris Saint-Germain.",
+     "voice_hindi": "क्योंकि उन्होंने उस महत्वाकांक्षा का पीछा किया, किलियन म्बाप्पे ने पेरिस सेंट-जर्मेन के लिए दो सौ छप्पन गोल किए।"
+    },
+    {
+     "voice_english": "After conquering his club, he became France captain and scored sixty six national goals.",
+     "image_query": "Kylian Mbappe France national football team",
+     "image_type": "real",
+     "subtitle_english": "After conquering his club, he became France captain and scored 66 national goals.",
+     "voice_hindi": "अपने क्लब पर विजय प्राप्त करने के बाद, वह फ्रांस के कप्तान बने और 66 राष्ट्रीय गोल किये।"
+    },
+    {
+     "voice_english": "That national success pushed his senior career over four hundred total goals before joining Real Madrid.",
+     "image_query": "Kylian Mbappe Real Madrid",
+     "image_type": "real",
+     "subtitle_english": "That national success pushed his senior career over 400 total goals before joining Real Madrid.",
+     "voice_hindi": "उस राष्ट्रीय सफलता ने रियल मैड्रिड में शामिल होने से पहले उनके वरिष्ठ करियर को चार सौ से अधिक लक्ष्यों तक पहुँचाया।"
+    },
+    {
+     "voice_english": "Which is why those twenty two World Cup goals show that his story continues today.",
+     "image_query": "Kylian Mbappe",
+     "image_type": "real",
+     "subtitle_english": "Which is why those 22 World Cup goals show that his story continues today.",
+     "voice_hindi": "यही कारण है कि विश्व कप के बाईस गोल बताते हैं कि उनकी कहानी आज भी जारी है।"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "किलियन म्बाप्पे का अजेय करियर",
+   "youtube_title": "Mbappe ne 256 Goals se Football History Badli! 🤯",
+   "title_options": [
+    "Mbappe ne 256 Goals se Football History Badli! 🤯",
+    "Mbappe ke 22 World Cup Goals ka Record Unbroken! ⚽🔥",
+    "Mbappe ke 256 PSG Goals ka Secret Revealed! 😱"
+   ],
+   "description": "22 World Cup goals se lekar 256 PSG goals tak, Kylian Mbappe ki journey sach me insane hai! 🤯 France ke liye 66 goals mark karke ab ye superstar Real Madrid me raj kar raha hai. Kya Mbappe Real Madrid me Ballon d'Or jeet payega? Comment me batao! 👇",
+   "hashtags": "#Shorts #Football #Reels #Viral #Mbappe #RealMadrid #PSG #WorldCup2026"
+  },
+  "created": "2026-07-23T11:28:20Z"
+ },
+ {
+  "id": "16dcdeba3e56",
+  "mode": "facts",
+  "topic": "World cup 2026",
+  "key": "World cup 2026",
+  "data": {
+   "title_english": "World Cup Rematch Petition?",
+   "hook_english": "60,000 Fans Demand Rematch!",
+   "cta_english": "Should FIFA replay the final? Comment below!",
+   "segments": [
+    {
+     "voice_english": "Over 60,000 angry fans signed a massive online petition because they demanded a World Cup rematch.",
+     "image_query": "furious football fans banner stadium",
+     "image_type": "ai",
+     "subtitle_english": "Over 60,000 angry fans signed a massive online petition because they demanded a World Cup rematch.",
+     "voice_hindi": "60,000 से अधिक नाराज प्रशंसकों ने एक विशाल ऑनलाइन याचिका पर हस्ताक्षर किए क्योंकि उन्होंने विश्व कप दोबारा मैच की मांग की थी।"
+    },
+    {
+     "voice_english": "That anger started when Spain faced Argentina, and several key decisions caused wild outrage worldwide.",
+     "image_query": "Argentina national football team vs Spain national football team",
+     "image_type": "real",
+     "subtitle_english": "That anger started when Spain faced Argentina, and several key decisions caused wild outrage worldwide.",
+     "voice_hindi": "यह गुस्सा तब शुरू हुआ जब स्पेन ने अर्जेंटीना का सामना किया और कई महत्वपूर्ण फैसलों ने दुनिया भर में भारी आक्रोश पैदा किया।"
+    },
+    {
+     "voice_english": "Because of those calls, fans claimed robbery, but Argentina's coach gave a very surprising verdict.",
+     "image_query": "Argentina national football team coach press conference",
+     "image_type": "real",
+     "subtitle_english": "Because of those calls, fans claimed robbery, but Argentina's coach gave a very surprising verdict.",
+     "voice_hindi": "उन कॉल्स की वजह से फैंस ने डकैती का दावा किया, लेकिन अर्जेंटीना के कोच ने बेहद चौंकाने वाला फैसला सुनाया."
+    },
+    {
+     "voice_english": "After that coach spoke out, heated debate erupted online because fans kept signing the petition.",
+     "image_query": "football petition debate online reaction",
+     "image_type": "ai",
+     "subtitle_english": "After that coach spoke out, heated debate erupted online because fans kept signing the petition.",
+     "voice_hindi": "कोच के बोलने के बाद, ऑनलाइन गरमागरम बहस छिड़ गई क्योंकि प्रशंसक याचिका पर हस्ताक्षर करते रहे।"
+    },
+    {
+     "voice_english": "So despite sixty thousand votes demanding a replay, FIFA rarely changes any official match outcome.",
+     "image_query": "FIFA World Cup trophy night lights stadium",
+     "image_type": "ai",
+     "subtitle_english": "So despite 60000 votes demanding a replay, FIFA rarely changes any official match outcome.",
+     "voice_hindi": "इसलिए दोबारा खेलने की मांग करने वाले साठ हज़ार वोटों के बावजूद, फीफा शायद ही कभी किसी आधिकारिक मैच के नतीजे में बदलाव करता है।"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "विश्व कप रीमैच याचिका?",
+   "youtube_title": "Argentina vs Spain Final: 60K Fans ne Manga Rematch! 😱",
+   "title_options": [
+    "Argentina vs Spain Final: 60K Fans ne Manga Rematch! 😱",
+    "Messi ki Argentina Robbed Thi? 60K Fans ka Bada Petition! 🤯",
+    "Argentina vs Spain 2026: Coach ka Shocking Statement! 🚨"
+   ],
+   "description": "Kya 2026 World Cup Final firse khela jayega? 🤯 Over 60,000 angry fans ne Argentina vs Spain match ke controversial calls ke baad rematch ke liye petition sign kar diya hai! Lekin Argentina ke coach ka verdict sunkar sab shock ho gaye. Kya aapke hisab se match me robbery hui thi? Comment me batao! 👇",
+   "hashtags": "#Shorts #Football #Viral #WorldCup2026 #Argentina #Spain #Messi #Rematch"
+  },
+  "created": "2026-07-23T11:28:20Z"
+ },
+ {
+  "id": "283cf6eee943",
+  "mode": "pundit",
+  "topic": "‘Gaslit’ – Eni Aluko staunchly defends stance amid Laura Woods and Ian Wright row",
+  "key": "‘Gaslit’ – Eni Aluko staunchly defends stance amid Laura Woods and Ian Wright row",
+  "data": {
+   "title_english": "Eni Aluko vs Laura Woods Row",
+   "hook_english": "Eni Aluko Sparks Pundit Row",
+   "cta_english": "Eni Aluko ya Laura Woods? Kiske side ho aap?",
+   "segments": [
+    {
+     "voice_english": "A major TV debate erupted when Eni Aluko publicly accused Arsenal legend Ian Wright of disrespect.",
+     "image_query": "Eni Aluko",
+     "image_type": "real",
+     "subtitle_english": "A major TV debate erupted when Eni Aluko publicly accused Arsenal legend Ian Wright of disrespect.",
+     "voice_hindi": "एक बड़ी टीवी बहस तब छिड़ गई जब एनी अलुको ने सार्वजनिक रूप से आर्सेनल के दिग्गज इयान राइट पर अनादर का आरोप लगाया।"
+    },
+    {
+     "voice_english": "That accusation deepened when Aluko claimed Wright should have sacrificed his punditry job for her.",
+     "image_query": "Ian Wright",
+     "image_type": "real",
+     "subtitle_english": "That accusation deepened when Aluko claimed Wright should have sacrificed his punditry job for her.",
+     "voice_hindi": "यह आरोप तब और गहरा गया जब अलुको ने दावा किया कि राइट को उसके लिए अपनी पंडिताई की नौकरी का त्याग करना चाहिए था।"
+    },
+    {
+     "voice_english": "Presenter Laura Woods immediately hit back at Aluko because she strongly defended male pundits like Wright.",
+     "image_query": "Laura Woods",
+     "image_type": "real",
+     "subtitle_english": "Presenter Laura Woods immediately hit back at Aluko because she strongly defended male pundits like Wright.",
+     "voice_hindi": "प्रस्तुतकर्ता लौरा वुड्स ने तुरंत अलुको पर पलटवार किया क्योंकि उन्होंने राइट जैसे पुरुष पंडितों का दृढ़ता से बचाव किया था।"
+    },
+    {
+     "voice_english": "Aluko then released a fresh statement claiming she was gaslit during this ongoing personal feud.",
+     "image_query": "Eni Aluko",
+     "image_type": "real",
+     "subtitle_english": "Aluko then released a fresh statement claiming she was gaslit during this ongoing personal feud.",
+     "voice_hindi": "अलुको ने फिर एक ताजा बयान जारी कर दावा किया कि इस चल रहे व्यक्तिगत झगड़े के दौरान उसे गैस जला दिया गया था।"
+    },
+    {
+     "voice_english": "This heated row over women football pundits continues, but who do you think was right?",
+     "image_query": "women football pundits TV studio debate",
+     "image_type": "ai",
+     "subtitle_english": "This heated row over women football pundits continues, but who do you think was right?",
+     "voice_hindi": "महिला फुटबॉल पंडितों को लेकर यह गरमा-गरम विवाद जारी है, लेकिन आपके अनुसार कौन सही था?"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "एनी अलुको बनाम लौरा वुड्स पंक्ति",
+   "youtube_title": "Ian Wright se 1 Job Sacrifice Maangi? Eni Aluko Controversy! 🤯",
+   "title_options": [
+    "Ian Wright se 1 Job Sacrifice Maangi? Eni Aluko Controversy! 🤯",
+    "Laura Woods ne Diya Jawab! Eni Aluko vs Ian Wright Row 😱",
+    "Eni Aluko ke 1 Statement ne Machaya Bawaal! Ian Wright Row 🔥"
+   ],
+   "description": "Eni Aluko aur Ian Wright ke beech punditry debate ab ek bade drama me badal chuki hai! 😱 Aluko ne claim kiya ki Wright ko unke liye job sacrifice karni chahiye thi, jiska Laura Woods ne karara jawab diya. Kya Aluko ka stance sahi hai ya Laura Woods ka? Comment karke apni rai batao! 👇⚽",
+   "hashtags": "#Shorts #Football #IanWright #EniAluko #LauraWoods #PremierLeague #FootballNews #Viral"
+  },
+  "created": "2026-07-23T11:28:20Z"
+ },
+ {
+  "id": "a93aefb996f0",
+  "mode": "stats",
+  "topic": "World Cup 2026 Golden Boot race — top scorers",
+  "key": "World Cup 2026 Golden Boot race — top scorers",
+  "data": {
+   "title_english": "World Cup 2026 Golden Boot",
+   "hook_english": "Golden Boot Goal Race",
+   "cta_english": "Who will win the Golden Boot? Comment below!",
+   "segments": [
+    {
+     "voice_english": "Six goals sit at the bottom of this golden race when Harry Kane equals Dembele.",
+     "image_query": "Harry Kane",
+     "image_type": "real",
+     "subtitle_english": "6 goals sit at the bottom of this golden race when Harry Kane equals Dembele.",
+     "voice_hindi": "जब हैरी केन ने डेम्बेले की बराबरी की तो छह गोल इस स्वर्णिम दौड़ में सबसे नीचे रहे।"
+    },
+    {
+     "voice_english": "Which is why seven goals pushed both Jude Bellingham and Erling Haaland ahead today.",
+     "image_query": "Erling Haaland",
+     "image_type": "real",
+     "subtitle_english": "Which is why 7 goals pushed both Jude Bellingham and Erling Haaland ahead today.",
+     "voice_hindi": "यही कारण है कि आज सात गोलों ने जूड बेलिंगहैम और एर्लिंग हालैंड दोनों को आगे कर दिया।"
+    },
+    {
+     "voice_english": "But their lead vanished after Lionel Messi struck eight goals for Argentina to overtake them.",
+     "image_query": "Lionel Messi",
+     "image_type": "real",
+     "subtitle_english": "But their lead vanished after Lionel Messi struck 8 goals for Argentina to overtake them.",
+     "voice_hindi": "लेकिन लियोनेल मेसी द्वारा आठ गोल दागकर अर्जेंटीना को पीछे छोड़ने के बाद उनकी बढ़त गायब हो गई।"
+    },
+    {
+     "voice_english": "Then France raised the bar because Kylian Mbappe surged into top spot with ten goals.",
+     "image_query": "Kylian Mbappe",
+     "image_type": "real",
+     "subtitle_english": "Then France raised the bar because Kylian Mbappe surged into top spot with 10 goals.",
+     "voice_hindi": "फिर फ्रांस ने बार उठाया क्योंकि किलियन म्बाप्पे दस गोल के साथ शीर्ष स्थान पर पहुंच गये।"
+    },
+    {
+     "voice_english": "So Mbappe leads Messi by two goals, but can anyone catch him in this race?",
+     "image_query": "dramatic football stadium trophy spotlight",
+     "image_type": "ai",
+     "subtitle_english": "So Mbappe leads Messi by 2 goals, but can anyone catch him in this race?",
+     "voice_hindi": "तो एमबीप्पे मेस्सी से दो गोल से आगे हैं, लेकिन क्या इस दौड़ में कोई उन्हें पकड़ सकता है?"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "विश्व कप 2026 गोल्डन बूट",
+   "youtube_title": "Mbappe ne 10 Goals thok ke Messi ko piche chhoda! 🤯",
+   "title_options": [
+    "Mbappe ne 10 Goals thok ke Messi ko piche chhoda! 🤯",
+    "Messi ke 8 Goals bhi Mbappe ko Nahi Rok Paye! 😱",
+    "World Cup 2026: Mbappe ke 10 Goals ka Toofan! 🔥"
+   ],
+   "description": "World Cup 2026 ki Golden Boot race mein Mbappe ne 10 goals thok kar sabko peeche chhod diya! ⚽🔥 Kane aur Haaland se aage nikal kar Messi ne 8 goals banaye, par Mbappe ne baazi maar li.🏆 Aapke hisaab se iss baar Golden Boot kaun jeetega? Comment mein batao! 👇",
+   "hashtags": "#Shorts #Football #WorldCup2026 #Mbappe #Messi #Bellingham #Reels #Viral"
+  },
+  "created": "2026-07-23T11:28:20Z"
+ },
+ {
+  "id": "1e0c7ccf15be",
+  "mode": "ranking",
+  "topic": "Top 5 greatest underdog stories in football",
+  "key": "greatest underdog stories in football",
+  "data": {
+   "title_english": "5000 to 1 Miracle",
+   "hook_english": "Greatest Football Underdog Story",
+   "cta_english": "Is this the greatest football miracle ever?",
+   "segments": [
+    {
+     "voice_english": "Bookies gave a tiny club 5000-1 odds to win after they barely avoided relegation in 2015.",
+     "image_query": "Leicester City FC",
+     "image_type": "real",
+     "subtitle_english": "Bookies gave a tiny club 5000-1 odds to win after they barely avoided relegation in 2015.",
+     "voice_hindi": "2015 में मुश्किल से रेलीगेशन से बचने के बाद सट्टेबाजों ने एक छोटे से क्लब को जीतने के लिए 5000-1 का अंतर दिया।"
+    },
+    {
+     "voice_english": "Following that near-disaster, they hired manager Claudio Ranieri who critics predicted would fail completely.",
+     "image_query": "Claudio Ranieri",
+     "image_type": "real",
+     "subtitle_english": "Following that near-disaster, they hired manager Claudio Ranieri who critics predicted would fail completely.",
+     "voice_hindi": "उस निकट-आपदा के बाद, उन्होंने प्रबंधक क्लाउडियो रानिएरी को काम पर रखा, जिनके बारे में आलोचकों ने भविष्यवाणी की थी कि वह पूरी तरह से विफल हो जायेंगे।"
+    },
+    {
+     "voice_english": "Instead, striker Jamie Vardy scored in 11 straight games and broke the Premier League record.",
+     "image_query": "Jamie Vardy",
+     "image_type": "real",
+     "subtitle_english": "Instead, striker Jamie Vardy scored in 11 straight games and broke the Premier League record.",
+     "voice_hindi": "इसके बजाय, स्ट्राइकर जेमी वर्डी ने लगातार 11 गेम में स्कोर किया और प्रीमियर लीग रिकॉर्ड तोड़ दिया।"
+    },
+    {
+     "voice_english": "When rivals Tottenham drew two-two at Chelsea, this unbelievable miracle officially became reality in May.",
+     "image_query": "Stamford Bridge stadium",
+     "image_type": "real",
+     "subtitle_english": "When rivals Tottenham drew two-two at Chelsea, this unbelievable miracle officially became reality in May.",
+     "voice_hindi": "जब प्रतिद्वंद्वी टोटेनहम ने चेल्सी में दो-दो से बराबरी की, तो यह अविश्वसनीय चमत्कार मई में आधिकारिक तौर पर वास्तविकता बन गया।"
+    },
+    {
+     "voice_english": "That impossible title run proved spirit beats money, so fans call it football's greatest miracle.",
+     "image_query": "Leicester City FC trophy Premier League",
+     "image_type": "real",
+     "subtitle_english": "That impossible title run proved spirit beats money, so fans call it football's greatest miracle.",
+     "voice_hindi": "उस असंभव टाइटल रन ने साबित कर दिया कि भावना पैसे को हरा देती है, इसलिए प्रशंसक इसे फुटबॉल का सबसे बड़ा चमत्कार कहते हैं।"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "5000 से 1 चमत्कार",
+   "youtube_title": "Leicester City ne 5000-1 Odds Tod kar 2016 PL Trophy Jeeti! 😱",
+   "title_options": [
+    "Leicester City ne 5000-1 Odds Tod kar 2016 PL Trophy Jeeti! 😱",
+    "Vardy ne 11 Goals se 2016 me Leicester ko Champion Banaya! 🏆",
+    "Top 5 Miracle Football Teams: Leicester ne 5000-1 Odds Tode! 🤯"
+   ],
+   "description": "Football history me Top 5 underdog stories sabko hairan kar deti hain! 🤯 2015 me relegation se bachi Leicester City ko bookies ne 5000-1 odds diye the. Phir Jamie Vardy ne lagatar 11 games me goal daal kar Premier League trophy jeet li! 🏆 Aapke hisab se football ka sabse bada miracle kaunsa tha? Comments me batao! 👇",
+   "hashtags": "#Shorts #Football #LeicesterCity #JamieVardy #PremierLeague #FootballUnderdogs #Viral #Soccer"
+  },
+  "created": "2026-07-23T11:28:20Z"
+ },
+ {
+  "id": "fe2ba68d6fdd",
+  "mode": "crossover",
+  "topic": "how stars from other sports praise Cristiano Ronaldo",
+  "key": "Cristiano Ronaldo",
+  "data": {
+   "title_english": "Other Sports Legends Praise Cristiano Ronaldo",
+   "hook_english": "Icons Praise CR7 Beyond Football",
+   "cta_english": "Which crossover praise surprised you most?",
+   "segments": [
+    {
+     "voice_english": "When NBA legend Magic Johnson posted public praise online, football icon Cristiano Ronaldo went viral.",
+     "image_query": "Magic Johnson",
+     "image_type": "real",
+     "subtitle_english": "When NBA legend Magic Johnson posted public praise online, football icon Cristiano Ronaldo went viral.",
+     "voice_hindi": "जब एनबीए के दिग्गज मैजिक जॉनसन ने ऑनलाइन सार्वजनिक प्रशंसा पोस्ट की, तो फुटबॉल आइकन क्रिस्टियानो रोनाल्डो वायरल हो गए।"
+    },
+    {
+     "voice_english": "Magic Johnson from the NBA praised both superstars because huge goal numbers beat every record.",
+     "image_query": "Cristiano Ronaldo",
+     "image_type": "real",
+     "subtitle_english": "Magic Johnson from the NBA praised both superstars because huge goal numbers beat every record.",
+     "voice_hindi": "एनबीए के मैजिक जॉनसन ने दोनों सुपरस्टार्स की प्रशंसा की क्योंकि विशाल गोल संख्या ने हर रिकॉर्ड को हरा दिया।"
+    },
+    {
+     "voice_english": "But basketball was not alone, because cricket star Sanju Samson picked Ronaldo for team comparisons.",
+     "image_query": "Sanju Samson",
+     "image_type": "real",
+     "subtitle_english": "But basketball was not alone, because cricket star Sanju Samson picked Ronaldo for team comparisons.",
+     "voice_hindi": "लेकिन बास्केटबॉल अकेला नहीं था, क्योंकि क्रिकेट स्टार संजू सैमसन ने टीम तुलना के लिए रोनाल्डो को चुना था।"
+    },
+    {
+     "voice_english": "Sanju Samson from cricket compared Ronaldo to Virat Kohli and MS Dhoni, so fans went wild.",
+     "image_query": "Virat Kohli",
+     "image_type": "real",
+     "subtitle_english": "Sanju Samson from cricket compared Ronaldo to Virat Kohli and MS Dhoni, so fans went wild.",
+     "voice_hindi": "क्रिकेट से संजू सैमसन ने रोनाल्डो की तुलना विराट कोहली और एमएस धोनी से की तो फैंस भड़क गए."
+    },
+    {
+     "voice_english": "Magic Johnson and Sanju Samson proved Ronaldo spans all sports, so which crossover praise won?",
+     "image_query": "Cristiano Ronaldo stadium crowd night",
+     "image_type": "ai",
+     "subtitle_english": "Magic Johnson and Sanju Samson proved Ronaldo spans all sports, so which crossover praise won?",
+     "voice_hindi": "मैजिक जॉनसन और संजू सैमसन ने साबित कर दिया कि रोनाल्डो सभी खेलों में माहिर हैं, तो कौन सी क्रॉसओवर प्रशंसा जीती?"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "अन्य खेल दिग्गजों ने क्रिस्टियानो रोनाल्डो की प्रशंसा की",
+   "youtube_title": "CR7 ke 900 Goals Par NBA Legend Magic Johnson Shocked! 🤯",
+   "title_options": [
+    "CR7 ke 900 Goals Par NBA Legend Magic Johnson Shocked! 🤯",
+    "Ronaldo ke Fan Nikle 3 Sports ke Sabse Bade Legends! 😱",
+    "Ronaldo Ko NBA Aur Cricket Stars Ne Kyun GOAT Maana? 🐐"
+   ],
+   "description": "Cristiano Ronaldo ki deewangi sirf football tak nahi, balki har sport me phail chuki hai! ⚽🔥 NBA legend Magic Johnson aur cricket star Sanju Samson tak sab CR7 ke ultimate mentality ke fan hain. Aapke hisab se dusre sports ka kaunsa player CR7 jaisa mindset rakhta hai? Comment me batao! 👇",
+   "hashtags": "#Shorts #Football #CR7 #CristianoRonaldo #MagicJohnson #SanjuSamson #GOAT #Viral"
+  },
+  "created": "2026-07-23T11:28:20Z"
+ }
+]
