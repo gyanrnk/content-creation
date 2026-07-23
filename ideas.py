@@ -270,6 +270,30 @@ def topic_for_mode(mode: str, i: int = 0, query: str = None, used: set = None):
             pass
         s = _pick_star()
         return f"what pundits and legends are saying about {s}", s
+    if mode == "crossover":
+        # DUSRE SPORTS ke sitare football stars ko kya bolte he (LeBron -> Messi,
+        # Kohli -> Ronaldo). Pundit jaisa hi FIGHT-FIRST: asli headline hi topic —
+        # bina iske model quotes GADHTA he, jo defamation-risk he. Na mile to
+        # player-anchored fallback (trends.py ka relevance-gate pass karna hoga,
+        # warna slot skip — silai se khali behtar).
+        _X_HINT = ("nba", "basketball", "cricket", "tennis", "f1", "formula",
+                   "ufc", "boxing", "nfl", "olympic", "golf", "sprinter",
+                   "lebron", "kohli", "djokovic", "nadal", "hamilton",
+                   "verstappen", "curry", "bolt", "mcgregor", "jordan")
+        try:
+            from trends import get_trending
+            for q in ("NBA cricket tennis star praises Messi Ronaldo Yamal football",
+                      "LeBron Kohli Djokovic hails football star World Cup",
+                      "athlete reacts football star praise tweet"):
+                for h in get_trending(q, n=6):
+                    hl = h.lower()
+                    has_foot = any(p.split()[-1].lower() in hl for p in TOP_TIER)
+                    if has_foot and any(x in hl for x in _X_HINT) and h not in used:
+                        return h, h
+        except Exception:
+            pass
+        s = _pick_star()
+        return f"how stars from other sports praise {s}", s
     if mode == "quiz":
         s = _pick_star()
         return s, s

@@ -52,6 +52,20 @@ MODE_GUIDE = {
         "yet. For player/team segments set image_type 'real' and put the real "
         "player or team name in image_query."
     ),
+    "crossover": (
+        "STARS FROM OTHER SPORTS PRAISING A FOOTBALL STAR — the wow is WHO is doing "
+        "the praising (an NBA legend, a cricket icon, an F1 champion), because fans "
+        "don't expect worlds to cross.\n"
+        "*** SEGMENT 1 MUST SET THE SCENE: which outside-sport star said it, where "
+        "(interview / tweet / podcast / courtside), and about which footballer. ***\n"
+        "*** ONE footballer is the subject of the WHOLE video. Each take must be about "
+        "him. Escalate: good praise -> bigger praise -> the most jaw-dropping line "
+        "last. ***\n"
+        "*** Every line needs the SPEAKER'S NAME + his sport. 'NBA star' with no name "
+        "is WORTHLESS. Use ONLY takes that appear in the VERIFIED FACTS — NEVER invent "
+        "or embellish a quote; if the facts run thin, go deeper into one real take "
+        "(when, why, what happened after) instead of padding. ***\n"
+        "End by asking viewers which crossover praise surprised them most."),
     "pundit": (
         "A PUNDIT ARGUMENT the viewer is dropped into — NOT a list of separate opinions.\n"
         "*** SEGMENT 1 MUST SET THE SCENE: where this argument happened and who was in "
@@ -987,7 +1001,8 @@ def generate_script(topic: str = None, mode: str = None,
         if context is None:
             ctx = ""
             if getattr(config, "USE_NEWS_CONTEXT", False) \
-                    and mode in {"facts", "preview", "player", "pundit", "controversy"}:
+                    and mode in {"facts", "preview", "player", "pundit",
+                                 "controversy", "crossover"}:
                 try:
                     from trends import current_context
                     ctx = current_context(topic, mode=mode) or ""
@@ -995,14 +1010,14 @@ def generate_script(topic: str = None, mode: str = None,
                         print(f"[script] news-grounding ON ({ctx.count(chr(10)) + 1} headlines)")
                 except Exception as e:
                     print(f"[script] news-grounding skip: {e}")
-            if mode == "pundit" and not ctx:
+            if mode in ("pundit", "crossover") and not ctx:
                 # Bina asli reaction-headlines ke pundit script SILAI ban jaati he —
                 # model ne ek baar Paredes-Gavi jhagda + SNOOKER pundits (Shaun Murphy,
                 # Stephen Hendry) ek Yamal video me jod diye the. Aur bina source ke
                 # kisi ke muh me shabd daalna defamation risk he. Skip > kachra.
                 raise RuntimeError(
-                    f"pundit: '{topic}' pe aaj koi asli behes nahi mili — skip "
-                    "(make_scripts agla candidate try karega)")
+                    f"{mode}: '{topic}' pe aaj koi asli grounded material nahi mila "
+                    "— skip (make_scripts agla candidate try karega)")
             if mode in {"quiz", "story", "debate", "player", "wonderkid", "controversy"}:
                 w = _wiki_context_for(topic, mode)
                 if w:

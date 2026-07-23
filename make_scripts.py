@@ -17,7 +17,7 @@ import queue_scripts
 from ideas import topic_for_mode
 from script import generate_script
 
-DEFAULT_MODES = ["story", "facts", "pundit", "stats", "ranking"]
+DEFAULT_MODES = ["story", "facts", "pundit", "stats", "ranking", "crossover"]
 
 
 def main():
