@@ -30,6 +30,19 @@ def main():
     except Exception:
         used = set()
 
+    # BUG FIX: dedup sirf BAN CHUKI videos dekhta tha — jo script queue/pending me
+    # PADI he wo nahi. Isliye "Lamine Yamal career journey" do baar ghusa aur 22 Jul
+    # ko dono 13 min ke andar publish hue (831 vs 28 views — doosre ne pehle ka
+    # audience kaata). Ab queue + pending ke keys bhi 'used' me jaate he.
+    try:
+        import queue_scripts as Q
+        for it in Q.peek() + Q.get_pending():
+            k = it.get("key") or it.get("topic")
+            if k:
+                used.add(k)
+    except Exception as e:
+        print(f"[make] queue-dedup skip ({e})")
+
     out = []
     for i in range(n):
         mode = only_mode or DEFAULT_MODES[i % len(DEFAULT_MODES)]

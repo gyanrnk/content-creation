@@ -644,6 +644,21 @@ def _build_meta_messages(topic: str, mode: str, segments: list, context: str = "
                    + "\n".join(f"  - {t}" for t in ht) + "\n\n")
     except Exception:
         pass
+    # APNE channel ka napa hua title formula (22 Jul ka twin experiment — wahi player,
+    # wahi din, lagbhag wahi script, 13 min ka antar):
+    #   "Yamal ne 16 ki Age me Spain ko Badla!"            -> 831 views
+    #   "Lamine Yamal ka Secret: Wo Barcelona ka Naya Messi?" ->  28 views
+    # Pehle bhi same pattern: Bellingham seedha journey 882 vs ghumavdar tulna 0.
+    # CONCRETE CLAIM jeet-ta he, vague tease har baar haarta he.
+    title_formula = (
+        "*** TITLE FORMULA (measured on THIS channel — a concrete title beat a vague "
+        "tease 831 vs 28 views on the SAME player, same day): "
+        "<Big name> + <specific number (age/goals/year)> + <bold completed claim>. "
+        "GOOD: 'Yamal ne 16 ki Age me Spain ko Badla!'. "
+        "BAD (never do): '<Name> ka Secret', '<Name> ka Shocking Sach', 'Naya Messi?' — "
+        "a tease with no concrete detail. If the title has no number or specific fact "
+        "in it, rewrite it until it does. ***\n\n")
+    hot = title_formula + hot
     system = "You are a JSON generator. Output ONLY a JSON object, no explanation."
     user = (
         ground + quiz_rule + hot +
