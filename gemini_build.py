@@ -23,6 +23,54 @@ import sys
 CLIP_DIR = "assets/gemini"
 VID_EXT = (".mp4", ".mov", ".webm", ".m4v")
 
+# jab line kisi mood-bucket me na baithe — index se ghoomte he taaki ek hi video me
+# saare clips same na ban jaayein
+_FALLBACKS = [
+    "football rolling on wet grass under floodlights, stadium haze, dramatic rim light",
+    "aerial shot of a floodlit stadium at night, empty pitch, light beams cutting fog",
+    "close-up of football boots pounding wet turf, water spraying, low camera angle",
+    "corner flag trembling in wind, blurred packed stands behind, golden hour light",
+    "goal net from behind, stadium lights flaring through the mesh, slow push-in",
+    "dressing room bench with a folded shirt and boots, single overhead lamp, dust in air",
+]
+
+# har bucket = (keywords, scene-variants). Variants isliye taaki ek hi mood ki
+# saari lines pe alag-alag clip bane.
+_BUCKETS = [
+    (("goal", "scored", "score", "net", "finish", "hat-trick"), [
+        "striker's boot striking a ball into the net, net rippling, floodlit stadium erupting",
+        "ball hitting the top corner of a goal net in extreme slow motion, water droplets flying",
+        "goalkeeper diving across the frame as a ball blurs past, stadium lights streaking",
+    ]),
+    (("sign", "transfer", "joined", "million", "deal", "clause", "club"), [
+        "empty stadium tunnel at night, boots walking towards bright pitch light",
+        "a football shirt hanging alone in a dark dressing room, single spotlight, dust in air",
+        "private jet on a night runway, stadium glow on the horizon, cinematic haze",
+    ]),
+    (("trophy", "treble", "title", "won", "champion", "record", "history"), [
+        "golden trophy under stadium lights, confetti falling in slow motion",
+        "trophy cabinet filling with silverware, warm museum lighting, slow dolly",
+        "gold confetti raining over an empty podium, floodlights flaring behind",
+    ]),
+    (("father", "boy", "young", "child", "academy", "start", "age"), [
+        "young boy dribbling alone on a wet floodlit pitch at dusk, long shadows",
+        "small worn football boots on a concrete street pitch, golden evening light",
+        "a child's silhouette juggling a ball against a huge stadium in the distance",
+    ]),
+    (("fans", "crowd", "petition", "angry", "shock", "protest"), [
+        "packed stadium crowd roaring in slow motion, scarves raised, flares glowing",
+        "sea of waving flags in a stadium stand, smoke drifting through floodlight beams",
+        "thousands of phone flashlights twinkling in a dark stadium, slow aerial drift",
+    ]),
+    (("said", "debate", "pundit", "row", "accused", "criticis", "slam",
+      "argue", "claim", "tv", "studio", "media"), [
+        "empty TV studio with glowing screens and microphones, camera lights flaring",
+        "close-up of a broadcast microphone under harsh studio light, dark background",
+        "wall of television screens flickering in a dark control room, blue rim light",
+        "newspaper pages flying through the air in slow motion, dramatic side light",
+    ]),
+]
+
 
 def _next_script(pop=False):
     import queue_scripts as Q
@@ -40,28 +88,20 @@ def _veo_prompt(seg, idx):
     ka panga he. Isliye ATMOSPHERE maangte he — stadium, crowd, boots, ball.
     """
     line = (seg.get("subtitle_english") or seg.get("voice_english") or "").lower()
-    # line ke MOOD se scene chuno — warna prompt "Norway" jaisa khokhla ban jaata he
-    if any(w in line for w in ("goal", "scored", "score", "net", "finish")):
-        scene = ("striker's boot striking a ball into the net, net rippling, "
-                 "floodlit stadium erupting behind")
-    elif any(w in line for w in ("sign", "transfer", "joined", "million", "deal", "clause")):
-        scene = ("empty stadium tunnel at night, boots walking towards bright pitch light, "
-                 "shirt hanging in a dressing room")
-    elif any(w in line for w in ("trophy", "treble", "title", "won", "champion", "record")):
-        scene = ("golden trophy under stadium lights, confetti falling in slow motion, "
-                 "packed stands blurred behind")
-    elif any(w in line for w in ("father", "boy", "young", "child", "academy", "start")):
-        scene = ("young boy dribbling alone on a wet floodlit pitch at dusk, "
-                 "long shadows, misty air")
-    elif any(w in line for w in ("fans", "crowd", "petition", "angry", "shock")):
-        scene = ("packed stadium crowd roaring in slow motion, scarves raised, "
-                 "flares glowing in the stands")
-    else:
-        scene = ("football rolling on wet grass under floodlights, "
-                 "stadium haze, dramatic rim light")
+    # line ke MOOD se bucket chuno, phir bucket ke ANDAR index se ghumao.
+    # (Pehle har bucket me ek hi scene tha -> pundit script ki saari 5 lines
+    #  ek hi bucket me girti thi aur 5 IDENTICAL clips ban jaate the.)
+    for words, variants in _BUCKETS:
+        if any(w in line for w in words):
+            return _wrap(variants[(idx - 1) % len(variants)])
+    return _wrap(_FALLBACKS[(idx - 1) % len(_FALLBACKS)])
+
+
+def _wrap(scene):
     return (f"Cinematic vertical 9:16 video, {scene}. Slow motion, shallow depth of "
             f"field, moody film grade, volumetric floodlight beams. No text, no logos, "
             f"no faces visible, no real people identifiable. 6 seconds.")
+
 
 
 def cmd_prompts():

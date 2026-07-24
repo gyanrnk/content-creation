@@ -32,3 +32,4 @@ shortTEMP_*
 videos/
 analytics_token.json
 assets/gemini/
+gemini_prompts.txt
