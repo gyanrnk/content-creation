@@ -31,3 +31,4 @@ shortTEMP_*
 #   *.py, requirements.txt, .github/, n8n_workflow.json
 videos/
 analytics_token.json
+assets/gemini/
