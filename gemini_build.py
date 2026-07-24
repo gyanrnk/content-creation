@@ -72,6 +72,111 @@ _BUCKETS = [
 ]
 
 
+def _photo_card(pil_img, W, H):
+    """Player ki asli photo ko rounded card bana ke return karo (RGBA)."""
+    from PIL import Image, ImageDraw
+    cw = int(W * 0.62)
+    chh = int(cw * 1.15)
+    p = pil_img.convert("RGB")
+    s = max(cw / p.width, chh / p.height)
+    p = p.resize((max(1, int(p.width * s)), max(1, int(p.height * s))), Image.LANCZOS)
+    p = p.crop(((p.width - cw) // 2, 0, (p.width - cw) // 2 + cw, chh))
+    card = Image.new("RGBA", (cw + 16, chh + 16), (0, 0, 0, 0))
+    d = ImageDraw.Draw(card)
+    d.rounded_rectangle([0, 0, cw + 15, chh + 15], radius=26, fill=(255, 255, 255, 235))
+    mask = Image.new("L", (cw, chh), 0)
+    ImageDraw.Draw(mask).rounded_rectangle([0, 0, cw - 1, chh - 1], radius=20, fill=255)
+    card.paste(p, (8, 8), mask)
+    return card
+
+
+def _clip_with_photo(clip_path, photo, duration, idx):
+    """Gemini clip = chalta hua BACKGROUND, asli photo = upar CARD.
+
+    Kyun: sirf AI clip lagane pe video script se align nahi hota — script me
+    khiladi ka naam hota he aur screen pe khali stadium/studio (user ne pakda).
+    Sirf photo lagane pe motion nahi hoti. Dono milake: motion BHI, pehchaan BHI.
+    """
+    import numpy as np
+    from moviepy.editor import CompositeVideoClip, ImageClip
+    from PIL import Image, ImageEnhance, ImageFilter
+
+    import config
+    import video as V
+
+    bg = V._video_bg(clip_path, duration)
+    if photo is None:
+        return bg
+
+    # background ko halka dabao taaki card upar ubhre
+    def _dim(frame):
+        im = Image.fromarray(frame).filter(ImageFilter.GaussianBlur(2))
+        return np.asarray(ImageEnhance.Brightness(im).enhance(0.55))
+
+    bg = bg.fl_image(_dim)
+    card = _photo_card(photo, config.WIDTH, config.HEIGHT)
+    cl = (ImageClip(np.asarray(card), ismask=False)
+          .set_duration(duration)
+          .set_position(("center", int(config.HEIGHT * 0.16))))
+    try:                                   # halka pop-in
+        cl = cl.crossfadein(0.25)
+    except Exception:
+        pass
+    return CompositeVideoClip([bg, cl], size=(config.WIDTH, config.HEIGHT)) \
+        .set_duration(duration)
+
+
+def _name_matches(name: str, filename) -> bool:
+    """Photo ke file-naam me insaan ke naam ka koi hissa he ya nahi.
+
+    Wikimedia commons pe naam-wise files hoti he (Eniola_Aluko_and_Katie_Hoyle.jpg,
+    ..._with_Ian_Wright_....jpg). Jab kisi ki photo hoti hi nahi, search bilkul
+    alag cheez de deta he — usi ko yahan pakadte he.
+    """
+    fn = str(filename or "").lower()
+    if not fn:
+        return False
+    parts = [p for p in name.lower().replace("'", "").split() if len(p) > 3]
+    return any(p in fn for p in parts)
+
+
+def _segment_photos(segs):
+    """Har segment ke liye us line ke insaan ki ASLI photo (Wikimedia, legal).
+
+    media.py ka _person_in use karta he — wo descriptive query me se naam
+    nikaalta he ("Eni Aluko accused Ian Wright" -> "Eni Aluko"), warna Wikidata
+    lookup fail ho jaata he.
+    """
+    from media import _person_in
+    from realphoto import real_photo
+    out, used = [], set()
+    last = None
+    for s in segs:
+        name = _person_in(s.get("image_query") or "") or _person_in(
+            s.get("subtitle_english") or "")
+        img = None
+        if name:
+            try:
+                img, _c, fn = real_photo(name, sentence=s.get("subtitle_english"),
+                                         exclude=used)
+                # NAAM-CHECK: file ke naam me insaan ka naam hona chahiye. Wikimedia
+                # pe jiski photo nahi hoti (jaise TV presenter Laura Woods) uske liye
+                # search KACHRA utha laata he — ek baar 1974 ki 'U_and_I.jpg' aa gayi
+                # thi. Aisi photo dikhane se achha he pichli wali dikha do.
+                if img is not None and not _name_matches(name, fn):
+                    print(f"[gemini] '{name}' ki photo galat lagi ({fn}) -> chhodi")
+                    img = None
+                if img is not None:
+                    used.add(str(fn))
+                    last = img
+            except Exception as e:
+                print(f"[gemini] photo fail ({name}): {e}")
+        out.append(img or last)        # na mile to pichli photo (khali frame se behtar)
+        print(f"[gemini] seg{len(out)}: {name or '(koi naam nahi)'}"
+              f"{' -> photo' if out[-1] is not None else ' -> sirf clip'}")
+    return out
+
+
 def _next_script(pop=False):
     import queue_scripts as Q
     items = Q.peek()
@@ -142,10 +247,24 @@ def cmd_build():
     import config
     import voice
     import video as V
-    # clips cycle karke har segment ko background do
-    media = [{"type": "video", "path": clips[i % len(clips)]} for i in range(len(segs))]
+    photos = _segment_photos(segs)
     auds = voice.generate_segment_voices(segs)
-    out = V.build_short(segs, media, auds, data)
+
+    # har segment ka background = Gemini clip (chalta hua) + asli photo card upar
+    _orig = V._bg_clip
+
+    def _hybrid(media, duration, idx):
+        # idx segments se aage bhi aa sakta he (CTA card bhi background maangta he)
+        ph = photos[idx] if idx < len(photos) else None
+        return _clip_with_photo(clips[idx % len(clips)], ph, duration, idx)
+
+    V._bg_clip = _hybrid
+    V._two_shot_bg = _hybrid          # FAST_CUTS bhi isi rasta se jaaye
+    try:
+        media = [{"type": "video", "path": clips[i % len(clips)]} for i in range(len(segs))]
+        out = V.build_short(segs, media, auds, data)
+    finally:
+        V._bg_clip = _orig
     print("[gemini] bana:", out)
 
     # upload — wahi rasta jo cloud use karta he
