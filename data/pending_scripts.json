@@ -59,65 +59,6 @@
   "created": "2026-07-23T11:28:20Z"
  },
  {
-  "id": "a93aefb996f0",
-  "mode": "stats",
-  "topic": "World Cup 2026 Golden Boot race — top scorers",
-  "key": "World Cup 2026 Golden Boot race — top scorers",
-  "data": {
-   "title_english": "World Cup 2026 Golden Boot",
-   "hook_english": "Golden Boot Goal Race",
-   "cta_english": "Who will win the Golden Boot? Comment below!",
-   "segments": [
-    {
-     "voice_english": "Six goals sit at the bottom of this golden race when Harry Kane equals Dembele.",
-     "image_query": "Harry Kane",
-     "image_type": "real",
-     "subtitle_english": "6 goals sit at the bottom of this golden race when Harry Kane equals Dembele.",
-     "voice_hindi": "जब हैरी केन ने डेम्बेले की बराबरी की तो छह गोल इस स्वर्णिम दौड़ में सबसे नीचे रहे।"
-    },
-    {
-     "voice_english": "Which is why seven goals pushed both Jude Bellingham and Erling Haaland ahead today.",
-     "image_query": "Erling Haaland",
-     "image_type": "real",
-     "subtitle_english": "Which is why 7 goals pushed both Jude Bellingham and Erling Haaland ahead today.",
-     "voice_hindi": "यही कारण है कि आज सात गोलों ने जूड बेलिंगहैम और एर्लिंग हालैंड दोनों को आगे कर दिया।"
-    },
-    {
-     "voice_english": "But their lead vanished after Lionel Messi struck eight goals for Argentina to overtake them.",
-     "image_query": "Lionel Messi",
-     "image_type": "real",
-     "subtitle_english": "But their lead vanished after Lionel Messi struck 8 goals for Argentina to overtake them.",
-     "voice_hindi": "लेकिन लियोनेल मेसी द्वारा आठ गोल दागकर अर्जेंटीना को पीछे छोड़ने के बाद उनकी बढ़त गायब हो गई।"
-    },
-    {
-     "voice_english": "Then France raised the bar because Kylian Mbappe surged into top spot with ten goals.",
-     "image_query": "Kylian Mbappe",
-     "image_type": "real",
-     "subtitle_english": "Then France raised the bar because Kylian Mbappe surged into top spot with 10 goals.",
-     "voice_hindi": "फिर फ्रांस ने बार उठाया क्योंकि किलियन म्बाप्पे दस गोल के साथ शीर्ष स्थान पर पहुंच गये।"
-    },
-    {
-     "voice_english": "So Mbappe leads Messi by two goals, but can anyone catch him in this race?",
-     "image_query": "dramatic football stadium trophy spotlight",
-     "image_type": "ai",
-     "subtitle_english": "So Mbappe leads Messi by 2 goals, but can anyone catch him in this race?",
-     "voice_hindi": "तो एमबीप्पे मेस्सी से दो गोल से आगे हैं, लेकिन क्या इस दौड़ में कोई उन्हें पकड़ सकता है?"
-    }
-   ],
-   "_provider": "gemini",
-   "title_hindi": "विश्व कप 2026 गोल्डन बूट",
-   "youtube_title": "Mbappe ne 10 Goals thok ke Messi ko piche chhoda! 🤯",
-   "title_options": [
-    "Mbappe ne 10 Goals thok ke Messi ko piche chhoda! 🤯",
-    "Messi ke 8 Goals bhi Mbappe ko Nahi Rok Paye! 😱",
-    "World Cup 2026: Mbappe ke 10 Goals ka Toofan! 🔥"
-   ],
-   "description": "World Cup 2026 ki Golden Boot race mein Mbappe ne 10 goals thok kar sabko peeche chhod diya! ⚽🔥 Kane aur Haaland se aage nikal kar Messi ne 8 goals banaye, par Mbappe ne baazi maar li.🏆 Aapke hisaab se iss baar Golden Boot kaun jeetega? Comment mein batao! 👇",
-   "hashtags": "#Shorts #Football #WorldCup2026 #Mbappe #Messi #Bellingham #Reels #Viral"
-  },
-  "created": "2026-07-23T11:28:20Z"
- },
- {
   "id": "1e0c7ccf15be",
   "mode": "ranking",
   "topic": "Top 5 greatest underdog stories in football",
