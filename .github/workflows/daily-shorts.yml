@@ -19,12 +19,16 @@ on:
     # Generic "India peak 7-10 PM" advice is channel pe GALAT thi — shaam me har
     # channel maal phenkta he (competition), subah me saans milti he.
     # YE AAKHRI CRON EDIT HE — har edit GitHub registration me aadha din khata he.
+    # 6 -> 3 PER DAY (24 Jul). User ka shak sahi nikla, poore July ka data:
+    #   2-13 Jul  : 2.0 videos/din -> per-video 659, per-din 1317
+    #   14-16 Jul : 7.0 videos/din -> per-video 250, per-din 1747
+    #   22-24 Jul : 6.0 videos/din -> per-video 113, per-din  678
+    # Yaani 2 videos/din pe channel ZYADA total views kamata tha (1317 vs 678).
+    # Chhote channel ka impression-budget 6 videos me bat jaata he -> har video ko
+    # kamzor test milta he -> koi pass nahi karta. 3 pe kendrit rehta he.
     - cron: "30 5 * * *"     # 11:00 AM IST -> live ~11:30 AM (sabse strong zone)
-    - cron: "30 6 * * *"     # 12:00 PM IST -> live ~12:30 PM
-    - cron: "30 7 * * *"     # 1:00 PM IST  -> live ~1:30 PM
-    - cron: "0 9 * * *"      # 2:30 PM IST  -> live ~3:00 PM
-    - cron: "30 10 * * *"    # 4:00 PM IST  -> live ~4:30 PM
-    - cron: "0 12 * * *"     # 5:30 PM IST  -> live ~6:00 PM (early evening tak hi)
+    - cron: "0 7 * * *"      # 12:30 PM IST -> live ~1:00 PM  (strong zone)
+    - cron: "0 10 * * *"     # 3:30 PM IST  -> live ~4:00 PM  (1627/1100 isi zone se)
   workflow_dispatch:
     inputs:
       count:
