@@ -126,6 +126,51 @@ def _clip_with_photo(clip_path, photo, duration, idx):
         .set_duration(duration)
 
 
+def _llm_prompts(segs):
+    """Script ki HAR LINE ko Gemini se hi ek Veo prompt me badlwao.
+
+    User: "jo script hum bana rahe usko hi use karke video generate karo".
+    Sahi baat — bucket wale prompts sirf MOOD pakadte the (studio/microphone),
+    line ka asli action nahi. Ab line ka scene likhwate he.
+
+    Naam phir bhi nahi jaate: Veo asli chehra banata nahi (test kiya — 'Messi'
+    maanga to ajnabi aadmi aaya) aur likeness ka panga alag. Isliye LLM ko
+    bola he ki insaan SILHOUETTE/back-view/haath-pair me dikhaye.
+    """
+    try:
+        from script import _call_gemini
+    except Exception:
+        return None
+    lines = "\n".join(f"{i}. {s.get('subtitle_english') or s.get('voice_english','')}"
+                      for i, s in enumerate(segs, 1))
+    system = "You output ONLY a numbered list. No preamble, no explanation."
+    user = (
+        "Turn each line of this football script into ONE cinematic video prompt "
+        "for an AI video generator (Veo).\n\n"
+        "RULES for every prompt:\n"
+        "- Describe the SCENE that matches THAT line's action or emotion.\n"
+        "- NEVER name any real person, club, or competition. No jerseys with "
+        "crests, no logos, no readable text.\n"
+        "- People may appear only as silhouettes, backs, hands, or feet — never "
+        "an identifiable face.\n"
+        "- End every prompt with: 'Cinematic vertical 9:16, slow motion, shallow "
+        "depth of field, moody film grade, 6 seconds.'\n"
+        "- One line per prompt, 25-40 words. Make each of them VISUALLY DIFFERENT "
+        "from the others.\n\n"
+        f"SCRIPT:\n{lines}\n\nOutput exactly {len(segs)} numbered prompts.")
+    try:
+        out = _call_gemini(system, user) or ""
+    except Exception as e:
+        print(f"[gemini] prompt-LLM fail ({e}) -> bucket prompts")
+        return None
+    got = []
+    for ln in out.splitlines():
+        ln = ln.strip()
+        if ln and ln[0].isdigit():
+            got.append(ln.split(".", 1)[-1].strip().lstrip(")-— ").strip())
+    return got if len(got) >= len(segs) else None
+
+
 def _name_matches(name: str, filename) -> bool:
     """Photo ke file-naam me insaan ke naam ka koi hissa he ya nahi.
 
@@ -221,9 +266,12 @@ def cmd_prompts():
     print("=" * 68)
     print("\nGemini app me ye prompts ek-ek karke daalo, video download karke")
     print(f"'{CLIP_DIR}' folder me 1.mp4, 2.mp4 ... naam se rakho.\n")
+    llm = _llm_prompts(segs)
+    if llm:
+        print("(prompts script ki lines se bane he - Gemini ne likhe)")
     for i, s in enumerate(segs, 1):
         print(f"--- {i}.mp4 -------------------------------------------------")
-        print(_veo_prompt(s, i))
+        print(llm[i - 1] if llm else _veo_prompt(s, i))
         print()
     print("Sab clip aa jaane ke baad:  py gemini_build.py build")
 
