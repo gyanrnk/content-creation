@@ -59,65 +59,6 @@
   "created": "2026-07-23T11:28:20Z"
  },
  {
-  "id": "16dcdeba3e56",
-  "mode": "facts",
-  "topic": "World cup 2026",
-  "key": "World cup 2026",
-  "data": {
-   "title_english": "World Cup Rematch Petition?",
-   "hook_english": "60,000 Fans Demand Rematch!",
-   "cta_english": "Should FIFA replay the final? Comment below!",
-   "segments": [
-    {
-     "voice_english": "Over 60,000 angry fans signed a massive online petition because they demanded a World Cup rematch.",
-     "image_query": "furious football fans banner stadium",
-     "image_type": "ai",
-     "subtitle_english": "Over 60,000 angry fans signed a massive online petition because they demanded a World Cup rematch.",
-     "voice_hindi": "60,000 से अधिक नाराज प्रशंसकों ने एक विशाल ऑनलाइन याचिका पर हस्ताक्षर किए क्योंकि उन्होंने विश्व कप दोबारा मैच की मांग की थी।"
-    },
-    {
-     "voice_english": "That anger started when Spain faced Argentina, and several key decisions caused wild outrage worldwide.",
-     "image_query": "Argentina national football team vs Spain national football team",
-     "image_type": "real",
-     "subtitle_english": "That anger started when Spain faced Argentina, and several key decisions caused wild outrage worldwide.",
-     "voice_hindi": "यह गुस्सा तब शुरू हुआ जब स्पेन ने अर्जेंटीना का सामना किया और कई महत्वपूर्ण फैसलों ने दुनिया भर में भारी आक्रोश पैदा किया।"
-    },
-    {
-     "voice_english": "Because of those calls, fans claimed robbery, but Argentina's coach gave a very surprising verdict.",
-     "image_query": "Argentina national football team coach press conference",
-     "image_type": "real",
-     "subtitle_english": "Because of those calls, fans claimed robbery, but Argentina's coach gave a very surprising verdict.",
-     "voice_hindi": "उन कॉल्स की वजह से फैंस ने डकैती का दावा किया, लेकिन अर्जेंटीना के कोच ने बेहद चौंकाने वाला फैसला सुनाया."
-    },
-    {
-     "voice_english": "After that coach spoke out, heated debate erupted online because fans kept signing the petition.",
-     "image_query": "football petition debate online reaction",
-     "image_type": "ai",
-     "subtitle_english": "After that coach spoke out, heated debate erupted online because fans kept signing the petition.",
-     "voice_hindi": "कोच के बोलने के बाद, ऑनलाइन गरमागरम बहस छिड़ गई क्योंकि प्रशंसक याचिका पर हस्ताक्षर करते रहे।"
-    },
-    {
-     "voice_english": "So despite sixty thousand votes demanding a replay, FIFA rarely changes any official match outcome.",
-     "image_query": "FIFA World Cup trophy night lights stadium",
-     "image_type": "ai",
-     "subtitle_english": "So despite 60000 votes demanding a replay, FIFA rarely changes any official match outcome.",
-     "voice_hindi": "इसलिए दोबारा खेलने की मांग करने वाले साठ हज़ार वोटों के बावजूद, फीफा शायद ही कभी किसी आधिकारिक मैच के नतीजे में बदलाव करता है।"
-    }
-   ],
-   "_provider": "gemini",
-   "title_hindi": "विश्व कप रीमैच याचिका?",
-   "youtube_title": "Argentina vs Spain Final: 60K Fans ne Manga Rematch! 😱",
-   "title_options": [
-    "Argentina vs Spain Final: 60K Fans ne Manga Rematch! 😱",
-    "Messi ki Argentina Robbed Thi? 60K Fans ka Bada Petition! 🤯",
-    "Argentina vs Spain 2026: Coach ka Shocking Statement! 🚨"
-   ],
-   "description": "Kya 2026 World Cup Final firse khela jayega? 🤯 Over 60,000 angry fans ne Argentina vs Spain match ke controversial calls ke baad rematch ke liye petition sign kar diya hai! Lekin Argentina ke coach ka verdict sunkar sab shock ho gaye. Kya aapke hisab se match me robbery hui thi? Comment me batao! 👇",
-   "hashtags": "#Shorts #Football #Viral #WorldCup2026 #Argentina #Spain #Messi #Rematch"
-  },
-  "created": "2026-07-23T11:28:20Z"
- },
- {
   "id": "283cf6eee943",
   "mode": "pundit",
   "topic": "‘Gaslit’ – Eni Aluko staunchly defends stance amid Laura Woods and Ian Wright row",
