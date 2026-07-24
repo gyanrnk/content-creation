@@ -13,16 +13,18 @@ on:
     # Isliye peak timing ab IN CRONS se aati he: build peak se thoda pehle shuru ho,
     # ~8 min me ban ke seedha peak me live ho jaaye. Cron 10-45 min late ho sakta he,
     # isliye har slot target se ~30-40 min pehle rakha he.
-    # User ka plan (23 Jul): 1 PM se start, 1-1 ghante ka gap — kal 4 videos sirf
-    # 2.25 ghante me thas ke gaye the aur aapas me lad rahe the. Do block:
-    # dopahar 1-2-3 PM + shaam ka peak 6-7-8 PM (831-wala winner 6:23 PM pe aaya tha,
-    # isliye peak chhoda nahi). Har video build ke ~25-40 min baad live hoti he.
+    # DATA-DRIVEN SHIFT (24 Jul, user ka shak sahi nikla): channel ke apne numbers
+    # bole ki subah/dopahar >> shaam. Saaf daur (scheduled-era nikaal ke) medians:
+    #   10a-1p: 568 (best 2044) | 2-5p: 119 (best 1627) | 6-11p ("peak"): sirf 55.
+    # Generic "India peak 7-10 PM" advice is channel pe GALAT thi — shaam me har
+    # channel maal phenkta he (competition), subah me saans milti he.
+    # YE AAKHRI CRON EDIT HE — har edit GitHub registration me aadha din khata he.
+    - cron: "30 5 * * *"     # 11:00 AM IST -> live ~11:30 AM (sabse strong zone)
+    - cron: "30 6 * * *"     # 12:00 PM IST -> live ~12:30 PM
     - cron: "30 7 * * *"     # 1:00 PM IST  -> live ~1:30 PM
-    - cron: "30 8 * * *"     # 2:00 PM IST  -> live ~2:30 PM
-    - cron: "30 9 * * *"     # 3:00 PM IST  -> live ~3:30 PM
-    - cron: "30 12 * * *"    # 6:00 PM IST  -> live ~6:30 PM (peak shuru)
-    - cron: "30 13 * * *"    # 7:00 PM IST  -> live ~7:30 PM (peak)
-    - cron: "30 14 * * *"    # 8:00 PM IST  -> live ~8:30 PM (peak)
+    - cron: "0 9 * * *"      # 2:30 PM IST  -> live ~3:00 PM
+    - cron: "30 10 * * *"    # 4:00 PM IST  -> live ~4:30 PM
+    - cron: "0 12 * * *"     # 5:30 PM IST  -> live ~6:00 PM (early evening tak hi)
   workflow_dispatch:
     inputs:
       count:

@@ -321,7 +321,7 @@ def autopilot(n: int = 3, query: str = None) -> dict:
 
 
 DAILY_TARGET = 6                      # roz kitne shorts (YouTube quota: 6 x 1600 = 9600)
-CRON_HOURS_UTC = (7, 8, 9, 12, 13, 14)     # workflow ke cron slots (:30 pe chalte he)
+CRON_HOURS_UTC = (5, 6, 7, 9, 10, 12)      # workflow ke cron slots (data-driven, 24 Jul)
 MAX_CATCHUP = 2                       # ek run me itne se zyada nahi. 3 tha, par ek hi
                                       # run ke uploads ~8 min ke antar pe publish hote
                                       # he = wahi bheed jisse bachna he (22 Jul ko 4
