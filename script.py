@@ -234,9 +234,19 @@ def _build_messages(topic: str, mode: str, num_segments: int, context: str = "")
         f"Write a {num_segments}-part football short narration. Topic: {topic}.\n"
         f"Style: {mode_text}\n"
         'JSON shape: {"title_english":"..","hook_english":"..","cta_english":"..",'
-        '"segments":[{"voice_english":"..",'
+        '"segments":[{"voice_english":"..","voice_hindi":"..",'
         '"image_query":"..","image_type":"real|ai"}]}\n'
         f"- Exactly {num_segments} segments.\n"
+        "*** voice_hindi = THE SAME LINE, written the way a young Indian football "
+        "fan actually TALKS to a friend — casual Hinglish in Devanagari script. This "
+        "is what the voice reads aloud, so it decides how the video SOUNDS.\n"
+        "  GOOD: 'भाई ये देखो — पहले ही सीज़न में 36 गोल! किसी ने सोचा नहीं था।'\n"
+        "  BAD (textbook/news Hindi): 'उन्होंने अपने प्रथम सत्र में छत्तीस गोल किए।'\n"
+        "  - Keep football words as people say them, in Devanagari: वर्ल्ड कप, "
+        "चैंपियंस लीग, ट्रांसफर, रिकॉर्ड, गोल, क्लब, कोच, फैंस.\n"
+        "  - Use spoken connectors: भाई, यार, देखो, सुनो, पता है, सोचो ज़रा.\n"
+        "  - Numbers in digits (36, 51, 2026), NOT words.\n"
+        "  - Never translate literally from English — re-say it naturally. ***\n"
         "*** MOST IMPORTANT: all segments must tell ONE connected STORY about a "
         "SINGLE main subject/event — with a clear flow: hook -> build-up -> "
         "emotional climax -> closing thought. Each segment must CONTINUE from the "
@@ -1079,11 +1089,16 @@ def generate_script(topic: str = None, mode: str = None,
         for s in data.get("segments", []):
             ven = (s.get("voice_english") or "").strip()
             vhi = (s.get("voice_hindi") or "").strip()
-            if ven:                       # normal: English -> Hindi voice
+            if ven:                       # normal: English line + Hindi delivery
                 s["subtitle_english"] = _words_to_digits(ven)
-                # Native Hindi voice (Madhur) naam Devanagari me natural bolti — plain
-                # translate. Multilingual voice (Remy/Brian) ke liye naam Latin rakho.
-                if _native_hi:
+                # LLM ki BOLCHAAL wali Hindi ko pehla haq. Pehle hum hamesha Google
+                # Translate karte the — wo KITABI Hindi deta he, isliye video news
+                # padhne jaisa lagta tha. User ne 6 July wali video ("Yo bro!...
+                # dekho kaise... tumhe kya lagta hai?") ko pakad ke bola ki bolne ka
+                # andaz wahi chahiye. Wahi tone ab LLM seedha likhta he.
+                if vhi and len(vhi) > 8:
+                    s["voice_hindi"] = vhi
+                elif _native_hi:
                     s["voice_hindi"] = _gtranslate(ven, sl="en", tl="hi")
                 else:
                     s["voice_hindi"] = _translate_keep_names(ven)
