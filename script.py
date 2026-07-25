@@ -737,8 +737,12 @@ def _build_meta_messages(topic: str, mode: str, segments: list, context: str = "
         "line 1 = a hook that re-states the intrigue, then 1-2 lines of value/context, "
         "then a SPECIFIC comment-bait question. Sprinkle 2-3 relevant emojis. "
         f"{pred}\n"
-        "- hashtags = 6-8 hashtags one string: 3-4 broad (#Shorts #Football #Reels #viral) "
-        "+ 3-4 niche/specific (exact player/team/#WorldCup2026/#fyp) for discovery.\n"
+        "- hashtags = EXACTLY 4-5, sharp not spammy (measured: generic tags bring 0 "
+        "views; YouTube shows only the FIRST 3 above the title, so order matters). "
+        "Order: (1) the exact PLAYER or MATCH in this video as one tag e.g. #Ronaldo "
+        "or #MessiVsYamal, (2) the specific event #FIFAWorldCup2026, (3) #Shorts, "
+        "(4-5) ONE broad topic tag like #Football. NEVER use #viral #fyp #reels #trending "
+        "— they read as spam and do nothing. Every tag must actually describe THIS video.\n"
         "Output JSON only. /no_think"
     )
     return system, user
@@ -977,8 +981,7 @@ def _fallback_meta(topic: str, mode: str, data: dict) -> dict:
     desc = (f"{first} {last}\n\n"
             "Kya ye tumhe pata tha? 👀 Aur aise videos ke liye FOLLOW karo. "
             "Comment me apni raay batao! ⚽🔥")
-    tags = ("#Shorts #Football #Soccer #FIFAWorldCup2026 #footballshorts "
-            "#reels #viral #footyhindi #trending #fyp")
+    tags = "#FIFAWorldCup2026 #Shorts #Football"   # sharp, no #viral/#fyp spam
     return {"youtube_title": title, "title_options": opts,
             "description": desc.strip(), "hashtags": tags}
 
