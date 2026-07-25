@@ -231,7 +231,9 @@ def autopilot(n: int = 3, query: str = None) -> dict:
                 print(f"[auto] ✅ APPROVED script use ho raha (queue me "
                       f"{queue_scripts.count()} aur bache)")
             data = batch.build_one(topic, mode, out_dir,
-                                   data=(approved or {}).get("data"))
+                                   data=(approved or {}).get("data"),
+                                   fmt=(approved or {}).get("format", "auto"),
+                                   voice=(approved or {}).get("voice", "default"))
             if history:
                 history.mark("subjects", key)  # future runs isko repeat na karein
             title = (data or {}).get("youtube_title") or topic

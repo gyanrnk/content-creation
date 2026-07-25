@@ -237,6 +237,31 @@ for idx, item in enumerate(pending):
         cta = st.text_input("💬 CTA (comment maangne wali line)",
                             data.get("cta_english", ""), key=f"c_{uid}")
 
+        # ── FORMAT + VOICE choose (step 2 — user ka intervene) ──────────────
+        st.markdown("**🎬 Format** — video kaisa dikhega")
+        FMT = {
+            "auto": "Auto (mode ke hisaab se)",
+            "photo": "Photo story (asli photo + Hindi)",
+            "toon": "Toon (funny cartoon + music)",
+            "versus": "Versus (2 player scorecard)",
+            "textcard": "Stat cards (number countdown)",
+        }
+        fmt = st.selectbox("Format", list(FMT), key=f"fmt_{uid}",
+                           format_func=lambda k: FMT[k],
+                           index=list(FMT).index(item.get("format", "auto")),
+                           label_visibility="collapsed")
+
+        VOICE = {
+            "default": "Normal Hindi awaaz (+50%)",
+            "off": "Sirf music — no voice (viral style)",
+            "anchor": "Anchor (crisp newsreader)",
+        }
+        st.markdown("**🎙️ Voice**")
+        vsel = st.selectbox("Voice", list(VOICE), key=f"vs_{uid}",
+                            format_func=lambda k: VOICE[k],
+                            index=list(VOICE).index(item.get("voice", "default")),
+                            label_visibility="collapsed")
+
         a, b = st.columns([2, 1])
         if a.button("✅ Approve — video banao", key=f"a_{uid}",
                     use_container_width=True, type="primary"):
@@ -247,6 +272,8 @@ for idx, item in enumerate(pending):
                     segs[j]["voice_english"] = line
             data["segments"] = segs
             item["data"] = data
+            item["format"] = fmt        # build side isse padhta he
+            item["voice"] = vsel
 
             q, q_sha = load(QUEUE_PATH)
             q.append(item)
