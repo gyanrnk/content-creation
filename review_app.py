@@ -129,6 +129,12 @@ st.markdown("""
   .fg-pill.warn .n {color:#fbbf24;}
   .fg-pill.bad  {border-color:#7f1d1d; background:#1a0c0c;}
   .fg-pill.bad  .n {color:#f87171;}
+  /* wizard stepper */
+  .wz-row {display:flex; gap:8px; margin:4px 0 14px;}
+  .wz {flex:1; text-align:center; padding:8px 6px; border-radius:10px;
+       font-size:.8rem; color:#6b7280; background:#0d1424; border:1px solid #1f2937;}
+  .wz.now {background:#1e3a5f; border-color:#3b82f6; color:#93c5fd; font-weight:700;}
+  .wz.done {color:#4ade80; border-color:#14532d; background:#0c1a12;}
   /* script card */
   .fg-card {background:#0b1220; border:1px solid #1f2937; border-left:4px solid var(--ac);
             border-radius:14px; padding:14px 16px; margin:6px 0 10px;}
@@ -196,96 +202,99 @@ if not pending:
         st.caption(f"Queue me {len(queue)} script hai — cron inse videos banata rahega.")
     st.stop()
 
-for idx, item in enumerate(pending):
-    data = item.get("data", {}) or {}
-    segs = data.get("segments", []) or []
-    # BUG FIX: widget keys INDEX se nahi, script ki apni STHIR id se. Index se banane
-    # par ek script approve karte hi baaki list khisak jaati thi aur Streamlit purane
-    # index ki value dikhata tha (header kuch, fields kuch aur).
-    uid = str(item.get("id") or abs(hash(
-        (item.get("topic", ""), data.get("youtube_title", ""),
-         (segs[0].get("voice_english", "") if segs else "")))))
-    mode = item.get("mode", "facts")
-    emoji, color = MODE_STYLE.get(mode, ("⚽", "#64748b"))
-    words = sum(len((s.get("voice_english") or "").split()) for s in segs)
-    # ~3.2 words/sec (voice +50%) + har segment ke baad saans + CTA card
-    est = words / 3.2 + len(segs) * 0.35 + 7
+# ── STEP-BY-STEP WIZARD — ek script ek baar (user ne aisa chuna) ─────────────
+FMT = {"auto":"Auto (mode ke hisaab se)","photo":"Photo story (asli photo + Hindi)",
+       "toon":"Toon (funny cartoon + music)","versus":"Versus (2 player scorecard)",
+       "textcard":"Stat cards (number countdown)"}
+VOICE = {"default":"Normal Hindi awaaz","off":"Sirf music (no voice, viral style)",
+         "anchor":"Anchor (crisp newsreader)"}
 
-    st.markdown(
-        f'<div class="fg-card" style="--ac:{color}">'
-        f'<span class="fg-badge">{emoji} {mode}</span>'
-        f'<div class="fg-title">{data.get("youtube_title", item.get("topic",""))}</div>'
-        f'<div class="fg-meta">{len(segs)} lines · {words} words · ~{est:.0f}s video</div>'
-        f'</div>', unsafe_allow_html=True)
+item = pending[0]
+data = item.get("data", {}) or {}
+segs = data.get("segments", []) or []
+uid = str(item.get("id") or abs(hash((item.get("topic",""), data.get("youtube_title","")))))
+mode = item.get("mode", "facts")
+emoji, color = MODE_STYLE.get(mode, ("⚽", "#64748b"))
+step_key = f"wiz_{uid}"
+step = st.session_state.get(step_key, 0)
 
-    with st.expander("✏️  Edit / Approve", expanded=(idx == 0)):
+# stepper header
+labels = ["1. Review", "2. Format + Voice"]
+chips = ""
+for i, lab in enumerate(labels):
+    if i < step:
+        chips += f'<span class="wz done">✓ {lab}</span>'
+    elif i == step:
+        chips += f'<span class="wz now">{lab}</span>'
+    else:
+        chips += f'<span class="wz">{lab}</span>'
+st.markdown(f'<div class="wz-row">{chips}</div>', unsafe_allow_html=True)
 
-        title = st.text_input("🏷️ Title (naam + hook = zyada clicks)",
-                              data.get("youtube_title", ""), key=f"t_{uid}")
+# card header
+words = sum(len((s.get("voice_english") or "").split()) for s in segs)
+est = words / 3.2 + len(segs) * 0.35 + 7
+st.markdown(
+    f'<div class="fg-card" style="--ac:{color}">'
+    f'<span class="fg-badge">{emoji} {mode}</span>'
+    f'<div class="fg-title">{data.get("youtube_title", item.get("topic",""))}</div>'
+    f'<div class="fg-meta">{len(segs)} lines · {words} words · ~{est:.0f}s video '
+    f'· {len(pending)} baaki</div></div>', unsafe_allow_html=True)
 
-        st.markdown("**🎙️ Script lines** — jo yahan likhoge, **wahi TTS bolega**")
-        new_lines = []
-        for j, s in enumerate(segs):
-            txt = s.get("voice_english", "")
-            n = len(txt.split())
-            # band script.py ke prompt ke sath match karna chahiye (13-16 words)
-            tag = "✅" if 13 <= n <= 16 else ("⚠️ chhoti" if n < 13 else "⚠️ lambi")
-            line = st.text_area(f"Line {j+1}  ·  {n} words {tag}", txt,
-                                key=f"l_{uid}_{j}", height=80)
-            new_lines.append(line)
+if step == 0:
+    # STEP 1: review + edit
+    title = st.text_input("\U0001f3f7️ Title (naam + hook = zyada clicks)",
+                          data.get("youtube_title", ""), key=f"t_{uid}")
+    st.markdown("**\U0001f399️ Script lines** — jo yahan likhoge, **wahi TTS bolega**")
+    new_lines = []
+    for j, s in enumerate(segs):
+        txt = s.get("voice_english", "")
+        n = len(txt.split())
+        tag = "✅" if 13 <= n <= 16 else ("⚠️ chhoti" if n < 13 else "⚠️ lambi")
+        new_lines.append(st.text_area(f"Line {j+1}  ·  {n} words {tag}", txt,
+                                      key=f"l_{uid}_{j}", height=80))
+    cta = st.text_input("\U0001f4ac CTA (comment maangne wali line)",
+                        data.get("cta_english", ""), key=f"c_{uid}")
+    a, b = st.columns([2, 1])
+    if a.button("Aage: Format chuno →", key=f"nx_{uid}",
+                use_container_width=True, type="primary"):
+        data["youtube_title"] = title
+        data["cta_english"] = cta
+        for j, line in enumerate(new_lines):
+            if j < len(segs):
+                segs[j]["voice_english"] = line
+        data["segments"] = segs
+        item["data"] = data
+        st.session_state[step_key] = 1
+        st.rerun()
+    if b.button("\U0001f5d1️ Reject", key=f"r_{uid}", use_container_width=True):
+        save(PENDING_PATH, pending[1:], p_sha, "reject: drop script")
+        st.session_state.pop(step_key, None)
+        st.rerun()
 
-        cta = st.text_input("💬 CTA (comment maangne wali line)",
-                            data.get("cta_english", ""), key=f"c_{uid}")
-
-        # ── FORMAT + VOICE choose (step 2 — user ka intervene) ──────────────
-        st.markdown("**🎬 Format** — video kaisa dikhega")
-        FMT = {
-            "auto": "Auto (mode ke hisaab se)",
-            "photo": "Photo story (asli photo + Hindi)",
-            "toon": "Toon (funny cartoon + music)",
-            "versus": "Versus (2 player scorecard)",
-            "textcard": "Stat cards (number countdown)",
-        }
-        fmt = st.selectbox("Format", list(FMT), key=f"fmt_{uid}",
-                           format_func=lambda k: FMT[k],
-                           index=list(FMT).index(item.get("format", "auto")),
-                           label_visibility="collapsed")
-
-        VOICE = {
-            "default": "Normal Hindi awaaz (+50%)",
-            "off": "Sirf music — no voice (viral style)",
-            "anchor": "Anchor (crisp newsreader)",
-        }
-        st.markdown("**🎙️ Voice**")
-        vsel = st.selectbox("Voice", list(VOICE), key=f"vs_{uid}",
-                            format_func=lambda k: VOICE[k],
-                            index=list(VOICE).index(item.get("voice", "default")),
-                            label_visibility="collapsed")
-
-        a, b = st.columns([2, 1])
-        if a.button("✅ Approve — video banao", key=f"a_{uid}",
-                    use_container_width=True, type="primary"):
-            data["youtube_title"] = title
-            data["cta_english"] = cta
-            for j, line in enumerate(new_lines):
-                if j < len(segs):
-                    segs[j]["voice_english"] = line
-            data["segments"] = segs
-            item["data"] = data
-            item["format"] = fmt        # build side isse padhta he
-            item["voice"] = vsel
-
-            q, q_sha = load(QUEUE_PATH)
-            q.append(item)
-            save(QUEUE_PATH, q, q_sha, "approve: add script to build queue")
-
-            rest = [p for k, p in enumerate(pending) if k != idx]
-            save(PENDING_PATH, rest, p_sha, "approve: remove from pending")
-            st.success("✅ Approved! Cron isse video banayega.")
-            st.rerun()
-
-        if b.button("🗑️ Reject", key=f"r_{uid}", use_container_width=True):
-            rest = [p for k, p in enumerate(pending) if k != idx]
-            save(PENDING_PATH, rest, p_sha, "reject: drop script")
-            st.warning("🗑️ Hata diya.")
-            st.rerun()
+else:
+    # STEP 2: format + voice
+    st.markdown("**\U0001f3ac Format** — video kaisa dikhega")
+    fmt = st.selectbox("Format", list(FMT), key=f"fmt_{uid}",
+                       format_func=lambda k: FMT[k],
+                       index=list(FMT).index(item.get("format", "auto")),
+                       label_visibility="collapsed")
+    st.markdown("**\U0001f399️ Voice**")
+    vsel = st.selectbox("Voice", list(VOICE), key=f"vs_{uid}",
+                        format_func=lambda k: VOICE[k],
+                        index=list(VOICE).index(item.get("voice", "default")),
+                        label_visibility="collapsed")
+    a, b = st.columns([1, 2])
+    if a.button("← Back", key=f"bk_{uid}", use_container_width=True):
+        st.session_state[step_key] = 0
+        st.rerun()
+    if b.button("✅ Approve — build queue me daalo", key=f"ap_{uid}",
+                use_container_width=True, type="primary"):
+        item["format"] = fmt
+        item["voice"] = vsel
+        q, q_sha = load(QUEUE_PATH)
+        q.append(item)
+        save(QUEUE_PATH, q, q_sha, "approve: add script to build queue")
+        save(PENDING_PATH, pending[1:], p_sha, "approve: remove from pending")
+        st.session_state.pop(step_key, None)
+        st.success("✅ Queue me daal diya! Agla script neeche.")
+        st.rerun()
