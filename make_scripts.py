@@ -26,7 +26,10 @@ def main():
 
     try:
         import history
-        used = history.used("subjects", last=12)
+        # last=12 chhoti thi -> Yamal/Eni-Aluko-row jaise recent subject window ke
+        # bahar nikal ke DOBARA aa jaate the (user: "same topic kitni baar dikhau").
+        # 30 se ~5 din tak koi subject repeat nahi hoga.
+        used = history.used("subjects", last=30)
     except Exception:
         used = set()
 
