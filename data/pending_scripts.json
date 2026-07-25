@@ -1,1 +1,191 @@
-[]
+[
+ {
+  "id": "242b50242a8d",
+  "mode": "story",
+  "topic": "Lamine Yamal career journey",
+  "key": "Lamine Yamal",
+  "data": {
+   "title_english": "Lamine Yamal",
+   "hook_english": "Spain's Wonder Kid",
+   "cta_english": "Will Lamine Yamal win the 2026 World Cup?",
+   "segments": [
+    {
+     "voice_english": "Lamine Yamal is a Spanish footballer, but was he always a star?",
+     "voice_hindi": "भाई लामिन यमल एक स्पेनिश फुटबॉलर है, लेकिन क्या वो हमेशा से स्टार था?",
+     "image_query": "dramatic football stadium fireworks night",
+     "image_type": "ai",
+     "subtitle_english": "Lamine Yamal is a Spanish footballer, but was he always a star?"
+    },
+    {
+     "voice_english": "He plays as a right winger for Barcelona, but what makes him special?",
+     "voice_hindi": "वो बार्सिलोना के लिए राइट विंगर के रूप में खेलता है, लेकिन क्या है जो उसे खास बनाता है?",
+     "image_query": "Lamine Yamal",
+     "image_type": "real",
+     "subtitle_english": "He plays as a right winger for Barcelona, but what makes him special?"
+    },
+    {
+     "voice_english": "Lamine Yamal is widely regarded as one of the best players, but how did he get there?",
+     "voice_hindi": "लामिन यमल को दुनिया के सबसे अच्छे खिलाड़ियों में से एक माना जाता है, लेकिन वो वहां कैसे पहुंचा?",
+     "image_query": "Lamine Yamal in action",
+     "image_type": "real",
+     "subtitle_english": "Lamine Yamal is widely regarded as one of the best players, but how did he get there?"
+    },
+    {
+     "voice_english": "He is known for his dribbling and playmaking ability, but what sets him apart?",
+     "voice_hindi": "उसे उसकी ड्रिब्लिंग और प्लेमेकिंग क्षमता के लिए जाना जाता है, लेकिन क्या है जो उसे अलग बनाता है?",
+     "image_query": "Lamine Yamal's skills",
+     "image_type": "real",
+     "subtitle_english": "He is known for his dribbling and playmaking ability, but what sets him apart?"
+    },
+    {
+     "voice_english": "Lamine Yamal's journey is an inspiration, but will he lead Spain to World Cup glory?",
+     "voice_hindi": "लामिन यमल की यात्रा प्रेरणा का स्रोत है, लेकिन क्या वो स्पेन को वर्ल्ड कप की शान दिलाएगा?",
+     "image_query": "Lamine Yamal with the Spanish national team",
+     "image_type": "real",
+     "subtitle_english": "Lamine Yamal's journey is an inspiration, but will he lead Spain to World Cup glory?"
+    }
+   ],
+   "_provider": "groq",
+   "title_hindi": "लैमिन यमल",
+   "youtube_title": "Lamine Yamal ka Emotional Journey! 😢",
+   "title_options": [
+    "Yamal se Aage Koi Nahi! 🤯",
+    "Lamine Yamal: Secret Star? 🌟",
+    "Yamal ka Insane Rise! 🔥"
+   ],
+   "description": "Lamine Yamal ki kahani sunne ke liye taiyaar ho? 😊 Ye player Spain ke liye khelta hai aur Barcelona me bhi apna jaadu dikhata hai! 🏟️ Kya aapko pata hai ki woh itna bara star kaise bana? 💭 Comment karo: Yamal ki sabse badi khubi kya hai? 🤔👇",
+   "hashtags": [
+    "#LamineYamal",
+    "#FIFAWorldCup2026",
+    "#Shorts",
+    "#Football",
+    "#Barcelona"
+   ]
+  },
+  "created": "2026-07-25T09:31:58Z"
+ },
+ {
+  "id": "adaaf43b7aef",
+  "mode": "facts",
+  "topic": "Ronaldo vs messi match",
+  "key": "Ronaldo vs messi match",
+  "data": {
+   "title_english": "Ronaldo Vs Messi",
+   "hook_english": "Who Wins?",
+   "cta_english": "Ronaldo or Messi? Comment below",
+   "segments": [
+    {
+     "voice_english": "Ronaldo and Messi clash in World Cup 2026, but who wins?",
+     "voice_hindi": "भाई ये देखो — रोनाल्डो और मेसी वर्ल्ड कप 2026 में भिड़े, लेकिन कौन जीता?",
+     "image_query": "Cristiano Ronaldo and Lionel Messi",
+     "image_type": "real",
+     "subtitle_english": "Ronaldo and Messi clash in World Cup 2026, but who wins?"
+    },
+    {
+     "voice_english": "Ronaldo says a potential Portugal vs Argentina clash would be top, but then Messi shines",
+     "voice_hindi": "रोनाल्डो ने कहा कि पोर्तुगल और अर्जेंटीना के बीच मैच शानदार होगा, लेकिन फिर मेसी चमके",
+     "image_query": "dramatic football stadium fireworks night",
+     "image_type": "ai",
+     "subtitle_english": "Ronaldo says a potential Portugal vs Argentina clash would be top, but then Messi shines"
+    },
+    {
+     "voice_english": "The same man then leads Argentina to the World Cup final, but Ronaldo's legacy is at stake",
+     "voice_hindi": "उसी आदमी ने अर्जेंटीना को वर्ल्ड कप फाइनल में पहुंचाया, लेकिन रोनाल्डो की विरासत दांव पर है",
+     "image_query": "Lionel Messi in action",
+     "image_type": "real",
+     "subtitle_english": "The same man then leads Argentina to the World Cup final, but Ronaldo's legacy is at stake"
+    },
+    {
+     "voice_english": "Which is why Ronaldo's last match is crucial, and he must outdo Messi to win the GOAT debate",
+     "voice_hindi": "इसीलिए रोनाल्डो का आखिरी मैच महत्वपूर्ण है, और उन्हें मेसी को पीछे छोड़ना होगा जीतने के लिए",
+     "image_query": "Cristiano Ronaldo in action",
+     "image_type": "real",
+     "subtitle_english": "Which is why Ronaldo's last match is crucial, and he must outdo Messi to win the GOAT debate"
+    },
+    {
+     "voice_english": "And it got worse for Ronaldo, as Messi shines in the World Cup, and the debate is finally over",
+     "voice_hindi": "और रोनाल्डो के लिए और बुरा हो गया, क्योंकि मेसी वर्ल्ड कप में चमके, और बहस终于 समाप्त हो गई",
+     "image_query": "Lionel Messi lifting the World Cup trophy",
+     "image_type": "ai",
+     "subtitle_english": "And it got worse for Ronaldo, as Messi shines in the World Cup, and the debate is finally over"
+    }
+   ],
+   "_provider": "groq",
+   "title_hindi": "रोनाल्डो बनाम मेसी",
+   "youtube_title": "Ronaldo Vs Messi: Kaun Jeetega World Cup 2026? 🤯",
+   "title_options": [
+    "CR7 Ka Last Match: Emotional End? 😢",
+    "Messi Vs Ronaldo: Kaun Hai Sabse Tez? 🚀",
+    "Ronaldo Vs Messi: World Cup 2026 Ka Final! 🏆"
+   ],
+   "description": "Ronaldo aur Messi ka clash World Cup 2026 me, kaun jeetega? 🤔 Ronaldo ke legacy ka sawal hai, lekin Messi ne Argentina ko final me pahunchaya! 🏆 Ab Ronaldo ka last match kitna zaruri hai? 🤔 Aapko kya lagta hai, kaun jeetega? 💬👇",
+   "hashtags": [
+    "#RonaldoVsMessi",
+    "#FIFAWorldCup2026",
+    "#Shorts",
+    "#Football",
+    "#WorldCup"
+   ]
+  },
+  "created": "2026-07-25T09:31:58Z"
+ },
+ {
+  "id": "1c8923fa7eaf",
+  "mode": "pundit",
+  "topic": "‘Gaslit’ – Eni Aluko staunchly defends stance amid Laura Woods and Ian Wright row",
+  "key": "‘Gaslit’ – Eni Aluko staunchly defends stance amid Laura Woods and Ian Wright row",
+  "data": {
+   "title_english": "Eni Aluko Ian Wright Row",
+   "hook_english": "Eni Aluko defends her stance",
+   "cta_english": "Who is right in this feud? Comment below.",
+   "segments": [
+    {
+     "voice_english": "Eni Aluko staunchly defends her stance after the fierce row with Laura Woods and Ian Wright.",
+     "voice_hindi": "भाई, Eni Aluko ने Laura Woods और Ian Wright के साथ हुए विवाद के बाद अपना पक्ष रखा है।",
+     "image_query": "Eni Aluko pundit",
+     "image_type": "real",
+     "subtitle_english": "Eni Aluko staunchly defends her stance after the fierce row with Laura Woods and Ian Wright."
+    },
+    {
+     "voice_english": "That was nothing, because Eni Aluko accused Ian Wright of disrespect during the punditry debate.",
+     "voice_hindi": "और बात यहीं खत्म नहीं हुई, क्योंकि Eni Aluko ने इस डिबेट में Ian Wright पर अनादर करने का आरोप लगाया।",
+     "image_query": "Ian Wright pundit",
+     "image_type": "real",
+     "subtitle_english": "That was nothing, because Eni Aluko accused Ian Wright of disrespect during the punditry debate."
+    },
+    {
+     "voice_english": "And it got personal when Laura Woods hit back against Eni Aluko after the intense backlash.",
+     "voice_hindi": "और मामला तब और पर्सनल हो गया जब Laura Woods ने इस भारी बैकलैश के बाद Eni Aluko को करारा जवाब दिया।",
+     "image_query": "Laura Woods presenter",
+     "image_type": "real",
+     "subtitle_english": "And it got personal when Laura Woods hit back against Eni Aluko after the intense backlash."
+    },
+    {
+     "voice_english": "Which is why Eni Aluko released a fresh statement claiming Ian Wright should have sacrificed his job.",
+     "voice_hindi": "यही वजह है कि Eni Aluko ने एक नया बयान जारी कर दावा किया कि Ian Wright को अपनी नौकरी की कुर्बानी देनी चाहिए थी।",
+     "image_query": "Eni Aluko statement",
+     "image_type": "real",
+     "subtitle_english": "Which is why Eni Aluko released a fresh statement claiming Ian Wright should have sacrificed his job."
+    },
+    {
+     "voice_english": "But the feud continues as Eni Aluko fires back at Laura Woods amid ongoing fierce debate.",
+     "voice_hindi": "लेकिन यह झगड़ा अभी भी जारी है क्योंकि Eni Aluko ने इस तीखी बहस के बीच Laura Woods पर फिर पलटवार किया है।",
+     "image_query": "Laura Woods and Eni Aluko",
+     "image_type": "real",
+     "subtitle_english": "But the feud continues as Eni Aluko fires back at Laura Woods amid ongoing fierce debate."
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "एनी अलुको इयान राइट रो",
+   "youtube_title": "Eni Aluko ka Shocking Statement! 😳",
+   "title_options": [
+    "Eni Aluko ka Shocking Statement! 😳",
+    "Ian Wright Row: Eni Aluko Ne Kya Kaha? 🔥",
+    "Laura Woods vs Eni Aluko: 3 Big Secrets! 🤫"
+   ],
+   "description": "Eni Aluko ne Ian Wright aur Laura Woods row par apnī chupī tod di hai! 😲 Is poore punditry drama ke peeche ki sachai kya hai? \n\nAapko kya lagta hai, Eni Aluko ka yeh stand sahi tha ya galat? Humein comments me zaroor batao! 👇⚽",
+   "hashtags": "#EniAluko #IanWright #LauraWoods #Shorts #Football"
+  },
+  "created": "2026-07-25T09:31:58Z"
+ }
+]
