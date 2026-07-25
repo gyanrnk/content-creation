@@ -192,7 +192,10 @@ def autopilot(n: int = 3, query: str = None) -> dict:
 
     print(f"\n🤖 AUTO-PILOT — {n} shorts\n" + "=" * 45)
     # Auto-upload sirf tab jab token.json ho (cloud pe secret se banta hai; local pe nahi).
-    do_upload = os.path.exists("token.json")
+    # SOUND LANE on -> API upload BAND. Video email se phone pe jaati he, user app me
+    # trending sound laga ke khud post karta he (sound API se nahi lagta — napa).
+    sound_lane = getattr(config, "SOUND_LANE", False)
+    do_upload = os.path.exists("token.json") and not sound_lane
     privacy = os.getenv("UPLOAD_PRIVACY", "public")
     results = []
     for i, (topic, mode, key) in enumerate(plan, 1):
@@ -295,6 +298,28 @@ def autopilot(n: int = 3, query: str = None) -> dict:
                     f"⚠️ Short {i}/{n} bana, UPLOAD FAIL: {title[:45]}",
                     f"[{mode}] {title}\nTopic: {topic}\n\n"
                     f"Upload error: {yt_url[8:]}\nVideo attached — manually daal do.\n" + tail,
+                    attach=vpath)
+            elif sound_lane:                                 # SOUND LANE: phone pe bhejo
+                snd = ""
+                try:
+                    from trending_sound import trending_sounds
+                    tops = trending_sounds(4)
+                    snd = "\n🎵 AAJ KE TRENDING SOUNDS (in me se koi lagao):\n" + \
+                        "\n".join(f"  • {r['sound'] or r['title'][:40]}"
+                                  f"  ({r['views']:,} views)\n"
+                                  f"    youtube.com/shorts/{r['id']}" for r in tops)
+                except Exception as se:
+                    snd = f"\n(trending sound list fail: {se})"
+                pubtxt = (data or {}).get("youtube_title") or title
+                _send_mail(
+                    f"📲 Short {i}/{n} phone pe post karo: {title[:45]}",
+                    f"[{mode}] {pubtxt}\n\n"
+                    "Ye video BINA music ke bani he — ab tu app me sound lagana:\n"
+                    "  1. Video download karo (attached)\n"
+                    "  2. YouTube app -> + -> 'Short banao' -> gallery se ye video\n"
+                    "  3. 'Sound add' -> neeche wali koi trending sound tap karo\n"
+                    "  4. Title/description niche se copy, aur POST\n"
+                    + snd + "\n" + tail,
                     attach=vpath)
             else:                                            # upload off (local)
                 _send_mail(

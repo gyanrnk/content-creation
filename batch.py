@@ -80,6 +80,11 @@ def build_one(topic: str, mode: str, out_dir: str, data: dict = None,
     finally:
         config.EDGE_RATE = _saved_rate
 
+    # SOUND LANE: BGM band rakho — trending sound app me lagega (jagah khali chahiye)
+    _saved_bgm = config.BGM_PATH
+    if getattr(config, "SOUND_LANE", False):
+        config.BGM_PATH = ""
+
     # ── FORMAT — background kaisa aayega ───────────────────────────────────────
     if fmt == "toon":
         media = _toon_media(segments)          # funny caricatures (Pollinations, free)
@@ -91,6 +96,7 @@ def build_one(topic: str, mode: str, out_dir: str, data: dict = None,
         media = fetch_media(segments, mode=mode)
 
     build_short(segments, media, audio_paths, data)
+    config.BGM_PATH = _saved_bgm
     if config.MAKE_THUMBNAIL:
         make_thumbnail(data, media, os.path.join(out_dir, "thumbnail.jpg"))
     return data

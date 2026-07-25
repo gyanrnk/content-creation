@@ -190,6 +190,13 @@ SUBTITLE_SIDE_MARGIN = 70      # left/right safe margin (px) — text kabhi edge
 BGM_PATH    = "assets/bgm.mp3"
 BGM_VOLUME  = 0.12
 
+# SOUND LANE (24 Jul, user ka faisla): trending sound sirf YouTube APP me manual
+# post karne pe milta he (API se nahi — napa). To video BINA BGM banti he (sound ki
+# jagah khali), auto-upload NAHI hoti, balki EMAIL se phone pe aati he — user app me
+# Create > Short > gallery se video > trending sound add > post. Sound-page discovery
+# ke liye yehi ek rasta he. False = purana auto-public flow.
+SOUND_LANE  = True
+
 # ── BRANDING (har video par) ───────────────────────────────────────────────────
 
 SHOW_WATERMARK = True
