@@ -1,1 +1,63 @@
-[]
+[
+ {
+  "id": "7130856f1d1c",
+  "mode": "facts",
+  "topic": "World cup 2026",
+  "key": "World cup 2026",
+  "data": {
+   "title_english": "World Cup Final Petition Drama",
+   "hook_english": "Replay World Cup Final?",
+   "cta_english": "Should FIFA replay the match?",
+   "segments": [
+    {
+     "voice_english": "Over eighty thousand angry fans signed a massive petition after losing the World Cup final.",
+     "image_query": "dramatic football stadium lights night crowd atmosphere",
+     "image_type": "ai",
+     "subtitle_english": "Over 80000 angry fans signed a massive petition after losing the World Cup final.",
+     "voice_hindi": "विश्व कप फाइनल हारने के बाद अस्सी हजार से अधिक नाराज प्रशंसकों ने एक विशाल याचिका पर हस्ताक्षर किए।"
+    },
+    {
+     "voice_english": "The petition quickly crossed sixty thousand signatures because defeat against Spain devastated Argentina fans.",
+     "image_query": "Argentina national football team",
+     "image_type": "real",
+     "subtitle_english": "The petition quickly crossed 60000 signatures because defeat against Spain devastated Argentina fans.",
+     "voice_hindi": "याचिका पर जल्द ही साठ हजार हस्ताक्षर हो गए क्योंकि स्पेन के खिलाफ हार ने अर्जेंटीना के प्रशंसकों को निराश कर दिया।"
+    },
+    {
+     "voice_english": "And that anger exploded when eighty eight thousand fans officially demanded a complete replay.",
+     "image_query": "sad football supporters in stadium head in hands",
+     "image_type": "ai",
+     "subtitle_english": "And that anger exploded when 88000 fans officially demanded a complete replay.",
+     "voice_hindi": "और वह गुस्सा तब फूट पड़ा जब अट्ठासी हजार प्रशंसकों ने आधिकारिक तौर पर पूर्ण पुनरावृत्ति की मांग की।"
+    },
+    {
+     "voice_english": "Which caused rival fans to launch a ban petition, and it nearly broke Guinness records.",
+     "image_query": "football referee holding red card dynamic match",
+     "image_type": "ai",
+     "subtitle_english": "Which caused rival fans to launch a ban petition, and it nearly broke Guinness records.",
+     "voice_hindi": "जिसके कारण प्रतिद्वंद्वी प्रशंसकों ने प्रतिबंध याचिका शुरू की और इसने लगभग गिनीज रिकॉर्ड तोड़ दिए।"
+    },
+    {
+     "voice_english": "So should FIFA ever replay a final when eighty thousand angry fans demand it?",
+     "image_query": "FIFA World Cup trophy golden lights background",
+     "image_type": "ai",
+     "subtitle_english": "So should FIFA ever replay a final when 80000 angry fans demand it?",
+     "voice_hindi": "तो क्या फीफा को कभी फाइनल दोबारा खेलना चाहिए जब अस्सी हजार नाराज प्रशंसक इसकी मांग कर रहे हों?"
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "विश्व कप फाइनल याचिका ड्रामा",
+   "youtube_title": "Messi ke 88k Fans ne World Cup Final Replay Maanga! 🤬",
+   "title_options": [
+    "Messi ke 88k Fans ne World Cup Final Replay Maanga! 🤬",
+    "Argentina WC 2026 Final Haar Gayi: 88k Fans ka Gussa! 🤯",
+    "Spain vs Argentina: 88,000 Fans ne Final Replay Demanded! 😲"
+   ],
+   "description": "Spain se World Cup 2026 Final harne ke baad Argentina fans ka gussa phut pada hai! 😳 Over 88,000 fans ne petition sign karke match replay karwane ki maang kar di hai. Meanwhile, rival fans bhi counter petitions se jawab de rahe hain! ⚡ Kya World Cup Final wapis hona chahiye? Apni rai comment karo! 👇",
+   "hashtags": "#Shorts #Football #WorldCup2026 #Messi #Argentina #Spain #Reels #viral"
+  },
+  "created": "2026-07-24T07:56:40Z",
+  "format": "auto",
+  "voice": "default"
+ }
+]
