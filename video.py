@@ -809,12 +809,19 @@ def build_short(segments: list[dict], media: list, audio_paths: list[str],
     # Temp audio ko OUTPUT_DIR ke andar unique naam do — warna do parallel builds
     # (batch/auto) same 'shortTEMP_MPY_wvf_snd.mp4' pe clash karte hain (WinError 32).
     temp_audio = os.path.join(config.OUTPUT_DIR, "_render_audio.m4a")
+    # SOUND LANE me video EMAIL se phone pe jaati he (Gmail ~18MB limit). CRF 28 pe
+    # kuch video 29MB tak chali jaati thi -> attach fail. Isliye crf 31 + peak-bitrate
+    # cap (~3Mbps) taaki har video ~13-15MB me rahe. Shorts ko YouTube waise bhi
+    # dobara encode karta he, to dikhne me farak nahi.
+    if getattr(config, "SOUND_LANE", False):
+        vp = ["-crf", "31", "-maxrate", "3M", "-bufsize", "6M",
+              "-pix_fmt", "yuv420p", "-movflags", "+faststart"]
+    else:
+        vp = ["-crf", "28", "-pix_fmt", "yuv420p", "-movflags", "+faststart"]
     final.write_videofile(
         out, fps=config.FPS, codec="libx264", audio_codec="aac",
         threads=os.cpu_count() or 4, preset="veryfast",
-        temp_audiofile=temp_audio,
-        # crf 28 = chhoti file (~18MB vs 67MB) quality almost same; faststart = mobile
-        ffmpeg_params=["-crf", "28", "-pix_fmt", "yuv420p", "-movflags", "+faststart"],
+        temp_audiofile=temp_audio, ffmpeg_params=vp,
     )
     print(f"[video] ✅ Done: {out}  ({final.duration:.1f}s)")
     return out
