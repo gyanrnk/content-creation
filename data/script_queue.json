@@ -1,1 +1,63 @@
-[]
+[
+ {
+  "id": "7fdaf2e37af6",
+  "mode": "facts",
+  "topic": "World cup 2026",
+  "key": "World cup 2026",
+  "data": {
+   "title_english": "Argentina World Cup Ban Petition",
+   "hook_english": "23 Million Sign Petition",
+   "cta_english": "Argentina ko ban karna chahiye? Comment karo.",
+   "segments": [
+    {
+     "voice_english": "Twenty three million fans signed a petition demanding a World Cup ban for Argentina, but president Javier Milei finally broke his silence.",
+     "voice_hindi": "भाई, तेईस मिलियन फैंस ने अर्जेंटीना पर वर्ल्ड कप बैन की पिटीशन साइन की, पर प्रेसिडेंट जेवियर माइली ने आखिरकार चुप्पी तोड़ी!",
+     "image_query": "Javier Milei Argentina",
+     "image_type": "real",
+     "subtitle_english": "23000000 fans signed a petition demanding a World Cup ban for Argentina, but president Javier Milei finally broke his silence."
+    },
+    {
+     "voice_english": "After that massive backlash, fans questioned Spain coach De la Fuente calling Argentina behaviour after the final intolerable.",
+     "voice_hindi": "उस बड़े बवाल के बाद, फैंस ने स्पेनिश कोच डी ला फुएंते के उस बयान पर सवाल उठाए जिसमें उन्होंने फाइनल के बाद अर्जेंटीना के बर्ताव को intolerable कहा।",
+     "image_query": "Spain national football team",
+     "image_type": "real",
+     "subtitle_english": "After that massive backlash, fans questioned Spain coach De la Fuente calling Argentina behaviour after the final intolerable."
+    },
+    {
+     "voice_english": "Many supporters still wondered why people petitioned FIFA to replay the tense 2026 World Cup final against Spain.",
+     "voice_hindi": "बहुत से सपोर्टर्स अभी भी हैरान थे कि लोग स्पेन के खिलाफ हुए तनावपूर्ण 2026 वर्ल्ड कप फाइनल को दोबारा खेलने की मांग क्यों कर रहे हैं।",
+     "image_query": "dramatic football stadium fireworks night",
+     "image_type": "ai",
+     "subtitle_english": "Many supporters still wondered why people petitioned FIFA to replay the tense 2026 World Cup final against Spain."
+    },
+    {
+     "voice_english": "Juan Roman Riquelme suggested Lionel Messi may be above Diego Maradona after a stellar 2026 World Cup campaign.",
+     "voice_hindi": "शानदार 2026 वर्ल्ड कप कैंपेन के बाद जुआन रोमन रिकेलमे ने सुझाव दिया कि लियोनेल मेस्सी शायद डिएगो माराडोना से भी ऊपर हैं।",
+     "image_query": "Lionel Messi Argentina",
+     "image_type": "real",
+     "subtitle_english": "Juan Roman Riquelme suggested Lionel Messi may be above Diego Maradona after a stellar 2026 World Cup campaign."
+    },
+    {
+     "voice_english": "As 1,248 players prepared for World Cup 2026, twenty three million signatures kept this massive controversy alive.",
+     "voice_hindi": "जैसे ही 1,248 खिलाड़ी 2026 वर्ल्ड कप के लिए तैयार हुए, तेईस मिलियन साइन ने इस बड़े विवाद को ज़िंदा रखा।",
+     "image_query": "Argentina national football team",
+     "image_type": "real",
+     "subtitle_english": "As 1,248 players prepared for World Cup 2026, 23000000 signatures kept this massive controversy alive."
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "अर्जेंटीना विश्व कप प्रतिबंध याचिका",
+   "youtube_title": "Argentina Ban Par Javier Milei Ne Toddi Chuppi! 🤯",
+   "title_options": [
+    "Argentina Ban Par Javier Milei Ne Toddi Chuppi! 🤯",
+    "23 Million Fans Ne Maanga World Cup Ban? 🇦🇷",
+    "Spain Coach Ne Argentina Par Kya Kaha? 🚨"
+   ],
+   "description": "2.3 crore fans ne Argentina ke ban ke liye petition sign ki, aur ab aakhirkar Javier Milei ne chup tod di hai! 😱 Is massive backlash ke baad Spain coach De la Fuente ne bhi final ke baad bada bayan diya hai. Tumhare hisaab se kya Argentina ka behavior sach mein 'intolerable' tha? Neeche comment karke batao! 👇⚽",
+   "hashtags": "#Argentina #FIFAWorldCup2026 #Shorts #Football"
+  },
+  "created": "2026-07-25T09:46:27Z",
+  "format": "photo",
+  "voice": "off"
+ }
+]
