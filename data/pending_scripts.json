@@ -470,5 +470,70 @@
    "hashtags": "#Argentina #FIFAWorldCup2026 #Shorts #Football #Soccer"
   },
   "created": "2026-07-25T14:48:27Z"
+ },
+ {
+  "id": "5740e002db8b",
+  "mode": "story",
+  "topic": "Rodri career journey",
+  "key": "Rodri",
+  "data": {
+   "title_english": "The One True Rodri",
+   "hook_english": "Ten Players, One Legend",
+   "cta_english": "Is he the greatest Rodri ever? Comment below!",
+   "segments": [
+    {
+     "voice_english": "Ten different Spanish footballers share one famous name, but only one became Manchester City's star midfielder.",
+     "voice_hindi": "भाई 10 अलग-अलग स्पैनिश प्लेयर्स का एक ही नाम है, पर सिर्फ 1 मैनचेस्टर सिटी का स्टार बना।",
+     "image_query": "Spanish football players lineup dark atmospheric stadium",
+     "image_type": "ai",
+     "subtitle_english": "Ten different Spanish footballers share one famous name, but only one became Manchester City's star midfielder."
+    },
+    {
+     "voice_english": "Before Manchester City signed this midfielder, multiple defenders named Rodri played for clubs like Barcelona.",
+     "voice_hindi": "मैनचेस्टर सिटी में आने से पहले, बार्सिलोना जैसे क्लब्स में भी रोड्रि नाम के डिफेंडर्स खेले थे।",
+     "image_query": "FC Barcelona stadium pitch night",
+     "image_type": "real",
+     "subtitle_english": "Before Manchester City signed this midfielder, multiple defenders named Rodri played for clubs like Barcelona."
+    },
+    {
+     "voice_english": "While earlier players built that name in Spain, Rodrigo Hernández Cascante took it to England instead.",
+     "voice_hindi": "पुराने प्लेयर्स ने स्पेन में नाम बनाया, पर रोड्रिगो हर्नांडेज़ कास्कैंटे इसे सीधे इंग्लैंड ले गया।",
+     "image_query": "Rodrigo Hernández Cascante Manchester City",
+     "image_type": "real",
+     "subtitle_english": "While earlier players built that name in Spain, Rodrigo Hernández Cascante took it to England instead."
+    },
+    {
+     "voice_english": "Because he became a master midfielder, Spanish fans now associate that name with his incredible dominance.",
+     "voice_hindi": "फिर जब वो इतना तगड़ा मिडफील्डर बना, तो पूरा स्पेन रोड्रि नाम से उसी को पहचानने लगा।",
+     "image_query": "Rodrigo Hernández Cascante Spanish midfielder",
+     "image_type": "real",
+     "subtitle_english": "Because he became a master midfielder, Spanish fans now associate that name with his incredible dominance."
+    },
+    {
+     "voice_english": "After all ten players wore the name, Rodrigo Hernández Cascante made it famous across the world.",
+     "voice_hindi": "10 प्लेयर्स के बाद आखिर में, रोड्रिगो हर्नांडेज़ कास्कैंटे ने इस नाम को पूरी दुनिया में छा दिया।",
+     "image_query": "Rodrigo Hernández Cascante Manchester City trophy",
+     "image_type": "real",
+     "subtitle_english": "After all ten players wore the name, Rodrigo Hernández Cascante made it famous across the world."
+    }
+   ],
+   "_provider": "gemini",
+   "title_hindi": "एक सच्चा रोड्री",
+   "youtube_title": "Rodri: 10 me se Sirf 1 Player Man City Star Bana! 🤯",
+   "title_options": [
+    "Rodri: 10 me se Sirf 1 Player Man City Star Bana! 🤯",
+    "Rodri: 10 Spanish Players ka Shocking Sach! 🤫",
+    "Rodri: 10 me se Sirf 1 Player ne History Rachi! 🏆"
+   ],
+   "description": "Kya aapko pata hai ki Spain me 10 alag footballers ka naam Rodri hai? 🤔 Lekin sirf ek Rodrigo Hernández Cascante ne Manchester City me aakar duniya jeeti! Pehle ke Rodris ne rasta banaya, par iss Rodri ne history hi badal di. Aapka favorite Man City player kaun hai? Comment me batao! 👇",
+   "hashtags": [
+    "#Rodri",
+    "#ManCity",
+    "#Shorts",
+    "#Football",
+    "#PremierLeague"
+   ]
+  },
+  "created": "2026-08-06T15:48:53Z"
  }
 ]
