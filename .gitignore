@@ -33,3 +33,13 @@ videos/
 analytics_token.json
 assets/gemini/
 gemini_prompts.txt
+
+# ── Remotion project — node_modules + renders bahut bhaari hain (400MB+) ──
+# src/*.tsx aur public/ TRACK karo, baaki nahi.
+remotion-footy/node_modules/
+remotion-footy/out/
+remotion-footy/.remotion/
+remotion-footy/*.log
+
+# Pack queue local state he (absolute paths rakhta he)
+data/pack_queue.json

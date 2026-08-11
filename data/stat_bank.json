@@ -1,0 +1,270 @@
+{
+  "_readme": "Har number MANUALLY verify hua hai. Generator sirf yahi se uthata hai — koi LLM number nahi banata. Naya player/stat add karne se pehle source + as_of bharo, warna review app red flag dikhayega. 'club' field WHAT IF format ke liye he — wo FACTUAL he, review me check kar lena.",
+  "as_of": "2026-08-08",
+  "clubs": {
+    "REAL MADRID": "#e8e8ec",
+    "BARCELONA": "#a50044",
+    "MAN CITY": "#6cabdd",
+    "LIVERPOOL": "#e2453b",
+    "BAYERN": "#e2453b",
+    "PSG": "#004170",
+    "MAN UNITED": "#da291c",
+    "ARSENAL": "#ef0107",
+    "CHELSEA": "#034694",
+    "INTER MIAMI": "#f7b5cd",
+    "AL NASSR": "#f9d616",
+    "JUVENTUS": "#d0d0d4"
+  },
+  "players": {
+    "ronaldo": {
+      "name": "RONALDO",
+      "cut": "ronaldo",
+      "era": "golden",
+      "stats": {
+        "career_goals": 976,
+        "intl_goals": 143,
+        "ucl_goals": 140,
+        "ballon_dor": 5
+      },
+      "source": "Multiple goal trackers + UEFA, cross-checked 2026-08-07",
+      "club": "AL NASSR",
+      "tag": "THE KING 👑"
+    },
+    "messi": {
+      "name": "MESSI",
+      "cut": "messi",
+      "era": "golden",
+      "stats": {
+        "career_goals": 919,
+        "intl_goals": 125,
+        "ucl_goals": 129,
+        "ballon_dor": 8
+      },
+      "source": "ESPN/UEFA Jul 2026; Ballon d'Ors 2009-12, 2015, 2019, 2021, 2023",
+      "club": "INTER MIAMI",
+      "tag": "THE MAGICIAN 🐐"
+    },
+    "haaland": {
+      "name": "HAALAND",
+      "cut": "haaland",
+      "era": "new",
+      "stats": {
+        "career_goals": 354,
+        "ballon_dor": 0
+      },
+      "source": "FootyStats Aug 2026 (sources vary 354-358, all agree 350+)",
+      "club": "MAN CITY",
+      "tag": "THE MACHINE 🤖"
+    },
+    "mbappe": {
+      "name": "MBAPPE",
+      "cut": "mbappe",
+      "era": "new",
+      "stats": {
+        "ucl_goals": 60,
+        "ballon_dor": 0
+      },
+      "source": "ESPN Aug 2026 — 60 goals in 89 UCL games, 6th all-time",
+      "club": "REAL MADRID",
+      "tag": "THE SPEEDSTER ⚡"
+    },
+    "lewandowski": {
+      "name": "LEWANDOWSKI",
+      "cut": "lewandowski",
+      "era": "golden",
+      "stats": {
+        "ucl_goals": 105
+      },
+      "source": "UEFA all-time UCL scorers list, Aug 2026",
+      "club": "BARCELONA",
+      "tag": "THE FINISHER 🎯"
+    },
+    "benzema": {
+      "name": "BENZEMA",
+      "cut": "benzema",
+      "era": "golden",
+      "stats": {
+        "ucl_goals": 90
+      },
+      "source": "UEFA all-time UCL scorers list, Aug 2026",
+      "tag": "THE CLOSER 🔥"
+    },
+    "raul": {
+      "name": "RAUL",
+      "cut": "raul",
+      "era": "golden",
+      "stats": {
+        "ucl_goals": 71
+      },
+      "source": "UEFA all-time UCL scorers list (retired, number final)",
+      "tag": "THE LEGEND 🏆"
+    }
+  },
+  "metrics": {
+    "career_goals": {
+      "head": "CAREER GOALS",
+      "label": "Career goals",
+      "clue": "career goals"
+    },
+    "intl_goals": {
+      "head": "INTERNATIONAL GOALS",
+      "label": "International goals",
+      "clue": "international goals"
+    },
+    "ucl_goals": {
+      "head": "CHAMPIONS LEAGUE GOALS",
+      "label": "UCL goals",
+      "clue": "Champions League goals"
+    },
+    "ballon_dor": {
+      "head": "BALLON D'ORS",
+      "label": "Ballon d'Ors",
+      "clue": "Ballon d'Ors"
+    }
+  },
+  "templates": [
+    {
+      "id": "era_battle",
+      "titleTop": "GOLDEN ERA",
+      "titleBottom": "NEW ERA",
+      "subtitle": "3 records. No mercy. 👀",
+      "footer": "GOLDEN ERA vs NEW ERA",
+      "finaleLine": "GOLDEN ERA STILL ON TOP",
+      "bait": "CAN THEY CATCH UP? 👇",
+      "baitSub": "DROP A NAME 🔥",
+      "left_pool": [
+        "ronaldo",
+        "messi"
+      ],
+      "right_pool": [
+        "haaland",
+        "mbappe"
+      ],
+      "yt_title": "Golden Era vs New Era ⚔️ Can They EVER Catch Up? 👑 #shorts",
+      "yt_hook": "Ronaldo, Messi vs Haaland, Mbappé — and the gap is brutal. 👑",
+      "yt_question": "Can they EVER catch up? Drop a name below. 👇",
+      "yt_tags": [
+        "football",
+        "ronaldo",
+        "messi",
+        "haaland",
+        "mbappe",
+        "cr7",
+        "shorts"
+      ]
+    },
+    {
+      "id": "goat_duel",
+      "titleTop": "RONALDO",
+      "titleBottom": "MESSI",
+      "subtitle": "The real numbers. 👀",
+      "footer": "THE DIFFERENCE 🐐",
+      "finaleLine": "THE RECORDS DON'T LIE",
+      "bait": "WHO'S THE GOAT? 👇",
+      "baitSub": "COMMENT KARO 🔥",
+      "left_pool": [
+        "ronaldo"
+      ],
+      "right_pool": [
+        "messi"
+      ],
+      "yt_title": "Ronaldo vs Messi — The REAL Numbers 🐐 Who Wins? 👑 #shorts",
+      "yt_hook": "Three records, head to head. No opinions — just the numbers. 🐐",
+      "yt_question": "Who's the GOAT? Settle it below. 👇",
+      "yt_tags": [
+        "football",
+        "ronaldo",
+        "messi",
+        "goat",
+        "cr7",
+        "shorts"
+      ]
+    },
+    {
+      "id": "ucl_kings",
+      "titleTop": "RONALDO",
+      "titleBottom": "THE CHASERS",
+      "subtitle": "Nobody's close. 👀",
+      "footer": "UCL ALL-TIME SCORERS",
+      "finaleLine": "STILL THE UCL KING",
+      "bait": "WILL 140 EVER FALL? 👇",
+      "baitSub": "DROP A NAME 🔥",
+      "left_pool": [
+        "ronaldo"
+      ],
+      "right_pool": [
+        "lewandowski",
+        "benzema",
+        "raul",
+        "mbappe"
+      ],
+      "metrics_only": [
+        "ucl_goals"
+      ],
+      "yt_title": "Ronaldo's 140 UCL Goals — Nobody Is Close 👑 #shorts",
+      "yt_hook": "The Champions League all-time scoring chart, and the gap at the top. 👑",
+      "yt_question": "Will anyone ever break 140? Drop a name. 👇",
+      "yt_tags": [
+        "football",
+        "championsleague",
+        "ronaldo",
+        "ucl",
+        "cr7",
+        "shorts"
+      ]
+    }
+  ],
+  "rankings": [
+    {
+      "id": "ucl_clean_sheets",
+      "kicker": "CHAMPIONS LEAGUE",
+      "title": "CLEAN SHEET KINGS",
+      "subtitle": "The wall nobody could break 🧤",
+      "unit": "CLEAN SHEETS",
+      "footer": "UCL ALL-TIME CLEAN SHEETS",
+      "finaleLine": "62 — THE UCL RECORD",
+      "bait": "WILL IT EVER FALL? 👇",
+      "baitSub": "NAME A KEEPER 🧤",
+      "source": "UEFA / GiveMeSport cross-checked 2026-08-10; van der Sar 50 and Cech 47 exist but no usable free portrait, so published as a TOP 3 — rank never skipped silently",
+      "entries": [
+        {
+          "rank": 3,
+          "name": "BUFFON",
+          "file": "buffon",
+          "value": 52,
+          "club": "JUVENTUS · PARMA · PSG"
+        },
+        {
+          "rank": 2,
+          "name": "CASILLAS",
+          "file": "casillas",
+          "value": 57,
+          "club": "REAL MADRID · PORTO"
+        },
+        {
+          "rank": 1,
+          "name": "NEUER",
+          "file": "neuer",
+          "value": 62,
+          "club": "BAYERN · SCHALKE"
+        }
+      ],
+      "yt_titles": [
+        "The Wall Nobody Could Break 🧤 UCL Clean Sheet Kings 👑 #shorts",
+        "62 Clean Sheets. Nobody Is Close. 🧤⚽ #shorts",
+        "The Champions League's Greatest Goalkeepers 🧤🔥 #shorts"
+      ],
+      "yt_hook": "Everyone talks about the scorers. Nobody talks about the men who stopped them. 🧤",
+      "yt_question": "Will 62 ever be broken? Name a keeper who could do it. 👇",
+      "yt_tags": [
+        "football",
+        "goalkeeper",
+        "championsleague",
+        "neuer",
+        "buffon",
+        "casillas",
+        "shorts"
+      ]
+    }
+  ]
+}

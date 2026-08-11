@@ -1,0 +1,72 @@
+{
+  "bellingham": {
+    "name": "Jude Bellingham",
+    "credit": "Bryan Berlin (CC BY-SA 4.0)",
+    "file": "Jude Bellingham England v Ghana 23 June 2026-061 (cropped).jpg"
+  },
+  "kane": {
+    "name": "Harry Kane",
+    "credit": "Bryan Berlin (CC BY-SA 4.0)",
+    "file": "Harry Kane England v Ghana 23 June 2026-219 (cropped).jpg"
+  },
+  "neuer": {
+    "name": "Manuel Neuer",
+    "credit": "Bryan Berlin (CC BY-SA 4.0)",
+    "file": "Manuel Neuer Ecuador v Germany 25 June 2026-148.jpg"
+  },
+  "casillas": {
+    "name": "Iker Casillas",
+    "credit": null,
+    "file": "Iker-Casillas-SportsTrade-2021-cropped.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "buffon": {
+    "name": "Gianluigi Buffon",
+    "credit": "Original:  Doha Stadium Plus Qatar from Doha, Qatar\nDerivative work:  Alza08\nAuthor (CC BY 2.0)",
+    "file": "Gianluigi Buffon (31784615942) (cropped).jpg"
+  },
+  "cech": {
+    "name": "Petr Cech",
+    "credit": null,
+    "file": "Petr Čech Chelsea 2013.jpg"
+  },
+  "footballer": {
+    "name": "Edwin van der Sar (footballer)",
+    "credit": "Phillie Casablanca (CC BY 2.0)",
+    "file": "https://live.staticflickr.com/2208/2512667088_88b233c2f2_b.jpg"
+  },
+  "vandersar": {
+    "name": "Edwin van der Sar",
+    "credit": "tsuihin - TimoStudios (CC BY-SA 2.0)",
+    "file": "https://live.staticflickr.com/6167/6180765210_e9e6e8f3ee_b.jpg"
+  },
+  "gento": {
+    "name": "Francisco Gento",
+    "credit": "Wim van Rossem for Anefo (CC0)",
+    "file": "Gento with Leo Horn , Di Stefano (cropped).jpg"
+  },
+  "modric": {
+    "name": "Luka Modric",
+    "credit": "Bryan Berlin (CC BY-SA 4.0)",
+    "file": "Luka Modric Croatia v Portugal 2 July 2026-055.jpg"
+  },
+  "kroos": {
+    "name": "Toni Kroos",
+    "credit": "Real Madrid (CC BY 3.0)",
+    "file": "Toni Kroos Real Madrid 2021.jpg"
+  },
+  "carvajal": {
+    "name": "Dani Carvajal",
+    "credit": "Rolandhino1 (CC BY-SA 4.0)",
+    "file": "UEFA_EURO_qualifiers_Sweden_vs_Spain_20191015_Dani_Carvajal_10_(cropped).jpg"
+  },
+  "fernandez": {
+    "name": "Nacho Fernandez",
+    "credit": "esby.photo (CC BY-SA 2.0)",
+    "file": "https://live.staticflickr.com/3344/3571329446_271028fac7_b.jpg"
+  },
+  "nacho": {
+    "name": "Nacho (Real Madrid)",
+    "credit": "Fanny Schertzer (CC BY-SA 3.0)",
+    "file": "José_Ignacio_Fernández_Iglesias_Nacho_-_Spain_vs._Chile,_10th_September_2013.jpg"
+  }
+}
