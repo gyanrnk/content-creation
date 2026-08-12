@@ -10,6 +10,7 @@ import { GuessPlayer, GP_FPS, GP_TOTAL, DEFAULT_GUESS_PROPS } from "./GuessPlaye
 import { WhatIf, WI_FPS, wiTotal, DEFAULT_WHATIF_PROPS } from "./WhatIf";
 import { CleanSheet, CS_FPS, csTotal, DEFAULT_CS_PROPS } from "./CleanSheet";
 import { Archive, AR_FPS, AR_TOTAL, DEFAULT_ARCHIVE_PROPS } from "./Archive";
+import { Drop, DR_FPS, DR_TOTAL } from "./Drop";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -117,6 +118,15 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
         defaultProps={DEFAULT_ARCHIVE_PROPS}
+      />
+      {/* Below The Blue — Veo footage + Remotion data layer */}
+      <Composition
+        id="Drop"
+        component={Drop}
+        durationInFrames={DR_TOTAL}
+        fps={DR_FPS}
+        width={1080}
+        height={1920}
       />
     </>
   );

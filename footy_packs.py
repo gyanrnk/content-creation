@@ -259,7 +259,9 @@ def _build_guess(bank: dict) -> dict | None:
 
     # Clue order = vague se giveaway tak. Warna "8 Ballon d'Ors" pehle clue me hi
     # jawab de deta he aur quiz khatam — countdown tak koi rukega hi nahi.
-    GIVEAWAY = {"intl_goals": 1, "ucl_goals": 2, "career_goals": 3, "ballon_dor": 4}
+    # kam number = pehle dikhega (vague), zyada = giveaway, aakhir me
+    GIVEAWAY = {"ucl_titles": 1, "intl_goals": 1, "ucl_goals": 2,
+                "career_goals": 3, "red_cards_laliga": 4, "ballon_dor": 4}
     # 'clue' label use karo, 'label'.lower() nahi — warna "UCL goals" -> "ucl goals".
     scored = [(GIVEAWAY.get(m, 2), f"{v} {metrics[m].get('clue', metrics[m]['label'])}")
               for m, v in P["stats"].items()]
@@ -440,6 +442,20 @@ def generate(count: int = 1) -> list:
     bank = load_bank()
     made = []
     blocked = []
+
+    # Stale volatile entries hata do — inka number badal chuka ho sakta he.
+    # (12 Aug: Ronaldo ke intl goals 143 se 146 ho gaye the aur bank ko pata
+    #  hi nahi tha. Ab purani entry se pack ban hi nahi sakta.)
+    try:
+        import bank_check
+        stale = bank_check.blocked_keys()
+        if stale:
+            bank = json.loads(json.dumps(bank))          # copy, file ko haath nahi
+            bank["players"] = {k: v for k, v in bank["players"].items() if k not in stale}
+            bank["rankings"] = [r for r in bank.get("rankings", []) if r["id"] not in stale]
+            print(f"[bank] {len(stale)} stale entries skip: {sorted(stale)}")
+    except Exception as e:
+        print(f"[bank] freshness check skip ({e})")
 
     for _ in range(count * 12):
         if len(made) >= count:

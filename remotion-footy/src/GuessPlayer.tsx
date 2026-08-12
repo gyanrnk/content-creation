@@ -148,7 +148,10 @@ export const GuessPlayer: React.FC<Partial<GuessProps>> = (given) => {
   const revealed = frame >= REVEAL_AT;
   return (
     <AbsoluteFill style={{ backgroundColor: "black" }}>
-      <Audio src={staticFile("beat.wav")} />
+      {/* Purpose-written score (make_score.py guess) — its hits land on the clue
+          cards, the three countdown ticks and the reveal. The generic beat.wav
+          walked straight past all of them. Synthesized, so nothing to claim. */}
+      <Audio src={staticFile("score_guess.wav")} />
       <StadiumBg accent={revealed ? GOLD : NEON} />
       <Mystery file={p.answerFile} />
       <AbsoluteFill style={{ background: "linear-gradient(to bottom, #05060af2 0%, #05060ac9 34%, transparent 52%)" }} />

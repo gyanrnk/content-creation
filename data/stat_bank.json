@@ -1,6 +1,6 @@
 {
-  "_readme": "Har number MANUALLY verify hua hai. Generator sirf yahi se uthata hai — koi LLM number nahi banata. Naya player/stat add karne se pehle source + as_of bharo, warna review app red flag dikhayega. 'club' field WHAT IF format ke liye he — wo FACTUAL he, review me check kar lena.",
-  "as_of": "2026-08-08",
+  "_readme": "Har number MANUALLY verify hua he. Generator sirf yahi se uthata he — koi LLM number nahi banata.\nvolatile=true  -> player abhi khel raha he, number badalta rehta he. Use karne se pehle dobara check karo (bank_check.py batayega kab purana ho gaya).\nvolatile=false -> retired/historical. Number kabhi nahi badlega, hamesha safe.\nchecked        -> aakhri baar kab verify hua.",
+  "as_of": "2026-08-12",
   "clubs": {
     "REAL MADRID": "#e8e8ec",
     "BARCELONA": "#a50044",
@@ -22,13 +22,15 @@
       "era": "golden",
       "stats": {
         "career_goals": 976,
-        "intl_goals": 143,
+        "intl_goals": 146,
         "ucl_goals": 140,
         "ballon_dor": 5
       },
-      "source": "Multiple goal trackers + UEFA, cross-checked 2026-08-07",
+      "source": "UEFA — all-time leading men's international scorer, 146 goals in 233 games (post-WC 2026). Career goals 976 cross-checked 2026-08-07.",
       "club": "AL NASSR",
-      "tag": "THE KING 👑"
+      "tag": "THE KING 👑",
+      "volatile": true,
+      "checked": "2026-08-12"
     },
     "messi": {
       "name": "MESSI",
@@ -38,11 +40,14 @@
         "career_goals": 919,
         "intl_goals": 125,
         "ucl_goals": 129,
-        "ballon_dor": 8
+        "ballon_dor": 8,
+        "wc_goals": 18
       },
       "source": "ESPN/UEFA Jul 2026; Ballon d'Ors 2009-12, 2015, 2019, 2021, 2023",
       "club": "INTER MIAMI",
-      "tag": "THE MAGICIAN 🐐"
+      "tag": "THE MAGICIAN 🐐",
+      "volatile": true,
+      "checked": "2026-08-12"
     },
     "haaland": {
       "name": "HAALAND",
@@ -54,7 +59,9 @@
       },
       "source": "FootyStats Aug 2026 (sources vary 354-358, all agree 350+)",
       "club": "MAN CITY",
-      "tag": "THE MACHINE 🤖"
+      "tag": "THE MACHINE 🤖",
+      "volatile": true,
+      "checked": "2026-08-12"
     },
     "mbappe": {
       "name": "MBAPPE",
@@ -62,11 +69,14 @@
       "era": "new",
       "stats": {
         "ucl_goals": 60,
-        "ballon_dor": 0
+        "ballon_dor": 0,
+        "wc_goals": 16
       },
       "source": "ESPN Aug 2026 — 60 goals in 89 UCL games, 6th all-time",
       "club": "REAL MADRID",
-      "tag": "THE SPEEDSTER ⚡"
+      "tag": "THE SPEEDSTER ⚡",
+      "volatile": true,
+      "checked": "2026-08-12"
     },
     "lewandowski": {
       "name": "LEWANDOWSKI",
@@ -77,7 +87,9 @@
       },
       "source": "UEFA all-time UCL scorers list, Aug 2026",
       "club": "BARCELONA",
-      "tag": "THE FINISHER 🎯"
+      "tag": "THE FINISHER 🎯",
+      "volatile": true,
+      "checked": "2026-08-12"
     },
     "benzema": {
       "name": "BENZEMA",
@@ -87,7 +99,9 @@
         "ucl_goals": 90
       },
       "source": "UEFA all-time UCL scorers list, Aug 2026",
-      "tag": "THE CLOSER 🔥"
+      "tag": "THE CLOSER 🔥",
+      "volatile": false,
+      "checked": "2026-08-12"
     },
     "raul": {
       "name": "RAUL",
@@ -97,7 +111,47 @@
         "ucl_goals": 71
       },
       "source": "UEFA all-time UCL scorers list (retired, number final)",
-      "tag": "THE LEGEND 🏆"
+      "tag": "THE LEGEND 🏆",
+      "volatile": false,
+      "checked": "2026-08-12"
+    },
+    "ramos": {
+      "name": "SERGIO RAMOS",
+      "cut": "ramos",
+      "era": "golden",
+      "stats": {
+        "ucl_titles": 4,
+        "ucl_goals": 13,
+        "red_cards_laliga": 20
+      },
+      "source": "UCL titles 2014/16/17/18 (Real Madrid); 13 UCL goals; 20 La Liga red cards — Goal.com/AllFootball, checked 2026-08-12. Career goals total deliberately excluded (disputed across sources).",
+      "tag": "THE DEFENDER 🛡️",
+      "volatile": false,
+      "checked": "2026-08-12"
+    },
+    "klose": {
+      "name": "KLOSE",
+      "cut": "klose",
+      "era": "golden",
+      "stats": {
+        "wc_goals": 16
+      },
+      "volatile": false,
+      "checked": "2026-08-12",
+      "source": "FIFA/Goal all-time WC scorers. Retired — number final.",
+      "tag": "THE WORLD CUP MACHINE 🏆"
+    },
+    "ronaldonazario": {
+      "name": "RONALDO R9",
+      "cut": "ronaldonazario",
+      "era": "golden",
+      "stats": {
+        "wc_goals": 15
+      },
+      "volatile": false,
+      "checked": "2026-08-12",
+      "source": "FIFA/Goal all-time WC scorers. Retired — number final.",
+      "tag": "O FENOMENO 🇧🇷"
     }
   },
   "metrics": {
@@ -120,6 +174,21 @@
       "head": "BALLON D'ORS",
       "label": "Ballon d'Ors",
       "clue": "Ballon d'Ors"
+    },
+    "ucl_titles": {
+      "head": "CHAMPIONS LEAGUE TITLES",
+      "label": "UCL titles",
+      "clue": "Champions League titles"
+    },
+    "red_cards_laliga": {
+      "head": "RED CARDS IN LA LIGA",
+      "label": "La Liga red cards",
+      "clue": "red cards in La Liga"
+    },
+    "wc_goals": {
+      "head": "WORLD CUP GOALS",
+      "label": "World Cup goals",
+      "clue": "World Cup goals"
     }
   },
   "templates": [
@@ -263,6 +332,60 @@
         "neuer",
         "buffon",
         "casillas",
+        "shorts"
+      ],
+      "volatile": false,
+      "checked": "2026-08-10"
+    },
+    {
+      "id": "wc_top_scorers",
+      "kicker": "FIFA WORLD CUP",
+      "title": "THE ALL-TIME TOP 3",
+      "subtitle": "One tournament changed this list 🏆",
+      "unit": "WORLD CUP GOALS",
+      "footer": "WORLD CUP ALL-TIME SCORERS",
+      "finaleLine": "18 — A NEW RECORD",
+      "bait": "WHO BREAKS IT IN 2030? 👇",
+      "baitSub": "DROP A NAME 🏆",
+      "volatile": true,
+      "checked": "2026-08-12",
+      "source": "FIFA / Goal.com all-time WC scorers, post-2026 World Cup. Messi 18 aur Mbappe 16 VOLATILE he (Mbappe 2030 khel sakta he).",
+      "entries": [
+        {
+          "rank": 3,
+          "name": "KLOSE",
+          "file": "klose",
+          "value": 16,
+          "club": "GERMANY · 4 WORLD CUPS"
+        },
+        {
+          "rank": 2,
+          "name": "MBAPPE",
+          "file": "mbappe",
+          "value": 16,
+          "club": "FRANCE"
+        },
+        {
+          "rank": 1,
+          "name": "MESSI",
+          "file": "messi",
+          "value": 18,
+          "club": "ARGENTINA"
+        }
+      ],
+      "yt_titles": [
+        "The All-Time World Cup Top Scorers 🏆 #shorts",
+        "18 World Cup Goals. A New Record. 🏆⚽ #shorts",
+        "Who Has The Most World Cup Goals Ever? 🏆 #shorts"
+      ],
+      "yt_hook": "One tournament rewrote the World Cup scoring chart. 🏆",
+      "yt_question": "Who breaks 18 at the 2030 World Cup? 👇",
+      "yt_tags": [
+        "football",
+        "worldcup",
+        "messi",
+        "mbappe",
+        "klose",
         "shorts"
       ]
     }

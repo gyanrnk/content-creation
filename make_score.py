@@ -152,6 +152,119 @@ def archive_score(total: float = 16.0) -> np.ndarray:
     return buf
 
 
+def drop_score(total: float = 16.6) -> np.ndarray:
+    """
+    Drop.tsx (deep-sea descent) ke liye. Archive score se ulta arc:
+    wahan tension ke baad release tha, yahan dabaav LAGATAAR badhta he aur
+    tal pe jaake ek hi gehri chot me khulta he.
+
+      0.0-3.0   surface — halka shimmer, khula
+      3.0-11.0  descent — drone dheere-dheere neeche aur bhaari
+      11.0-13.0 pressure — sub-bass swell, kaanpta hua
+      13.0-16.6 bottom — ek gehri chot, phir lagbhag sannata
+    """
+    n = int(total * SR)
+    buf = np.zeros(n)
+
+    # surface shimmer — ooncha, halka, jaldi khatam
+    for at, m in ((0.15, 88), (0.9, 91), (1.8, 86), (2.6, 93)):
+        p = _tone(midi(m), 2.2, harm=(1.0, 0.3, 0.12))
+        _place(buf, p * _env(len(p), a=0.01, d=2.0, s=0.0, r=0.2), at, 0.07)
+
+    # descent drone — pitch dheere gir raha he, gehrai ka ehsaas
+    dd = 11.0
+    dn = int(dd * SR)
+    dt = np.linspace(0, dd, dn, False)
+    f0 = midi(45)
+    glide = f0 * (1 - 0.42 * (dt / dd))          # A2 se lagbhag D2 tak
+    drone = np.sin(2 * np.pi * np.cumsum(glide) / SR)
+    drone += 0.4 * np.sin(2 * np.pi * np.cumsum(glide * 1.005) / SR)
+    _place(buf, drone * _env(dn, a=2.0, d=3.0, s=0.8, r=3.0), 2.4, 0.20)
+
+    # har marker pe ek halki dhadkan (Drop.tsx ke marker timings)
+    for at in (1.6, 3.2, 4.8, 6.4, 8.0, 9.6, 11.2):
+        b = _tone(midi(31), 0.42, harm=(1.0, 0.18))
+        _place(buf, b * _env(len(b), a=0.003, d=0.38, s=0.0, r=0.05), at, 0.17)
+
+    # pressure swell — tal se thoda pehle
+    ps = 2.2
+    pn = int(ps * SR)
+    pt = np.linspace(0, ps, pn, False)
+    swell = np.sin(2 * np.pi * (midi(28) * (1 + 0.18 * (pt / ps) ** 2)) * pt)
+    _place(buf, swell * _env(pn, a=1.5, d=0.5, s=0.0, r=0.3), 10.9, 0.26)
+
+    # tal — ek gehri chot
+    hit = _tone(midi(26), 3.2, harm=(1.0, 0.26, 0.08))
+    _place(buf, hit * _env(len(hit), a=0.004, d=2.6, s=0.0, r=0.5), 13.0, 0.42)
+    for m, g in ((38, 0.13), (45, 0.10), (50, 0.08)):
+        pad = _tone(midi(m), 3.4, harm=(1.0, 0.28, 0.10), detune=0.004)
+        _place(buf, pad * _env(len(pad), a=0.3, d=1.2, s=0.5, r=1.6), 13.0, g)
+
+    buf = _reverb(buf, taps=((0.067, 0.34), (0.121, 0.26), (0.193, 0.19),
+                             (0.271, 0.13), (0.353, 0.08)))
+    peak = np.max(np.abs(buf)) or 1.0
+    buf = np.tanh(buf / peak * 1.2) * 0.80
+    fade = int(0.4 * SR)
+    buf[-fade:] *= np.linspace(1, 0, fade)
+    buf[:int(0.05 * SR)] *= np.linspace(0, 1, int(0.05 * SR))
+    return buf
+
+
+def guess_score(total: float = 15.34) -> np.ndarray:
+    """
+    GuessPlayer.tsx ke liye. Iske beats video ke structure se bandhe he —
+    generic beat.wav in moments ko miss kar deta tha.
+
+    GuessPlayer timing (30fps): title 0-40, clues 40/115/190,
+    countdown 265-310 (3 ticks, 15f apart), reveal 310.
+
+      0.00-1.33  mystery — halka minor pad, sawaal wala mood
+      1.33/3.83/6.33  har clue pe ek chot
+      8.83/9.33/9.83  countdown ke teen tick, har baar ooncha
+      10.33      REVEAL — bright major chord + impact
+      10.33-15.3 resolve, phir shaant
+    """
+    n = int(total * SR)
+    buf = np.zeros(n)
+    F = 30.0
+
+    # mystery pad — A minor, dheema, andar khinchta hua
+    for m, g in ((45, 0.13), (52, 0.10), (60, 0.08)):
+        pad = _tone(midi(m), 10.6, harm=(1.0, 0.26, 0.10), detune=0.004)
+        _place(buf, pad * _env(len(pad), a=0.8, d=2.0, s=0.5, r=2.0), 0.0, g)
+
+    # clue hits — har clue card ke saath
+    for at in (40 / F, 115 / F, 190 / F):
+        h = _tone(midi(40), 0.55, harm=(1.0, 0.3, 0.12))
+        _place(buf, h * _env(len(h), a=0.003, d=0.5, s=0.0, r=0.06), at, 0.26)
+        t2 = _tone(midi(64), 0.9, harm=(1.0, 0.35))
+        _place(buf, t2 * _env(len(t2), a=0.004, d=0.8, s=0.0, r=0.1), at, 0.10)
+
+    # countdown — teen tick, har baar pitch ooncha (tension)
+    for i, m in enumerate((69, 72, 76)):
+        at = (265 + i * 15) / F
+        tick = _tone(midi(m), 0.42, harm=(1.0, 0.4, 0.18))
+        _place(buf, tick * _env(len(tick), a=0.002, d=0.36, s=0.0, r=0.05), at, 0.30)
+        low = _tone(midi(33), 0.34, harm=(1.0, 0.2))
+        _place(buf, low * _env(len(low), a=0.002, d=0.3, s=0.0, r=0.04), at, 0.22)
+
+    # REVEAL — minor se major, yahi video ka sabse bada moment he
+    rv = 310 / F
+    imp = _tone(midi(33), 2.0, harm=(1.0, 0.28, 0.10))
+    _place(buf, imp * _env(len(imp), a=0.002, d=1.7, s=0.0, r=0.3), rv, 0.44)
+    for m, g in ((48, 0.24), (64, 0.20), (67, 0.17), (72, 0.14)):   # C major
+        ch = _tone(midi(m), 4.6, harm=(1.0, 0.32, 0.13, 0.05), detune=0.005)
+        _place(buf, ch * _env(len(ch), a=0.02, d=1.3, s=0.55, r=2.2), rv, g)
+
+    buf = _reverb(buf)
+    peak = np.max(np.abs(buf)) or 1.0
+    buf = np.tanh(buf / peak * 1.22) * 0.82
+    fade = int(0.35 * SR)
+    buf[-fade:] *= np.linspace(1, 0, fade)
+    buf[:int(0.05 * SR)] *= np.linspace(0, 1, int(0.05 * SR))
+    return buf
+
+
 def write_wav(path: str, mono: np.ndarray):
     stereo = np.stack([mono, mono], axis=1)          # simple stereo
     pcm = (np.clip(stereo, -1, 1) * 32767).astype(np.int16)
@@ -169,5 +282,11 @@ if __name__ == "__main__":
     os.makedirs(OUT_DIR, exist_ok=True)
     if which == "archive":
         write_wav(os.path.join(OUT_DIR, "score_archive.wav"), archive_score(dur))
+    elif which == "guess":
+        write_wav(os.path.join(OUT_DIR, "score_guess.wav"),
+                  guess_score(dur if len(sys.argv) > 2 else 15.34))
+    elif which == "drop":
+        write_wav(os.path.join(OUT_DIR, "score_drop.wav"),
+                  drop_score(dur if len(sys.argv) > 2 else 16.6))
     else:
         sys.exit(f"unknown score: {which}")

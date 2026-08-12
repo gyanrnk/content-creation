@@ -68,5 +68,20 @@
     "name": "Nacho (Real Madrid)",
     "credit": "Fanny Schertzer (CC BY-SA 3.0)",
     "file": "José_Ignacio_Fernández_Iglesias_Nacho_-_Spain_vs._Chile,_10th_September_2013.jpg"
+  },
+  "ramos": {
+    "name": "Sergio Ramos",
+    "credit": "Ruben Ortega (CC BY-SA 4.0)",
+    "file": "Sergio_Ramos_entrenando_(cropped).jpg"
+  },
+  "klose": {
+    "name": "Miroslav Klose",
+    "credit": "Sven Mandel (CC BY-SA 4.0)",
+    "file": "2016209185719 2016-07-27 Champions for Charity - Sven - 1D X - 0149 - DV3P4742 mod.jpg"
+  },
+  "ronaldonazario": {
+    "name": "Ronaldo (Brazilian footballer)",
+    "credit": null,
+    "file": "12.12.2025_–_Cerimônia_de_lançamento_do_SBT_News_-_54980664160_(cropped2).jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
   }
 }
