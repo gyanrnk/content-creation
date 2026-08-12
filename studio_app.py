@@ -1,21 +1,19 @@
 """
-studio_app.py — poora control panel. Ek jagah se sab kuch.
+studio_app.py — the control panel. Everything in one place.
 
-Ye footy_studio.py ki jagah leta he. Farak:
-  - dono channels (Footy Gyaan + Below The Blue)
-  - Overview page jo batata he ki process kahan atka he
-  - Content Bank me form se naya data daalna (source + date compulsory)
-  - freshness warnings — purane numbers publish na ho jaayein
-  - analytics dono channels ki
-  - logs
+Replaces footy_studio.py. Adds: both channels, an Overview that says where
+today's run actually stopped, a Content Bank form, freshness warnings, analytics,
+logs, and a Help tab that doubles as the runbook.
 
-Chalao:  streamlit run studio_app.py     (ya studio.bat)
+Run:  streamlit run studio_app.py     (or studio.bat)
+
+UI copy is English on purpose — this is the surface the operator reads every day.
+Code comments stay in the codebase's existing Hinglish style.
 """
 
 import os
 import json
 import datetime
-import subprocess
 
 import streamlit as st
 
@@ -54,7 +52,7 @@ def read_log(n=60) -> list:
 
 @st.cache_data(ttl=600)
 def channel_stats(label: str) -> dict:
-    """Channel ka live snapshot. 10 min cache — har rerun pe API nahi maarta."""
+    """Live snapshot. 10 min cache — warna har rerun pe API hit hoti he."""
     try:
         return channels.whoami(label)
     except Exception as e:
@@ -92,7 +90,8 @@ pending = [p for p in queue if p["status"] == "pending"]
 published = [p for p in queue if p["status"] == "published"]
 fresh = bank_check.report()
 
-tabs = st.tabs(["🏠 Overview", "🎬 Queue", "📚 Content Bank", "📊 Analytics", "🧾 Logs"])
+tabs = st.tabs(["🏠 Overview", "🎬 Queue", "📚 Content Bank",
+                "📊 Analytics", "🧾 Logs", "🆘 Help"])
 
 # ── OVERVIEW ─────────────────────────────────────────────────────────────────
 with tabs[0]:
@@ -104,11 +103,11 @@ with tabs[0]:
             if "error" in s:
                 st.error(f"**{ch['name']}**\n\n{s['error']}")
             else:
-                st.metric(s["title"], f"{s['subs']} subs", f"{s['videos']} videos")
+                st.metric(s["title"], f"{s['subs']} subscribers", f"{s['videos']} videos")
                 st.caption(f"`{label}` · {s['handle']} · {ch['niche']}")
 
     st.divider()
-    st.subheader("Aaj ka status")
+    st.subheader("Today")
 
     today = datetime.date.today().isoformat()
     made_today = [p for p in queue if p["created_at"][:10] == today]
@@ -116,50 +115,48 @@ with tabs[0]:
     rendered = [p for p in made_today if p.get("video")]
 
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Aaj bane", len(made_today))
-    c2.metric("Render hue", len(rendered))
-    c3.metric("Review pending", len(pending))
-    c4.metric("Aaj upload", len(up_today))
+    c1.metric("Generated", len(made_today))
+    c2.metric("Rendered", len(rendered))
+    c3.metric("Awaiting review", len(pending))
+    c4.metric("Uploaded", len(up_today))
 
     if not up_today:
         last = max((p.get("published_at", "") for p in published), default="")
         if last:
             gap = (datetime.datetime.now() - datetime.datetime.fromisoformat(last)).days
-            st.error(f"⚠️ Aaj upload nahi hua. Aakhri upload {gap} din pehle. "
-                     f"Gap hi channel ko maarta he.")
+            st.error(f"⚠️ Nothing uploaded today. Last upload was {gap} day(s) ago. "
+                     f"Upload gaps are the single biggest cause of reach collapse.")
         else:
-            st.warning("Aaj upload nahi hua.")
+            st.warning("Nothing uploaded today.")
     else:
-        st.success(f"✅ Aaj {len(up_today)} upload ho chuka he.")
+        st.success(f"✅ {len(up_today)} upload(s) published today.")
 
     st.divider()
-    st.subheader("Content bank ki sehat")
+    st.subheader("Content bank health")
     b1, b2, b3 = st.columns(3)
-    b1.metric("🔒 Fixed (kabhi expire nahi)", len(fresh["fixed"]))
-    b2.metric("⚠️ Jaldi check karo", len(fresh["warn"]))
-    b3.metric("🔴 Stale (block)", len(fresh["stale"]))
+    b1.metric("🔒 Fixed (never expires)", len(fresh["fixed"]))
+    b2.metric("⚠️ Re-check soon", len(fresh["warn"]))
+    b3.metric("🔴 Stale (blocked)", len(fresh["stale"]))
     if fresh["stale"]:
-        st.error("🔴 Ye entries generator me use NAHI hongi jab tak dobara verify na ho: "
-                 + ", ".join(r["name"] for r in fresh["stale"]))
+        st.error("🔴 These entries are blocked from the generator until re-verified: "
+                 + ", ".join(r["name"] for r in fresh["stale"])
+                 + " — update them under Content Bank.")
     elif fresh["warn"]:
-        st.warning("⚠️ " + ", ".join(r["name"] for r in fresh["warn"]))
+        st.warning("⚠️ Verify soon: " + ", ".join(r["name"] for r in fresh["warn"]))
 
 # ── QUEUE ────────────────────────────────────────────────────────────────────
 with tabs[1]:
-    gen_col, ch_col = st.columns([2, 1])
-    n = gen_col.slider("Kitne naye banao", 1, 4, 1)
-    target = ch_col.selectbox("Channel", list(channels.CHANNELS),
-                              format_func=lambda k: channels.CHANNELS[k]["name"])
+    n = st.slider("How many to generate", 1, 4, 1)
 
     if st.button("⚡ Generate + Render", type="primary"):
-        with st.spinner("Ban raha he..."):
+        with st.spinner("Generating..."):
             made = fp.generate(n)
         if not made:
-            st.warning("Kuch naya nahi bana — novelty gate ne rok diya. "
-                       "Content Bank me naya data daalo.")
+            st.warning("Nothing new was generated — the novelty gate rejected every "
+                       "candidate. Add players or rankings under Content Bank.")
             log("generate_empty")
         for m in made:
-            with st.spinner(f"Render: {m['id']}"):
+            with st.spinner(f"Rendering {m['id']}..."):
                 try:
                     fp.render(m)
                     st.success(f"✅ {m['format']} · {m['duration_s']}s")
@@ -171,12 +168,12 @@ with tabs[1]:
 
     st.divider()
     if not pending:
-        st.info("Queue khali he.")
+        st.info("Queue is empty.")
 
     for pack in pending:
         with st.container(border=True):
-            badge = {"era": "⚔️ VS", "guess": "🤔 GUESS", "whatif": "🔄 WHAT IF",
-                     "rank": "📊 RANK", "archive": "🎞️ ARCHIVE"}
+            badge = {"era": "⚔️ VS DUEL", "guess": "🤔 GUESS", "whatif": "🔄 WHAT IF",
+                     "rank": "📊 RANKING", "archive": "🎞️ ARCHIVE"}
             st.caption(f"{badge.get(pack.get('format'), '?')} · `{pack['id']}` · "
                        f"{pack['duration_s']}s · bank {pack.get('bank_as_of', '?')}")
 
@@ -185,8 +182,8 @@ with tabs[1]:
                 if pack.get("video") and os.path.exists(pack["video"]):
                     st.video(pack["video"])
                 else:
-                    st.warning("Render nahi hui")
-                    if st.button("Render", key=f"r{pack['id']}"):
+                    st.warning("Not rendered yet")
+                    if st.button("Render now", key=f"r{pack['id']}"):
                         try:
                             fp.render(pack); st.rerun()
                         except Exception as e:
@@ -195,7 +192,7 @@ with tabs[1]:
             with right:
                 if pack.get("review_note"):
                     st.warning(pack["review_note"])
-                st.markdown("**Content:**")
+                st.markdown("**Check the content:**")
                 props, fmt = pack["props"], pack.get("format")
                 if fmt == "era":
                     for d in props.get("duels", []):
@@ -219,7 +216,7 @@ with tabs[1]:
             title = st.text_input("Title", pack["youtube"]["title"], key=f"t{pack['id']}")
             desc = st.text_area("Description", pack["youtube"]["description"],
                                 height=180, key=f"d{pack['id']}")
-            up_ch = st.selectbox("Upload kahan", list(channels.CHANNELS), key=f"c{pack['id']}",
+            up_ch = st.selectbox("Upload to", list(channels.CHANNELS), key=f"c{pack['id']}",
                                  format_func=lambda k: channels.CHANNELS[k]["name"])
 
             a, b = st.columns(2)
@@ -233,9 +230,9 @@ with tabs[1]:
                         q[i] = pack
                 fp.save_queue(q)
                 if not (pack.get("video") and os.path.exists(pack["video"])):
-                    st.error("Video hi nahi he.")
+                    st.error("There is no rendered video for this pack.")
                 else:
-                    with st.spinner("Upload..."):
+                    with st.spinner("Uploading..."):
                         try:
                             url = channels.upload_to(
                                 up_ch, pack["video"], title, desc,
@@ -243,11 +240,11 @@ with tabs[1]:
                             fp.approve(pack["id"])
                             fp.mark_published(pack["id"], url)
                             log("upload_ok", pack=pack["id"], channel=up_ch, url=url)
-                            st.success(f"📤 {url}")
+                            st.success(f"📤 Published: {url}")
                             st.balloons()
                         except Exception as e:
                             log("upload_fail", pack=pack["id"], error=str(e)[:200])
-                            st.error(f"Upload fail: {e}")
+                            st.error(f"Upload failed: {e}")
                     st.rerun()
 
             if b.button("🗑️ Reject", key=f"x{pack['id']}", use_container_width=True):
@@ -256,10 +253,11 @@ with tabs[1]:
 # ── CONTENT BANK ─────────────────────────────────────────────────────────────
 with tabs[2]:
     bank = fp.load_bank()
-    st.caption("Yahan jo daaloge wahi videos me aayega. Isliye source aur date compulsory he.")
+    st.caption("Whatever goes in here ends up on screen. That is why a source and a "
+               "date are required — an entry without them cannot be saved.")
 
     icon = {"fixed": "🔒", "ok": "✅", "warn": "⚠️", "stale": "🔴"}
-    st.markdown("**Abhi bank me:**")
+    st.markdown("**Current bank**")
     st.dataframe(
         [{"": icon[r["state"]], "Entry": r["name"],
           "Type": "fixed" if not r["volatile"] else "volatile",
@@ -268,15 +266,15 @@ with tabs[2]:
         use_container_width=True, hide_index=True)
 
     st.divider()
-    st.markdown("### ➕ Naya player daalo")
+    st.markdown("### ➕ Add a player")
     with st.form("add_player"):
         c1, c2, c3 = st.columns(3)
-        key = c1.text_input("Key (chhota, bina space)", placeholder="zidane")
-        name = c2.text_input("Screen naam", placeholder="ZIDANE")
-        cut = c3.text_input("Cutout file (bina .png)", placeholder="zidane")
-        tag = st.text_input("Tag (reveal pe dikhega)", placeholder="THE MAESTRO 🎩")
+        key = c1.text_input("Key (short, no spaces)", placeholder="zidane")
+        name = c2.text_input("Display name", placeholder="ZIDANE")
+        cut = c3.text_input("Cutout file (without .png)", placeholder="zidane")
+        tag = st.text_input("Tag (shown on the reveal)", placeholder="THE MAESTRO 🎩")
 
-        st.markdown("**Stats** — jitne pata ho, khali chhod do baaki")
+        st.markdown("**Stats** — fill in what you know, leave the rest at 0")
         stat_vals = {}
         mcols = st.columns(3)
         for i, (mk, mv) in enumerate(bank["metrics"].items()):
@@ -284,21 +282,21 @@ with tabs[2]:
             if v > 0:
                 stat_vals[mk] = int(v)
 
-        volatile = st.checkbox("Ye player abhi khel raha he (number badal sakta he)", value=True)
-        source = st.text_area("Source — kahan se aaya ye number? *", height=70,
+        volatile = st.checkbox("Still playing (the number can change)", value=True)
+        source = st.text_area("Source — where does this number come from? *", height=70,
                               placeholder="UEFA all-time list, checked 2026-08-12")
 
-        if st.form_submit_button("Add", type="primary"):
+        if st.form_submit_button("Add to bank", type="primary"):
             errs = []
             if not key or not name or not cut:
-                errs.append("key / naam / cutout khali he")
+                errs.append("Key, display name and cutout file are all required.")
             if not source.strip():
-                errs.append("source likhna zaroori he")
+                errs.append("A source is required. Without it the number cannot be trusted later.")
             if not stat_vals:
-                errs.append("kam se kam ek stat chahiye")
+                errs.append("At least one stat is required.")
             if cut and not fp._have_cut(cut):
-                errs.append(f"cutout nahi mila: public/cut/{cut}.png "
-                            f"— pehle `python make_cutout.py \"{name}\"` chalao")
+                errs.append(f"No cutout found at public/cut/{cut}.png — "
+                            f"run `python make_cutout.py \"{name}\"` first.")
             if errs:
                 for e in errs:
                     st.error(e)
@@ -309,14 +307,16 @@ with tabs[2]:
                     "source": source.strip(), "tag": tag or "THE LEGEND 🏆"}
                 save_bank(bank)
                 log("bank_add", key=key)
-                st.success(f"✅ {name} add ho gaya")
+                st.success(f"✅ {name} added.")
                 st.rerun()
 
     st.divider()
-    st.markdown("### 🔄 Purana number update karo")
+    st.markdown("### 🔄 Update an existing number")
     vol = [r for r in fresh["rows"] if r["volatile"] and r["key"] in bank["players"]]
-    if vol:
-        who = st.selectbox("Kaunsa player", [r["key"] for r in vol],
+    if not vol:
+        st.caption("Every entry is marked fixed — nothing needs updating.")
+    else:
+        who = st.selectbox("Player", [r["key"] for r in vol],
                            format_func=lambda k: bank["players"][k]["name"])
         pl = bank["players"][who]
         with st.form("upd"):
@@ -325,14 +325,14 @@ with tabs[2]:
             for i, (mk, val) in enumerate(pl["stats"].items()):
                 new[mk] = ucols[i % 3].number_input(
                     bank["metrics"][mk]["label"], min_value=0, value=int(val), key=f"u{mk}")
-            src = st.text_area("Naya source", pl.get("source", ""), height=70)
-            if st.form_submit_button("Update + aaj ki date lagao"):
+            src = st.text_area("Updated source", pl.get("source", ""), height=70)
+            if st.form_submit_button("Update and stamp today's date"):
                 pl["stats"] = {k: int(v) for k, v in new.items()}
                 pl["source"] = src
                 pl["checked"] = datetime.date.today().isoformat()
                 save_bank(bank)
                 log("bank_update", key=who)
-                st.success("Updated"); st.rerun()
+                st.success("Updated."); st.rerun()
 
 # ── ANALYTICS ────────────────────────────────────────────────────────────────
 with tabs[3]:
@@ -340,25 +340,23 @@ with tabs[3]:
         st.subheader(ch["name"])
         rows = daily_views(label)
         if not rows:
-            st.caption("Analytics abhi nahi mili (naya channel ho to 2-3 din lagte he).")
+            st.caption("No analytics yet. A new channel takes 2–3 days to report.")
         else:
-            st.line_chart({"views": [r[1] for r in rows]},
-                          x=None, use_container_width=True)
-            tot = sum(r[1] for r in rows)
-            gained = sum(r[2] for r in rows)
+            st.line_chart({"views": [r[1] for r in rows]}, use_container_width=True)
             m1, m2 = st.columns(2)
-            m1.metric("14 din ke views", tot)
-            m2.metric("14 din me subs", f"+{gained}")
+            m1.metric("Views (14 days)", sum(r[1] for r in rows))
+            m2.metric("Subscribers gained", f"+{sum(r[2] for r in rows)}")
         st.divider()
 
-    st.caption("YouTube analytics 2-3 din peeche chalti he — aaj ka data kal-parso dikhega.")
+    st.caption("YouTube analytics run 2–3 days behind. Today's numbers appear later "
+               "this week. Per-video view counts on the channel update much faster.")
 
 # ── LOGS ─────────────────────────────────────────────────────────────────────
 with tabs[4]:
-    st.subheader("Kya kab hua")
+    st.subheader("Activity")
     entries = read_log()
     if not entries:
-        st.info("Abhi koi log nahi.")
+        st.info("No activity recorded yet.")
     else:
         st.dataframe(entries, use_container_width=True, hide_index=True)
 
@@ -371,6 +369,192 @@ with tabs[4]:
         except Exception as e:
             st.error(f"❌ **{ch['name']}** — {str(e)[:160]}")
 
-    st.caption("Token marr jaaye to: `python auth_channel.py <label>` chalao. "
-               "Agar har hafte marr raha he to Google Cloud project 'Testing' me he — "
-               "usse 'Production' me publish karna padega.")
+# ── HELP ─────────────────────────────────────────────────────────────────────
+with tabs[5]:
+    st.subheader("If something breaks")
+    st.caption("Every problem here has actually happened. Fixes are in order of "
+               "likelihood — try the first one before anything else.")
+
+    with st.expander("🔴 Uploads suddenly stopped working (this is the big one)"):
+        st.markdown("""
+**Most likely cause:** the Google Cloud project is still in **Testing** mode.
+In Testing, OAuth refresh tokens die after **7 days**, so uploads stop roughly a
+week after they were set up — with no warning.
+
+**Fix — do this once, permanently:**
+1. Go to `console.cloud.google.com`
+2. **APIs & Services → OAuth consent screen**
+3. Look at **Publishing status**
+4. If it says *Testing*, press **Publish app**
+
+After that, tokens stop expiring on a timer.
+
+**If it still fails,** re-authorise that channel:
+```
+python auth_channel.py fresh     (Below The Blue)
+python auth_channel.py footy     (Footy Gyaan)
+```
+Pick the correct channel in the browser picker — the script warns you if you
+select the wrong one.
+        """)
+
+    with st.expander("⚠️ 'Nothing new was generated'"):
+        st.markdown("""
+The novelty gate rejected every candidate. It blocks a pack when:
+
+- the same **format** went out on the previous upload
+- a **headliner** already led one of the last 3 uploads
+- the exact **combination** has been built before, ever
+- the numbers **already appear** in a video on the channel
+- the entry is **stale** (see below)
+
+**Fix:** add new material under **Content Bank**. One new player with three stats
+unlocks several new combinations. This message is the system working, not failing —
+it is what stops the channel publishing the same video twice.
+        """)
+
+    with st.expander("🔴 An entry is marked stale and blocked"):
+        st.markdown("""
+Stats for players who are **still playing** go out of date on their own. This has
+already caused a real error: Ronaldo's international goals sat at 143 in the bank
+while the true figure after the 2026 World Cup was 146 — and a video shipped with
+the wrong number. Nothing errored; the bank simply rotted.
+
+So every entry now carries:
+
+| Mark | Meaning |
+|---|---|
+| 🔒 fixed | Retired player or historical record. Never expires. |
+| ✅ ok | Volatile, checked recently. |
+| ⚠️ warn | Volatile, over 30 days old. |
+| 🔴 stale | Over 60 days old — **blocked from the generator**. |
+
+**Fix:** look the number up again, then use **Content Bank → Update an existing
+number**. That stamps today's date and unblocks it.
+        """)
+
+    with st.expander("❌ Render failed"):
+        st.markdown("""
+**1. Chrome missing or moved.** Rendering needs the system Chrome at:
+`C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe`
+If Chrome lives somewhere else, update `CHROME` at the top of `footy_packs.py`.
+
+**2. Cutout missing.** The error names the file. Create it with:
+```
+python make_cutout.py "Player Name"
+```
+Then check the result — background removal sometimes returns a team photo, a
+document, or the wrong person entirely. Always look at the PNG before using it.
+
+**3. Node modules missing** (after a fresh clone):
+```
+cd remotion-footy
+npm install
+```
+        """)
+
+    with st.expander("❌ Upload went to the wrong channel"):
+        st.markdown("""
+It cannot. `channels.py` reads the real channel ID back from the token and
+compares it to the registry before uploading. A mismatch raises an error and the
+upload never starts.
+
+`ThechyoGyan` is on a permanent block list and can never receive an upload.
+
+If the guard *does* fire, the token is pointing at the wrong channel — re-run
+`python auth_channel.py <label>` and pick correctly this time.
+        """)
+
+    with st.expander("📉 Views dropped to almost nothing"):
+        st.markdown("""
+This happened to Footy Gyaan in August 2026: from ~4,000 views a day to under 10.
+
+**What it was not:** content quality. Retention was 176–255% and click-through
+was 8× the channel average. When the videos were shown, they performed.
+
+**What it was:** distribution. Impressions per new video fell from 517 to 7.
+YouTube simply stopped showing the channel to non-subscribers — and 99.9% of all
+views had always come from non-subscribers.
+
+**Worth knowing:** subscribers are almost irrelevant on Shorts. During the
+channel's best week, 56 subscribers produced 14 views in total. Chasing
+subscribers does not fix this; only getting back into the feed does.
+
+**The only lever:** upload every single day without a gap, and give it weeks.
+If that does not move it, the next step is a different channel — not more tweaking.
+        """)
+
+    with st.expander("🎥 Making a Veo video (Below The Blue)"):
+        st.markdown("""
+Veo clips are made by hand, then assembled here.
+
+1. **Clip 1** — Text to Video, using the full scene prompt.
+2. **Clips 2 and 3** — Frame to Video, starting from the **last frame** of the
+   previous clip. This keeps the colour, grain and camera motion continuous;
+   three independent generations never match.
+3. Put the clips in `output/blue/` as `drop1.mp4`, `drop2.mp4`, `drop3.mp4`.
+4. Run `python stitch_drop.py` — it upscales, crops out the Veo watermark,
+   trims each clip and cross-dissolves them into one continuous descent.
+5. Render the composition in Remotion to lay the data on top.
+
+**Prompt tips learned the hard way:** name every unwanted element explicitly
+("no sunlight, no god rays, no divers, no text"). Saying "no lights" with nothing
+else backfires — the model invents a sun to light the scene, and a sunlit sea
+floor contradicts a video about total darkness.
+        """)
+
+    with st.expander("🎵 Music and copyright"):
+        st.markdown("""
+All music is generated by `make_score.py`, not downloaded. Nothing in it belongs
+to anyone else, so there is nothing to claim and nothing to attribute.
+
+Each format has its own score, timed to that format's beats — the quiz score hits
+on the countdown ticks and the reveal; the descent score builds pressure and lands
+on the bottom. A library track cannot do that because it does not know the edit.
+
+**Do not** add a copyrighted song in the Shorts editor. That earns a Content ID
+claim: no revenue, and blocked in some countries. This channel already had one.
+
+If you do want library music, use **YouTube's own Audio Library**
+(`studio.youtube.com → Audio Library`) — YouTube licenses it, so a claim is
+impossible. Other "free" libraries are not always safe.
+        """)
+
+    with st.expander("🖼️ Photo credits and licensing"):
+        st.markdown("""
+Player cutouts come from Wikimedia Commons. Many are **CC BY-SA**, which legally
+requires attribution.
+
+Every credit is recorded in `data/cutout_credits.json`. When a video uses those
+images, keep the credit line in the description. Removing it is exactly the kind
+of thing that turns into a claim later.
+        """)
+
+    with st.expander("💥 Streamlit will not start"):
+        st.markdown("""
+```
+pip install -r requirements.txt
+pip install streamlit rembg onnxruntime
+```
+Then run `streamlit run studio_app.py`, or double-click `studio.bat`.
+
+If a port is stuck, use another one:
+```
+streamlit run studio_app.py --server.port 8502
+```
+        """)
+
+    st.divider()
+    st.subheader("The daily routine")
+    st.markdown("""
+1. Open Studio. Read **Overview** — it says whether today's upload has happened.
+2. Go to **Queue** and press **Generate + Render**.
+3. Watch the video. **Read every number against its source.** This is the only
+   step that cannot be automated, and it is the step that has caught every
+   serious error so far.
+4. Edit the title if you want to, choose the channel, press **Approve + Upload**.
+5. Pin the first comment on YouTube straight away.
+
+**Upload in the morning window, 10 AM – 1 PM.** The channel's own data puts the
+median at 568 views in that window against 55 in the evening.
+    """)
